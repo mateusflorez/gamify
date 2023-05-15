@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  database:
+    image: postgres
+    container_name: gamify
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - POSTGRES_USER=admin
+      - POSTGRES_PASSWORD=admin
+      - POSTGRES_DB=gamify
+    volumes:
+      - 'pgdata:/data/postgres'
+
+volumes:
+  pgdata:
+    driver: local
