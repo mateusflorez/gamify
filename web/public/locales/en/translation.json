@@ -1,0 +1,38 @@
+{
+    "title": "Gamification project",
+    "slogan": "Turn your daily tasks into an adventure!",
+    "welcome": {
+        "title": "Welcome, ",
+        "text1": "It's great to have you here and we look forward to helping you make your daily tasks more fun and motivating!",
+        "text2": "Before we get started, we'd like to know a little more about you. Please tell us your profession below: "
+    },
+    "buttons": {
+        "login": "Login",
+        "signup": "Sign up",
+        "save": "Save"
+    },
+    "userAuthForm": {
+        "donthave": "Don't have an account?",
+        "alreadyhave": "Already have an account?",
+        "username": "Username",
+        "email": "E-mail",
+        "password": "Password",
+        "confirmpassword": "Confirm your password",
+        "profession": "Profession"
+    },
+    "validation": {
+        "passworddiff": "Password and confirmation password should be the same.",
+        "smallusername": "Username should be equal or greater than 6 characters.",
+        "smallpassword": "Password should be equal or greater than 8 characters.",
+        "noemail": "E-mail is required.",
+        "nousername": "Username is required.",
+        "nopassword": "Password is required.",
+        "noprofession": "Profession is required.",
+        "usedusername": "Username already used.",
+        "usedemail": "Email already used.",
+        "incorrect": "Incorrect username or password"
+    },
+    "pages": {
+        "home": "Home"
+    }
+}
