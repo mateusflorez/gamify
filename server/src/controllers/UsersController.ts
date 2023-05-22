@@ -5,11 +5,11 @@ import Joi from "joi";
 
 const prisma = new PrismaClient()
 
-interface RegisterRequestBody {
-    username: string
-    email: string
-    password: string
-}
+const registerUserSchema = Joi.object({
+    username: Joi.string(),
+    email: Joi.string().email(),
+    password: Joi.string().min(6),
+});
 
 interface LoginRequestBody {
     username: string
@@ -32,7 +32,13 @@ const updateUserSchema = Joi.object({
 class UsersController {
     async register(req: Request, res: Response, next: NextFunction) {
         try {
-            const { username, email, password }: RegisterRequestBody = req.body
+            const { username, email, password } = req.body
+
+            const { error } = registerUserSchema.validate(req.body);
+
+            if (error) {
+                return res.status(400).json({ message: "error." + error.details[0].context?.label });
+            }
 
             const usernameCheck = await prisma.user.findUnique({ where: { username: username } })
             if (usernameCheck)
@@ -89,7 +95,7 @@ class UsersController {
             const { error } = updateUserSchema.validate(req.body);
 
             if (error) {
-                return res.status(400).json({ error: error.details[0].context?.label });
+                return res.status(400).json({ message: "error." + error.details[0].context?.label });
             }
 
             const user = await prisma.user.update({
