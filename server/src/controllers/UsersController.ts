@@ -1,19 +1,33 @@
 import { Request, Response, NextFunction } from "express";
 import { PrismaClient } from "@prisma/client";
 import bcrypt from 'bcrypt'
+import Joi from "joi";
 
 const prisma = new PrismaClient()
 
 interface RegisterRequestBody {
-    username: string;
-    email: string;
-    password: string;
+    username: string
+    email: string
+    password: string
 }
 
 interface LoginRequestBody {
-    username: string;
-    password: string;
+    username: string
+    password: string
 }
+
+const updateUserSchema = Joi.object({
+    user: Joi.object({
+        username: Joi.string(),
+        email: Joi.string().email(),
+        password: Joi.string().min(6),
+        level: Joi.number().integer().min(0),
+        profession: Joi.string(),
+        experience: Joi.number().integer().min(0),
+        gold: Joi.number().integer().min(0),
+        completedMissions: Joi.number().integer().min(0),
+    }),
+});
 
 class UsersController {
     async register(req: Request, res: Response, next: NextFunction) {
@@ -71,6 +85,12 @@ class UsersController {
         try {
             const userId = req.params.userId
             const data = req.body
+
+            const { error } = updateUserSchema.validate(req.body);
+
+            if (error) {
+                return res.status(400).json({ error: error.details[0].context?.label });
+            }
 
             const user = await prisma.user.update({
                 where: {
