@@ -9,7 +9,7 @@ const registerUserSchema = Joi.object({
     username: Joi.string(),
     email: Joi.string().email(),
     password: Joi.string().min(6),
-});
+})
 
 interface LoginRequestBody {
     username: string
@@ -27,7 +27,7 @@ const updateUserSchema = Joi.object({
         gold: Joi.number().integer().min(0),
         completedMissions: Joi.number().integer().min(0),
     }),
-});
+})
 
 class UsersController {
     async register(req: Request, res: Response, next: NextFunction) {
@@ -57,9 +57,18 @@ class UsersController {
                 }
             })
 
+            const { level, profession, experience, gold } = user;
+
             return res.status(201).json({
                 status: true,
-                user: { user }
+                user: {
+                    username,
+                    email,
+                    level,
+                    profession,
+                    experience,
+                    gold
+                }
             })
         } catch (err) {
             next(err)
@@ -78,9 +87,18 @@ class UsersController {
             if (!passwordCheck)
                 return res.json({ message: "validation.incorrect", status: false })
 
+            const { email, level, profession, experience, gold } = user;
+
             return res.status(200).json({
                 status: true,
-                user: { user }
+                user: {
+                    username,
+                    email,
+                    level,
+                    profession,
+                    experience,
+                    gold
+                }
             })
         } catch (err) {
             next(err)
@@ -105,8 +123,17 @@ class UsersController {
                 data: data.user
             })
 
+            const { username, email, level, profession, experience, gold } = user;
+
             return res.status(200).json({
-                user: { user }
+                user: {
+                    username,
+                    email,
+                    level,
+                    profession,
+                    experience,
+                    gold
+                }
             })
         } catch (err) {
             next(err)

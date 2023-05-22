@@ -30,6 +30,31 @@ class MissionsController {
             next(err)
         }
     }
+
+    async getAllMissions(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId = req.params.userId
+
+            const missions = await prisma.mission.findMany({
+                where: {
+                    userId
+                },
+                select: {
+                    name: true,
+                    experience: true,
+                    status: true,
+                    type: true
+                },
+                orderBy: {
+                    createdAt: 'desc'
+                }
+            })
+
+            return res.status(200).json(missions)
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 export { MissionsController }
