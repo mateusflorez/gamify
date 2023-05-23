@@ -86,3 +86,33 @@
     transform: rotate(360deg);
   }
 }
+
+@layer utilities {
+  .scrollbar::-webkit-scrollbar {
+    width: 0.4rem;
+    height: 20px;
+  }
+
+  .scrollbar::-webkit-scrollbar-track {
+    border-radius: 100vh;
+    background: transparent;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb {
+    background: #39206B;
+    border-radius: 100vh;
+    width: 0.1rem;
+  }
+
+  .scrollbar::-webkit-scrollbar-thumb:hover {
+    background: #6132B4;
+  }
+}
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

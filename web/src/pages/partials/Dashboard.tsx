@@ -13,25 +13,22 @@ function Dashboard() {
         const checkCurrentUser = async () => {
             const user = localStorage.getItem('user')
             if (user)
-                setCurrentUser(await JSON.parse(user).user)
+                setCurrentUser(await JSON.parse(user))
         }
         checkCurrentUser()
-    }, [])
+    })
 
     function capitalize(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
     return (
-        <div className="flex flex-col items-center">
-            <div className="w-full flex flex-col justify-center items-center gap-4" >
-                <img className='w-full' src={Banner1} alt="Banner" />
-            </div>
-            <div className='w-5/6' style={{ marginTop: '-5rem' }}>
-                <img className='w-36' src={UserImage} alt="User image" />
-            </div>
-            <div className='w-5/6 pt-16'>
-                <h1 className="text-white font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)} - {currentUser?.profession && capitalize(currentUser.profession)} - {currentUser?.level}<span className='bg-rainbow-gradient text-transparent bg-clip-text'></span></h1>
+        <div className="flex flex-col w-full">
+            <div className='p-8 flex flex-row gap-8'>
+                <img className='w-60' src={UserImage} alt="User image" />
+                <div className=''>
+                    <h1 className="font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)} - {currentUser?.profession && capitalize(currentUser.profession)} - {currentUser?.level}<span className='bg-rainbow-gradient text-transparent bg-clip-text'></span></h1>
+                </div>
             </div>
         </div >
     )

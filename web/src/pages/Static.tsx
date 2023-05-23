@@ -24,7 +24,7 @@ function Static({ page }: { page: string }) {
             }
         }
         checkCurrentUser()
-    }, [])
+    })
 
     useEffect(() => {
         const getAllUsers = async () => {
@@ -45,7 +45,7 @@ function Static({ page }: { page: string }) {
         <div className="bg-dark grid grid-cols-[20%_80%] items-center">
             <LeftMenu currentPage={pageSelected} />
 
-            <div className="flex flex-col items-center overflow-auto scrollbar">
+            <div className="flex flex-col items-center overflow-auto scrollbar h-screen">
                 {PAGES[page]}
             </div>
 
