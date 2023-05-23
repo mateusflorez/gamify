@@ -8,8 +8,8 @@ module.exports = {
     },
     extend: {
       colors: {
-        'accent-primary': '#9D0A0E',
-        'accent-secondary': '#e11218',
+        'accent-primary': '#39206B',
+        'accent-secondary': '#6132B4',
         'bg-light': '#ffffff',
         'bg-darken': '#f8f8f8',
         'text-primary': '#181818',
@@ -18,6 +18,9 @@ module.exports = {
         'white': '#ffffff',
         'error': '#ed2121',
         'success': '#28b411'
+      },
+      backgroundImage: {
+        'auth-background': "url('/src/assets/auth-art.svg')"
       }
     },
   },

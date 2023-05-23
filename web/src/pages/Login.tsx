@@ -46,9 +46,10 @@ function Login() {
                         <input type="text" name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                         <label htmlFor="password" className='pl-3 font-semibold'>{t('userAuthForm.password')}</label>
                         <input type="password" name="password" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
-                        <button type="submit" className="bg-accent-primary rounded-3xl font-bold text-white h-10 border-none cursor-pointer transition hover:bg-accent-secondary">Login</button>
+                        <button type="submit" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 border-none cursor-pointer transition hover:bg-accent-primary">Login</button>
                     </form>
                 </div>
+                <div className='h-screen bg-auth-background bg-no-repeat bg-cover rounded-l-3xl'></div>
             </div>
             <ToastContainer></ToastContainer>
         </div>
