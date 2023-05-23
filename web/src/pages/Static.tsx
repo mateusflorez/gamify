@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
-import Header from "../components/Header"
+import LeftMenu from "../components/LeftMenu"
 import Dashboard from "./Dashboard"
 
 const PAGES: { [key: string]: any } = {
@@ -42,8 +42,8 @@ function Static({ page }: { page: string }) {
     }, [location, page])
 
     return (
-        <div className="h-screen w-full bg-dark flex flex-col items-center">
-            <Header currentPage={pageSelected} />
+        <div className="bg-dark grid grid-cols-[20%_80%] items-center">
+            <LeftMenu currentPage={pageSelected} />
 
             <div className="flex flex-col items-center overflow-auto scrollbar">
                 {PAGES[page]}

@@ -10,8 +10,8 @@ function Logout() {
     }
 
     return (
-        <button onClick={() => handleClick()} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-violet-500 border-none cursor-pointer hover:bg-violet-600">
-            <BiPowerOff className="text-lg text-violet-300" />
+        <button onClick={() => handleClick()} className="py-1 px-2 rounded bg-bg-darken border-none cursor-pointer hover:bg-stroke">
+            <div className="text-lg flex items-center gap-2"><BiPowerOff /> Log out</div>
         </button>
     )
 }
