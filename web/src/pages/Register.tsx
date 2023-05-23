@@ -6,7 +6,7 @@ import axios from "axios"
 import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from 'react-i18next'
 
-function Login() {
+function Register() {
     const toastOptions: ToastOptions = {
         position: 'bottom-right',
         autoClose: 5000,
@@ -71,9 +71,13 @@ function Login() {
                         <p className='font-bold text-2xl pb-10 self-center'>{t('title')}</p>
                         <label htmlFor="username" className='pl-3 font-semibold'>{t('userAuthForm.username')}</label>
                         <input type="text" name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                        <label htmlFor="email" className='pl-3 font-semibold'>{t('userAuthForm.email')}</label>
+                        <input type="email" name="email" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                         <label htmlFor="password" className='pl-3 font-semibold'>{t('userAuthForm.password')}</label>
-                        <input type="password" name="password" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
-                        <button type="submit" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 border-none cursor-pointer transition hover:bg-accent-primary">{t('buttons.login')}</button>
+                        <input type="password" name="password" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                        <label htmlFor="confirmPassword" className='pl-3 font-semibold'>{t('userAuthForm.confirmpassword')}</label>
+                        <input type="password" name="confirmPassword" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
+                        <button type="submit" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 border-none cursor-pointer transition hover:bg-accent-primary">{t('buttons.signup')}</button>
                     </form>
                 </div>
                 <div className='h-screen bg-auth-background bg-no-repeat bg-cover rounded-l-3xl'></div>
@@ -83,4 +87,4 @@ function Login() {
     )
 }
 
-export default Login
+export default Register
