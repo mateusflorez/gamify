@@ -102,6 +102,26 @@ class MissionsController {
             next(err)
         }
     }
+
+    async updateMission(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId = req.params.userId
+            const id = req.params.missionId
+            const data = req.body
+
+            await prisma.mission.updateMany({
+                where: {
+                    userId,
+                    id
+                },
+                data: data.mission
+            })
+
+            return res.status(200).send()
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 export { MissionsController }

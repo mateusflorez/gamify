@@ -4,9 +4,10 @@ import { MissionsController } from "../controllers/MissionsController"
 const missionRoutes = Router()
 const missionsController = new MissionsController()
 
-missionRoutes.post("/new-mission/:userId", missionsController.createMission)
-missionRoutes.get("/all-missions/:userId", missionsController.getAllMissions)
-missionRoutes.get("/mission/:userId/:missionId", missionsController.getMission)
-missionRoutes.delete("/mission/:userId/:missionId", missionsController.deleteMission)
+missionRoutes.post("/:userId", missionsController.createMission)
+missionRoutes.get("/:userId", missionsController.getAllMissions)
+missionRoutes.get("/:userId/:missionId", missionsController.getMission)
+missionRoutes.delete("/:userId/:missionId", missionsController.deleteMission)
+missionRoutes.put("/:userId/:missionId", missionsController.updateMission)
 
 export { missionRoutes }
