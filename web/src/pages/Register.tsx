@@ -75,7 +75,7 @@ function Register() {
     }
 
     return (
-        <div className="h-screen w-screen flex flex-col bg-bg-light">
+        <div className="h-screen w-screen bg-bg-light">
             <div className="grid grid-cols-2">
                 <div className='h-screen flex items-center justify-center'>
                     <form className="flex flex-col px-32 w-full" onSubmit={(e) => { handleSubmit(e) }}>
