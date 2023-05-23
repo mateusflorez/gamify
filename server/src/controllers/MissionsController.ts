@@ -40,6 +40,7 @@ class MissionsController {
                     userId
                 },
                 select: {
+                    id: true,
                     name: true,
                     experience: true,
                     status: true,
@@ -51,6 +52,31 @@ class MissionsController {
             })
 
             return res.status(200).json(missions)
+        } catch (err) {
+            next(err)
+        }
+    }
+
+    async getMission(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId = req.params.userId
+            const id = req.params.missionId
+
+            const mission = await prisma.mission.findMany({
+                where: {
+                    id,
+                    userId
+                },
+                select: {
+                    id: true,
+                    name: true,
+                    experience: true,
+                    status: true,
+                    type: true
+                }
+            })
+
+            return res.status(200).json(mission)
         } catch (err) {
             next(err)
         }

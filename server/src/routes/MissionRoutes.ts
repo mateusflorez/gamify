@@ -6,5 +6,6 @@ const missionsController = new MissionsController()
 
 missionRoutes.post("/new-mission/:userId", missionsController.createMission)
 missionRoutes.get("/all-missions/:userId", missionsController.getAllMissions)
+missionRoutes.get("/mission/:userId/:missionId", missionsController.getMission)
 
 export { missionRoutes }

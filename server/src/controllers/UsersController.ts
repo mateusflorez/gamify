@@ -57,11 +57,12 @@ class UsersController {
                 }
             })
 
-            const { level, profession, experience, gold } = user;
+            const { id, level, profession, experience, gold } = user;
 
             return res.status(201).json({
                 status: true,
                 user: {
+                    id,
                     username,
                     email,
                     level,
@@ -87,11 +88,12 @@ class UsersController {
             if (!passwordCheck)
                 return res.json({ message: "validation.incorrect", status: false })
 
-            const { email, level, profession, experience, gold } = user;
+            const { id, email, level, profession, experience, gold } = user;
 
             return res.status(200).json({
                 status: true,
                 user: {
+                    id,
                     username,
                     email,
                     level,
@@ -123,10 +125,11 @@ class UsersController {
                 data: data.user
             })
 
-            const { username, email, level, profession, experience, gold } = user;
+            const { id, username, email, level, profession, experience, gold } = user;
 
             return res.status(200).json({
                 user: {
+                    id,
                     username,
                     email,
                     level,
