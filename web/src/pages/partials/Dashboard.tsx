@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Banner1 from '../assets/dashboard/1.png'
-import UserImage from '../assets/dashboard/temp-user-img.png'
+import Banner1 from '../../../public/assets/dashboard/1.png'
+import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 
 function Dashboard() {
     const { t } = useTranslation()
