@@ -126,6 +126,20 @@ class UsersController {
                 });
             }
 
+            const currentUser = await prisma.user.findUnique({ where: { id: userId } })
+
+            if (data.user.username && data.user.username != currentUser?.username) {
+                const usernameCheck = await prisma.user.findUnique({ where: { username: data.user.username } })
+                if (usernameCheck)
+                    return res.json({ message: "validation.usedusername", status: false })
+            }
+
+            if (data.user.email && data.user.email != currentUser?.email) {
+                const emailCheck = await prisma.user.findUnique({ where: { username: data.user.email } })
+                if (emailCheck)
+                    return res.json({ message: "validation.usedemail", status: false })
+            }
+
             const user = await prisma.user.update({
                 where: {
                     id: userId
