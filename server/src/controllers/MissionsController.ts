@@ -81,6 +81,27 @@ class MissionsController {
             next(err)
         }
     }
+
+    async deleteMission(req: Request, res: Response, next: NextFunction) {
+        try {
+            const userId = req.params.userId
+            const id = req.params.missionId
+
+            try {
+                await prisma.mission.deleteMany({
+                    where: {
+                        userId,
+                        id
+                    }
+                })
+                return res.status(204).send()
+            } catch {
+                return res.status(500).json({ status: false })
+            }
+        } catch (err) {
+            next(err)
+        }
+    }
 }
 
 export { MissionsController }
