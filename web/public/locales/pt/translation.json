@@ -40,6 +40,9 @@
     "error": {
         "email": "Você deve inserir um e-mail válido."
     },
+    "success": {
+        "edit": "Usuário editado com sucesso."
+    },
     "pages": {
         "home": "Início",
         "profile": "Perfil"

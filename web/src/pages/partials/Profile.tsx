@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
+import { toast, ToastContainer, ToastOptions } from "react-toastify"
+import axios from "axios"
 
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
+import { updateUserRoute } from '../../utils/APIRoutes'
 
 function Profile() {
     const { t } = useTranslation()
@@ -13,14 +16,24 @@ function Profile() {
         username: "",
         email: "",
         password: "",
+        newPassword: "",
         confirmPassword: ""
     })
+
+    const toastOptions: ToastOptions = {
+        position: 'bottom-right',
+        autoClose: 5000,
+        pauseOnHover: true,
+        theme: 'dark'
+    }
 
     useEffect(() => {
         const checkCurrentUser = async () => {
             const user = localStorage.getItem('user')
-            if (user)
+            if (user) {
                 setCurrentUser(await JSON.parse(user))
+                setValues(await JSON.parse(user))
+            }
         }
         checkCurrentUser()
     }, [])
@@ -31,6 +44,47 @@ function Profile() {
 
     function handleChange(e: any) {
         setValues({ ...values, [e.target.name]: e.target.value })
+    }
+
+    async function handleEdit() {
+        const { profession, email, username } = values
+        if (handleValidation("edit")) {
+            const request = await axios.put(`${updateUserRoute}/${currentUser.id}`, {
+                "user": {
+                    "profession": profession,
+                    "email": email,
+                    "username": username
+                }
+            })
+            if (request.data.status == false) {
+                toast.error(`${t(request.data.message)}`, toastOptions)
+            } else {
+                localStorage.setItem('user', JSON.stringify(request.data.user))
+                toast.success(`${t("success.edit")}`, toastOptions)
+                const user = localStorage.getItem('user')
+                if (user)
+                    setCurrentUser(await JSON.parse(user))
+            }
+        }
+    }
+
+    function handleValidation(form: string) {
+        const { profession, email, username } = values
+        if (form == "edit") {
+            if (profession == "") {
+                toast.error(`${t('validation.noprofession')}`, toastOptions)
+                return false
+            }
+            if (email === "") {
+                toast.error(`${t('validation.noemail')}`, toastOptions)
+                return false
+            }
+            if (username.length < 6) {
+                toast.error(`${t('validation.smallusername')}`, toastOptions)
+                return false
+            }
+            return true
+        }
     }
 
     return (
@@ -50,12 +104,12 @@ function Profile() {
             <div className='flex flex-col px-8'>
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.edit')}</span>
                 <label htmlFor="username" className='pl-3 font-semibold'>{t('userAuthForm.username')}</label>
-                <input type="text" value={currentUser?.username && capitalize(currentUser.username)} name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                <input type="text" value={values?.username && capitalize(values.username)} name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                 <label htmlFor="profession" className='pl-3 font-semibold'>{t('stats.profession')}</label>
-                <input type="text" value={currentUser?.profession && capitalize(currentUser.profession)} name="profession" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                <input type="text" value={values?.profession && capitalize(values.profession)} name="profession" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                 <label htmlFor="email" className='pl-3 font-semibold'>{t('userAuthForm.email')}</label>
-                <input type="email" value={currentUser?.email && capitalize(currentUser.email)} name="email" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
-                <button type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
+                <input type="email" value={values?.email && capitalize(values.email)} name="email" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
+                <button onClick={() => handleEdit()} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
 
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.editpassword')}</span>
                 <label htmlFor="password" className='pl-3 font-semibold'>{t('userAuthForm.oldpassword')}</label>
@@ -66,6 +120,7 @@ function Profile() {
                 <input type="password" name="confirmPassword" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
                 <button type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
             </div>
+            <ToastContainer></ToastContainer>
         </div >
     )
 }

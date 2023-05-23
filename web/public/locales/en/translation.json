@@ -40,6 +40,9 @@
     "error": {
         "email": "You must enter a valid email."
     },
+    "success": {
+        "edit": "User edited successfully."
+    },
     "pages": {
         "home": "Home",
         "profile": "Profile"
