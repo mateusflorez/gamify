@@ -14,17 +14,17 @@ function Static({ page }: { page: string }) {
     const location = useLocation()
     const navigate = useNavigate()
 
-    // useEffect(() => {
-    //     const checkCurrentUser = async () => {
-    //         const user = localStorage.getItem('user')
-    //         if (!user) {
-    //             navigate('/login')
-    //         } else {
-    //             setCurrentUser(await JSON.parse(user).user)
-    //         }
-    //     }
-    //     checkCurrentUser()
-    // }, [])
+    useEffect(() => {
+        const checkCurrentUser = async () => {
+            const user = localStorage.getItem('user')
+            if (!user) {
+                navigate('/login')
+            } else {
+                setCurrentUser(await JSON.parse(user).user)
+            }
+        }
+        checkCurrentUser()
+    }, [])
 
     useEffect(() => {
         const getAllUsers = async () => {
