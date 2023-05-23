@@ -13,11 +13,15 @@
         "logout": "Log out"
     },
     "userAuthForm": {
+        "edit": "Edit",
+        "editpassword": "Edit password",
         "donthave": "Don't have an account?",
         "alreadyhave": "Already have an account?",
         "username": "Username",
         "email": "E-mail",
         "password": "Password",
+        "newpassword": "New password",
+        "oldpassword": "Old password",
         "confirmpassword": "Confirm your password",
         "profession": "Profession"
     },
@@ -37,6 +41,15 @@
         "email": "You must enter a valid email."
     },
     "pages": {
-        "home": "Home"
+        "home": "Home",
+        "profile": "Profile"
+    },
+    "stats": {
+        "stats": "Stats",
+        "level": "Level",
+        "profession": "Profession",
+        "experience": "Experience",
+        "gold": "Gold",
+        "completedmissions": "Completed missions"
     }
 }

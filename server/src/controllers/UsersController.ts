@@ -60,7 +60,7 @@ class UsersController {
                 }
             })
 
-            const { id, level, profession, experience, gold } = user;
+            const { id, level, profession, experience, gold, completedMissions } = user;
 
             return res.status(201).json({
                 status: true,
@@ -71,7 +71,8 @@ class UsersController {
                     level,
                     profession,
                     experience,
-                    gold
+                    gold,
+                    completedMissions
                 }
             })
         } catch (err) {
@@ -91,7 +92,7 @@ class UsersController {
             if (!passwordCheck)
                 return res.json({ message: "validation.incorrect", status: false })
 
-            const { id, email, level, profession, experience, gold } = user;
+            const { id, email, level, profession, experience, gold, completedMissions } = user;
 
             return res.status(200).json({
                 status: true,
@@ -102,7 +103,8 @@ class UsersController {
                     level,
                     profession,
                     experience,
-                    gold
+                    gold,
+                    completedMissions
                 }
             })
         } catch (err) {
@@ -131,7 +133,7 @@ class UsersController {
                 data: data.user
             })
 
-            const { id, username, email, level, profession, experience, gold } = user;
+            const { id, username, email, level, profession, experience, gold, completedMissions } = user;
 
             return res.status(200).json({
                 user: {
@@ -141,7 +143,8 @@ class UsersController {
                     level,
                     profession,
                     experience,
-                    gold
+                    gold,
+                    completedMissions
                 }
             })
         } catch (err) {

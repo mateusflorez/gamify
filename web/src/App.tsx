@@ -20,6 +20,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/" element={<Static page="dashboard" />} />
+        <Route path="/profile" element={<Static page="profile" />} />
       </Routes>
     </BrowserRouter>
   )

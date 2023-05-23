@@ -13,11 +13,15 @@
         "logout": "Sair"
     },
     "userAuthForm": {
+        "edit": "Editar",
+        "editpassword": "Editar senha",
         "donthave": "Não possui uma conta?",
         "alreadyhave": "Já possui uma conta?",
         "username": "Usuário",
         "email": "E-mail",
         "password": "Senha",
+        "newpassword": "Nova senha",
+        "oldpassword": "Senha antiga",
         "confirmpassword": "Confirme sua senha",
         "profession": "Profissão"
     },
@@ -37,6 +41,15 @@
         "email": "Você deve inserir um e-mail válido."
     },
     "pages": {
-        "home": "Início"
+        "home": "Início",
+        "profile": "Perfil"
+    },
+    "stats": {
+        "stats": "Estatísticas",
+        "level": "Nível",
+        "profession": "Profissão",
+        "experience": "Experiência",
+        "gold": "Ouro",
+        "completedmissions": "Missões completas"
     }
 }

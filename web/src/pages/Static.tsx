@@ -2,9 +2,11 @@ import { useEffect, useState } from "react"
 import { Navigate, useLocation, useNavigate } from "react-router-dom"
 import LeftMenu from "../components/LeftMenu"
 import Dashboard from "./partials/Dashboard"
+import Profile from "./partials/Profile"
 
 const PAGES: { [key: string]: any } = {
-    "dashboard": <Dashboard />
+    "dashboard": <Dashboard />,
+    "profile": <Profile />
 }
 
 function Static({ page }: { page: string }) {
@@ -24,7 +26,7 @@ function Static({ page }: { page: string }) {
             }
         }
         checkCurrentUser()
-    })
+    }, [])
 
     useEffect(() => {
         const getAllUsers = async () => {
@@ -45,7 +47,7 @@ function Static({ page }: { page: string }) {
         <div className="bg-dark grid grid-cols-[20%_80%] items-center">
             <LeftMenu currentPage={pageSelected} />
 
-            <div className="flex flex-col items-center overflow-auto scrollbar h-screen">
+            <div className="flex flex-col items-center overflow-auto scrollbar h-screen bg-bg-darken">
                 {PAGES[page]}
             </div>
 

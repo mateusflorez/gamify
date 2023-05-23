@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
 import Logout from './Logout'
-import { BiHome } from 'react-icons/bi';
+import { BiHome, BiUser } from 'react-icons/bi';
 
 function LeftMenu({ currentPage }: { currentPage: String }) {
     const { t } = useTranslation()
@@ -11,9 +11,9 @@ function LeftMenu({ currentPage }: { currentPage: String }) {
             <div className="flex items-center justify-center gap-4">
                 <Link to={"/"} className="font-bold text-xl" >{t('title')}</Link>
             </div>
-            <div className="flex gap-4">
+            <div className="flex flex-col">
                 <Link
-                    to={"/dashboard"}
+                    to={"/"}
                     className={`${currentPage === "dashboard"
                         ? "text-accent-primary font-bold bg-bg-darken"
                         : "text-text-secondary font-medium"
@@ -21,6 +21,16 @@ function LeftMenu({ currentPage }: { currentPage: String }) {
                 >
                     <BiHome />
                     {t('pages.home')}
+                </Link>
+                <Link
+                    to={"/profile"}
+                    className={`${currentPage === "profile"
+                        ? "text-accent-primary font-bold bg-bg-darken"
+                        : "text-text-secondary font-medium"
+                        } flex flex-row items-center justify-center gap-2 cursor-pointer hover:text-accent-secondary hover:bg-stroke w-full h-8`}
+                >
+                    <BiUser />
+                    {t('pages.profile')}
                 </Link>
             </div>
             <div className="flex items-center justify-center">

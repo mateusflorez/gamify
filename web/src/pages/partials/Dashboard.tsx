@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 
-import Banner1 from '../../../public/assets/dashboard/1.png'
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 
 function Dashboard() {
@@ -16,7 +15,7 @@ function Dashboard() {
                 setCurrentUser(await JSON.parse(user))
         }
         checkCurrentUser()
-    })
+    }, [])
 
     function capitalize(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
