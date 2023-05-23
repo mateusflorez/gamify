@@ -9,7 +9,8 @@
     "buttons": {
         "login": "Login",
         "signup": "Sign up",
-        "save": "Save"
+        "save": "Save",
+        "logout": "Log out"
     },
     "userAuthForm": {
         "donthave": "Don't have an account?",

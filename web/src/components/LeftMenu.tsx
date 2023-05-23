@@ -15,9 +15,9 @@ function LeftMenu({ currentPage }: { currentPage: String }) {
                 <Link
                     to={"/dashboard"}
                     className={`${currentPage === "dashboard"
-                        ? "text-violet-500 font-bold bg-bg-darken"
+                        ? "text-accent-primary font-bold bg-bg-darken"
                         : "text-text-secondary font-medium"
-                        } flex flex-row items-center justify-center gap-2 cursor-pointer hover:text-violet-600 w-full h-8`}
+                        } flex flex-row items-center justify-center gap-2 cursor-pointer hover:text-accent-secondary hover:bg-stroke w-full h-8`}
                 >
                     <BiHome />
                     {t('pages.home')}

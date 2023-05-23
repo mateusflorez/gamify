@@ -9,7 +9,8 @@
     "buttons": {
         "login": "Logar",
         "signup": "Cadastrar",
-        "save": "Salvar"
+        "save": "Salvar",
+        "logout": "Sair"
     },
     "userAuthForm": {
         "donthave": "Não possui uma conta?",
