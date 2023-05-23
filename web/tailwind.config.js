@@ -20,7 +20,7 @@ module.exports = {
         'success': '#28b411'
       },
       backgroundImage: {
-        'auth-background': "url('/src/assets/auth-art.svg')"
+        'auth-background': "url('/assets/auth-art.svg')"
       }
     },
   },
