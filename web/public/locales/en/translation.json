@@ -32,6 +32,9 @@
         "usedemail": "Email already used.",
         "incorrect": "Incorrect username or password"
     },
+    "error": {
+        "email": "You must enter a valid email."
+    },
     "pages": {
         "home": "Home"
     }

@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { toast, ToastContainer, ToastOptions } from "react-toastify"
-import { loginRoute } from "../utils/APIRoutes"
+import { registerRoute } from "../utils/APIRoutes"
 import axios from "axios"
 import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from 'react-i18next'
@@ -16,7 +16,9 @@ function Register() {
 
     const [values, setValues] = useState({
         username: "",
-        password: ""
+        email: "",
+        password: "",
+        confirmPassword: ""
     })
 
     const navigate = useNavigate()
@@ -36,9 +38,10 @@ function Register() {
     async function handleSubmit(e: any) {
         e.preventDefault()
         if (handleValidation()) {
-            const { password, username } = values
-            const request = await axios.post(loginRoute, {
+            const { password, username, email } = values
+            const request = await axios.post(registerRoute, {
                 username,
+                email,
                 password
             })
             if (request.data.status == false) {
@@ -51,13 +54,21 @@ function Register() {
     }
 
     function handleValidation() {
-        const { password, username } = values
-        if (username == "") {
-            toast.error(`${t('validation.nousername')}`, toastOptions)
+        const { password, confirmPassword, username, email } = values
+        if (password !== confirmPassword) {
+            toast.error(`${t('validation.passworddiff')}`, toastOptions)
             return false
         }
-        if (password == "") {
-            toast.error(`${t('validation.nopassword')}`, toastOptions)
+        if (username.length < 6) {
+            toast.error(`${t('validation.smallusername')}`, toastOptions)
+            return false
+        }
+        if (password.length < 8) {
+            toast.error(`${t('validation.smallpassword')}`, toastOptions)
+            return false
+        }
+        if (email === "") {
+            toast.error(`${t('validation.noemail')}`, toastOptions)
             return false
         }
         return true

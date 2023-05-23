@@ -32,6 +32,9 @@
         "usedemail": "E-mail já utilizado.",
         "incorrect": "Nome ou senha incorretos"
     },
+    "error": {
+        "email": "Você deve inserir um e-mail válido."
+    },
     "pages": {
         "home": "Início"
     }

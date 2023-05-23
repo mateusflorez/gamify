@@ -37,7 +37,10 @@ class UsersController {
             const { error } = registerUserSchema.validate(req.body);
 
             if (error) {
-                return res.status(400).json({ message: "error." + error.details[0].context?.label });
+                return res.json({
+                    status: false,
+                    message: "error." + error.details[0].context?.label
+                });
             }
 
             const usernameCheck = await prisma.user.findUnique({ where: { username: username } })
@@ -115,7 +118,10 @@ class UsersController {
             const { error } = updateUserSchema.validate(req.body);
 
             if (error) {
-                return res.status(400).json({ message: "error." + error.details[0].context?.label });
+                return res.json({
+                    status: false,
+                    message: "error." + error.details[0].context?.label
+                });
             }
 
             const user = await prisma.user.update({
