@@ -68,8 +68,29 @@ function Profile() {
         }
     }
 
+    async function handleEditPassword() {
+        const { password, newPassword } = values
+        if (handleValidation("editPassword")) {
+            const request = await axios.put(`${updateUserRoute}/${currentUser.id}`, {
+                "user": {
+                    "password": password,
+                    "newPassword": newPassword
+                }
+            })
+            if (request.data.status == false) {
+                toast.error(`${t(request.data.message)}`, toastOptions)
+            } else {
+                localStorage.setItem('user', JSON.stringify(request.data.user))
+                toast.success(`${t("success.edit")}`, toastOptions)
+                const user = localStorage.getItem('user')
+                if (user)
+                    setCurrentUser(await JSON.parse(user))
+            }
+        }
+    }
+
     function handleValidation(form: string) {
-        const { profession, email, username } = values
+        const { profession, email, username, newPassword, confirmPassword } = values
         if (form == "edit") {
             if (profession == "") {
                 toast.error(`${t('validation.noprofession')}`, toastOptions)
@@ -81,6 +102,17 @@ function Profile() {
             }
             if (username.length < 6) {
                 toast.error(`${t('validation.smallusername')}`, toastOptions)
+                return false
+            }
+            return true
+        }
+        if (form == "editPassword") {
+            if (newPassword !== confirmPassword) {
+                toast.error(`${t('validation.passworddiff')}`, toastOptions)
+                return false
+            }
+            if (newPassword.length < 8) {
+                toast.error(`${t('validation.smallpassword')}`, toastOptions)
                 return false
             }
             return true
@@ -118,7 +150,7 @@ function Profile() {
                 <input type="password" name="newPassword" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                 <label htmlFor="confirmPassword" className='pl-3 font-semibold'>{t('userAuthForm.confirmpassword')}</label>
                 <input type="password" name="confirmPassword" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
-                <button type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
+                <button onClick={() => handleEditPassword()} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
             </div>
             <ToastContainer></ToastContainer>
         </div >

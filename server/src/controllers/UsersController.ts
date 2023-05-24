@@ -21,6 +21,7 @@ const updateUserSchema = Joi.object({
         username: Joi.string(),
         email: Joi.string().email(),
         password: Joi.string().min(6),
+        newPassword: Joi.string().min(6),
         level: Joi.number().integer().min(0),
         profession: Joi.string(),
         experience: Joi.number().integer().min(0),
@@ -138,6 +139,16 @@ class UsersController {
                 const emailCheck = await prisma.user.findUnique({ where: { username: data.user.email } })
                 if (emailCheck)
                     return res.json({ message: "validation.usedemail", status: false })
+            }
+
+            if (data.user.password && currentUser) {
+                const passwordCheck = await bcrypt.compare(data.user.password, currentUser.password)
+                if (!passwordCheck)
+                    return res.json({ message: "validation.incorrectPassword", status: false })
+                else {
+                    data.user.password = await bcrypt.hash(data.user.newPassword, 10)
+                    delete data.user.newPassword;
+                }
             }
 
             const user = await prisma.user.update({

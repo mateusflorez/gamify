@@ -35,7 +35,8 @@
         "noprofession": "Profession is required.",
         "usedusername": "Username already used.",
         "usedemail": "Email already used.",
-        "incorrect": "Incorrect username or password"
+        "incorrect": "Incorrect username or password",
+        "incorrectPassword": "Incorrect password"
     },
     "error": {
         "email": "You must enter a valid email."

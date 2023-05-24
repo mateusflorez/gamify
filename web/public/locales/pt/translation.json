@@ -35,7 +35,8 @@
         "noprofession": "Profissão é obrigatório.",
         "usedusername": "Usuário já utilizado.",
         "usedemail": "E-mail já utilizado.",
-        "incorrect": "Nome ou senha incorretos"
+        "incorrect": "Nome ou senha incorretos",
+        "incorrectPassword": "Senha incorreta"
     },
     "error": {
         "email": "Você deve inserir um e-mail válido."
