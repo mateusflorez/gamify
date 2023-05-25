@@ -15,7 +15,7 @@ model user {
   username          String   @unique
   email             String   @unique
   password          String
-  level             Int      @default(0)
+  level             Int      @default(1)
   profession        String   @default("")
   experience        Int      @default(0)
   gold              Int      @default(0)
