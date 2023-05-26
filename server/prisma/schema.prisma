@@ -27,15 +27,15 @@ model user {
 }
 
 model mission {
-  id         String   @id @default(uuid())
-  userId     String
-  name       String
-  description String @default("")
-  experience Int
-  status     Int      @default(1) //0-finished 1-in progress
-  type       Int //1-event 2-mission 3-daily mission
-  createdAt  DateTime @default(now()) @map("created_at")
-  updatedAt  DateTime @updatedAt @map("updated_at")
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  description String   @default("")
+  experience  Int
+  status      Boolean  @default(true) //false-finished true-in progress
+  type        Int //1-monthly 2-weekly 3-daily
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
 
   user user @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

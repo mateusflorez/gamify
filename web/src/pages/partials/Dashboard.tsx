@@ -43,7 +43,7 @@ function Dashboard() {
     }
 
     async function handleChange(mission: any) {
-        const newStatus = mission.status == 1 ? 0 : 1
+        const newStatus = !mission.status
         const request = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
             "mission": {
                 "status": newStatus
@@ -74,7 +74,73 @@ function Dashboard() {
                                     <div className='grid grid-cols-[10%_90%]'>
                                         <div>
                                             <Checkbox
-                                                checked={mission.status == 1 ? false : true}
+                                                checked={mission.status ? false : true}
+                                                onClick={(e) => { e.stopPropagation(); handleChange(mission) }}
+                                                name='inspiration'
+                                                style={{
+                                                    color: "#6132B4"
+                                                }}
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className='flex flex-col'>
+                                            <span className='text-xl font-medium'>{mission.name}</span>
+                                            <span>{mission.description}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })
+                }
+                <span className="font-medium text-2xl pb-4 pt-8">{t('titles.weekly')}</span>
+                {
+                    missions && missions.map((mission: any, index: any) => {
+                        if (mission.type === 2) {
+                            return (
+
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                    <div className='grid grid-cols-[10%_90%]'>
+                                        <div>
+                                            <Checkbox
+                                                checked={mission.status ? false : true}
+                                                onClick={(e) => { e.stopPropagation(); handleChange(mission) }}
+                                                name='inspiration'
+                                                style={{
+                                                    color: "#6132B4"
+                                                }}
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className='flex flex-col'>
+                                            <span className='text-xl font-medium'>{mission.name}</span>
+                                            <span>{mission.description}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })
+                }
+                <span className="font-medium text-2xl pb-4 pt-8">{t('titles.weekly')}</span>
+                {
+                    missions && missions.map((mission: any, index: any) => {
+                        if (mission.type === 1) {
+                            return (
+
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                    <div className='grid grid-cols-[10%_90%]'>
+                                        <div>
+                                            <Checkbox
+                                                checked={mission.status ? false : true}
                                                 onClick={(e) => { e.stopPropagation(); handleChange(mission) }}
                                                 name='inspiration'
                                                 style={{
