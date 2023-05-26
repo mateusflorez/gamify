@@ -55,5 +55,8 @@
         "experience": "Experiência",
         "gold": "Ouro",
         "completedmissions": "Missões completas"
+    },
+    "titles": {
+        "daily": "Missões diárias"
     }
 }

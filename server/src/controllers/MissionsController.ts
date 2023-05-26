@@ -44,11 +44,13 @@ class MissionsController {
                     name: true,
                     experience: true,
                     status: true,
-                    type: true
+                    type: true,
+                    description: true
                 },
-                orderBy: {
-                    createdAt: 'desc'
-                }
+                orderBy: [
+                    { status: 'desc' },
+                    { createdAt: 'desc' }
+                ]
             })
 
             return res.status(200).json(missions)
@@ -72,7 +74,8 @@ class MissionsController {
                     name: true,
                     experience: true,
                     status: true,
-                    type: true
+                    type: true,
+                    description: true
                 }
             })
 
