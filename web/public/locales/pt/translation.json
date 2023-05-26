@@ -57,6 +57,8 @@
         "completedmissions": "Missões completas"
     },
     "titles": {
-        "daily": "Missões diárias"
+        "daily": "Missões diárias",
+        "weekly": "Missões semanais",
+        "monthly": "Missões mensais"
     }
 }

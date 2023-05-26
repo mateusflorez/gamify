@@ -57,6 +57,8 @@
         "completedmissions": "Completed missions"
     },
     "titles": {
-        "daily": "Daily missions"
+        "daily": "Daily missions",
+        "weekly": "Weekly missions",
+        "monthly": "Monthly missions"
     }
 }

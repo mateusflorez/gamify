@@ -64,7 +64,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className='flex flex-col px-8'>
-                <span className="font-medium text-2xl pb-4">{t('titles.daily')}</span>
+                <span className="font-medium text-2xl">{t('titles.daily')}</span>
                 {
                     missions && missions.map((mission: any, index: any) => {
                         if (mission.type === 3) {
@@ -97,7 +97,7 @@ function Dashboard() {
                         }
                     })
                 }
-                <span className="font-medium text-2xl pb-4 pt-8">{t('titles.weekly')}</span>
+                <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
                 {
                     missions && missions.map((mission: any, index: any) => {
                         if (mission.type === 2) {
@@ -130,7 +130,7 @@ function Dashboard() {
                         }
                     })
                 }
-                <span className="font-medium text-2xl pb-4 pt-8">{t('titles.weekly')}</span>
+                <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
                 {
                     missions && missions.map((mission: any, index: any) => {
                         if (mission.type === 1) {
