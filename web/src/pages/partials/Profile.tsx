@@ -27,14 +27,15 @@ function Profile() {
         theme: 'dark'
     }
 
-    useEffect(() => {
-        const checkCurrentUser = async () => {
-            const user = localStorage.getItem('user')
-            if (user) {
-                setCurrentUser(await JSON.parse(user))
-                setValues(await JSON.parse(user))
-            }
+    const checkCurrentUser = async () => {
+        const user = localStorage.getItem('user')
+        if (user) {
+            setCurrentUser(await JSON.parse(user))
+            setValues(await JSON.parse(user))
         }
+    }
+
+    useEffect(() => {
         checkCurrentUser()
     }, [])
 

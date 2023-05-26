@@ -16,26 +16,28 @@ function Static({ page }: { page: string }) {
     const location = useLocation()
     const navigate = useNavigate()
 
-    useEffect(() => {
-        const checkCurrentUser = async () => {
-            const user = localStorage.getItem('user')
-            if (!user) {
-                navigate('/login')
-            } else {
-                setCurrentUser(await JSON.parse(user).user)
+    const checkCurrentUser = async () => {
+        const user = localStorage.getItem('user')
+        if (!user) {
+            navigate('/login')
+        } else {
+            setCurrentUser(await JSON.parse(user).user)
+        }
+    }
+
+    const getAllUsers = async () => {
+        if (currentUser) {
+            if (currentUser.profession == "") {
+                navigate('/welcome')
             }
         }
+    }
+
+    useEffect(() => {
         checkCurrentUser()
     }, [])
 
     useEffect(() => {
-        const getAllUsers = async () => {
-            if (currentUser) {
-                if (currentUser.profession == "") {
-                    navigate('/welcome')
-                }
-            }
-        }
         getAllUsers()
     }, [pageSelected, currentUser])
 
