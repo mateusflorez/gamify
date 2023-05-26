@@ -25,9 +25,13 @@ function Dashboard() {
         const user = localStorage.getItem('user')
         if (user) {
             setCurrentUser(await JSON.parse(user))
-            const response = await axios.get(`${missionRoute}/${(JSON.parse(user)).id}`)
-            setMissions(response.data)
+            getMissions()
         }
+    }
+
+    const getMissions = async () => {
+        const response = await axios.get(`${missionRoute}/${currentUser.id}`)
+        setMissions(response.data)
     }
 
     useEffect(() => {
