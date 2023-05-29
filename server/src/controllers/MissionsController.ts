@@ -49,7 +49,7 @@ class MissionsController {
                 },
                 orderBy: [
                     { status: 'desc' },
-                    { createdAt: 'desc' }
+                    { name: 'asc' }
                 ]
             })
 

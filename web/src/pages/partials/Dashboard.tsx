@@ -1,11 +1,12 @@
-import { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast, ToastContainer, ToastOptions } from "react-toastify"
 import axios from 'axios'
 
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute } from '../../utils/APIRoutes'
-import { Checkbox } from '@mui/material'
+import { Box, Button, Checkbox, Modal } from '@mui/material'
+import { BiPlus } from 'react-icons/bi'
 
 function Dashboard() {
     const { t } = useTranslation()
@@ -14,12 +15,28 @@ function Dashboard() {
 
     const [missions, setMissions] = useState<any>([])
 
+    const [open, setOpen] = React.useState(false)
+
     const toastOptions: ToastOptions = {
         position: 'bottom-right',
         autoClose: 5000,
         pauseOnHover: true,
         theme: 'dark'
     }
+
+    const modalStyle = {
+        position: 'absolute' as 'absolute',
+        top: '50%',
+        left: '50%',
+        transform: 'translate(-50%, -50%)',
+        width: 400,
+        bgcolor: 'background.paper',
+        "border-radius": '15px',
+        boxShadow: 24,
+        pt: 2,
+        px: 4,
+        pb: 3,
+    };
 
     const checkCurrentUser = async () => {
         const user = localStorage.getItem('user')
@@ -32,6 +49,14 @@ function Dashboard() {
     const getMissions = async (user: any) => {
         const response = await axios.get(`${missionRoute}/${(JSON.parse(user)).id}`)
         setMissions(response.data)
+    }
+
+    const handleOpen = () => {
+        setOpen(true)
+    }
+
+    const handleClose = () => {
+        setOpen(false)
     }
 
     useEffect(() => {
@@ -64,7 +89,12 @@ function Dashboard() {
                 </div>
             </div>
             <div className='flex flex-col px-8'>
-                <span className="font-medium text-2xl">{t('titles.daily')}</span>
+                <div className='flex flex-row justify-between w-11/12'>
+                    <span className="font-medium text-2xl">{t('titles.daily')}</span>
+                    <button onClick={handleOpen} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                        <BiPlus className="text-lg text-white" />
+                    </button>
+                </div>
                 {
                     missions && missions.map((mission: any, index: any) => {
                         if (mission.type === 3) {
@@ -164,6 +194,30 @@ function Dashboard() {
                     })
                 }
             </div>
+            <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="child-modal-title"
+                aria-describedby="child-modal-description"
+            >
+                <Box sx={{ ...modalStyle, width: "60%" }}>
+                    <div className='flex flex-col'>
+                        <span>New mission</span>
+                        <span>
+                            Name
+                        </span>
+                        <span>
+                            Description
+                        </span>
+                        <span>
+                            Difficulty
+                        </span>
+                        <span>
+                            Frequency
+                        </span>
+                    </div>
+                </Box>
+            </Modal>
             <ToastContainer></ToastContainer>
         </div>
     )
