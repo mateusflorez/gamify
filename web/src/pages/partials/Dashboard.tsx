@@ -5,8 +5,38 @@ import axios from 'axios'
 
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute } from '../../utils/APIRoutes'
-import { Box, Button, Checkbox, Modal } from '@mui/material'
+import { Box, Button, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
 import { BiPlus } from 'react-icons/bi'
+
+declare module '@mui/material/styles' {
+    interface Theme {
+        status: {
+            danger: React.CSSProperties['color'];
+        };
+    }
+
+    interface ThemeOptions {
+        status: {
+            danger: React.CSSProperties['color'];
+        };
+    }
+
+    interface Palette {
+        neutral: Palette['primary'];
+    }
+
+    interface PaletteOptions {
+        neutral: PaletteOptions['primary'];
+    }
+
+    interface PaletteColor {
+        darker?: string;
+    }
+
+    interface SimplePaletteColorOptions {
+        darker?: string;
+    }
+}
 
 function Dashboard() {
     const { t } = useTranslation()
@@ -16,6 +46,13 @@ function Dashboard() {
     const [missions, setMissions] = useState<any>([])
 
     const [open, setOpen] = React.useState(false)
+
+    const [values, setValues] = useState({
+        name: "",
+        description: "",
+        difficulty: "",
+        frequency: ""
+    })
 
     const toastOptions: ToastOptions = {
         position: 'bottom-right',
@@ -37,6 +74,22 @@ function Dashboard() {
         px: 4,
         pb: 3,
     };
+
+    const theme = createTheme({
+        status: {
+            danger: '#e53e3e',
+        },
+        palette: {
+            primary: {
+                main: '#6132B4',
+                darker: '#39206B',
+            },
+            neutral: {
+                main: '#64748B',
+                contrastText: '#d7d7d7',
+            },
+        },
+    });
 
     const checkCurrentUser = async () => {
         const user = localStorage.getItem('user')
@@ -63,11 +116,15 @@ function Dashboard() {
         checkCurrentUser()
     }, [])
 
+    function handleChange(e: any) {
+        setValues({ ...values, [e.target.name]: e.target.value })
+    }
+
     function capitalize(str: string) {
         return str.charAt(0).toUpperCase() + str.slice(1);
     }
 
-    async function handleChange(mission: any) {
+    async function handleChangeStatus(mission: any) {
         const newStatus = !mission.status
         const request = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
             "mission": {
@@ -78,6 +135,41 @@ function Dashboard() {
             toast.error(`${t(request.data.message)}`, toastOptions)
         }
         checkCurrentUser()
+    }
+
+    async function handleSave(e: any) {
+        e.preventDefault()
+        if (handleValidation()) {
+            const { name, description, difficulty, frequency } = values
+
+            var experience
+            if (difficulty == "1")
+                experience = 150
+
+            const request = await axios.post(`${missionRoute}/${currentUser.id}`, {
+                name,
+                description,
+                difficulty: parseInt(difficulty),
+                type: parseInt(frequency),
+                experience
+            })
+            if (request.data.status == false) {
+                toast.error(`${t(request.data.message)}`, toastOptions)
+            } else {
+                handleOpen
+            }
+        }
+    }
+
+    function handleValidation() {
+        const { name, description, difficulty, frequency } = values
+
+        if (name === "" || description === "" || parseInt(difficulty) < 1 || parseInt(frequency) < 1) {
+            toast.error(`${t('validation.nodata')}`, toastOptions)
+            return false
+        }
+        return true
+
     }
 
     return (
@@ -105,7 +197,7 @@ function Dashboard() {
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChange(mission) }}
+                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
                                                 name='inspiration'
                                                 style={{
                                                     color: "#6132B4"
@@ -138,7 +230,7 @@ function Dashboard() {
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChange(mission) }}
+                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
                                                 name='inspiration'
                                                 style={{
                                                     color: "#6132B4"
@@ -171,7 +263,7 @@ function Dashboard() {
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChange(mission) }}
+                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
                                                 name='inspiration'
                                                 style={{
                                                     color: "#6132B4"
@@ -202,19 +294,44 @@ function Dashboard() {
             >
                 <Box sx={{ ...modalStyle, width: "60%" }}>
                     <div className='flex flex-col'>
-                        <span>New mission</span>
-                        <span>
-                            Name
-                        </span>
-                        <span>
-                            Description
-                        </span>
-                        <span>
-                            Difficulty
-                        </span>
-                        <span>
-                            Frequency
-                        </span>
+                        <span className="font-medium text-2xl pb-4">New mission</span>
+                        <label htmlFor="name" className='pl-3 pb-2 font-semibold'>Name</label>
+                        <input type="text" name="name" className="bg-stroke p-4 rounded-3xl w-1/2 h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                        <label htmlFor="description" className='pl-3 pb-2 font-semibold'>Description</label>
+                        <textarea rows={4} name="description" className="bg-stroke p-4 rounded-3xl w-full focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                        <label htmlFor="name" className='pl-3 font-semibold'>Difficulty</label>
+                        <ThemeProvider theme={theme}>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={values.difficulty}
+                                exclusive
+                                onChange={e => handleChange(e)}
+                                aria-label="Platform"
+                                className='p-4'
+                            >
+                                <ToggleButton name="difficulty" value="1">Simple</ToggleButton>
+                                <ToggleButton name="difficulty" value="2">Easy</ToggleButton>
+                                <ToggleButton name="difficulty" value="3">Medium</ToggleButton>
+                                <ToggleButton name="difficulty" value="4">Hard</ToggleButton>
+                            </ToggleButtonGroup>
+                        </ThemeProvider>
+                        <label htmlFor="name" className='pl-3 font-semibold'>Frequency</label>
+                        <ThemeProvider theme={theme}>
+                            <ToggleButtonGroup
+                                color="primary"
+                                value={values.frequency}
+                                exclusive
+                                onChange={e => handleChange(e)}
+                                aria-label="Platform"
+                                className='p-4 mb-4'
+                            >
+                                <ToggleButton name="frequency" value="1">Once</ToggleButton>
+                                <ToggleButton name="frequency" value="2">Daily</ToggleButton>
+                                <ToggleButton name="frequency" value="3">Weekly</ToggleButton>
+                                <ToggleButton name="frequency" value="4">Monthly</ToggleButton>
+                            </ToggleButtonGroup>
+                        </ThemeProvider>
+                        <button onClick={e => handleSave(e)} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary self-center">{t('buttons.save')}</button>
                     </div>
                 </Box>
             </Modal>

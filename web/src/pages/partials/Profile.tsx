@@ -136,20 +136,20 @@ function Profile() {
             </div>
             <div className='flex flex-col px-8'>
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.edit')}</span>
-                <label htmlFor="username" className='pl-3 font-semibold'>{t('userAuthForm.username')}</label>
+                <label htmlFor="username" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.username')}</label>
                 <input type="text" value={values?.username && capitalize(values.username)} name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                <label htmlFor="profession" className='pl-3 font-semibold'>{t('stats.profession')}</label>
+                <label htmlFor="profession" className='pl-3 pb-2 font-semibold'>{t('stats.profession')}</label>
                 <input type="text" value={values?.profession && capitalize(values.profession)} name="profession" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                <label htmlFor="email" className='pl-3 font-semibold'>{t('userAuthForm.email')}</label>
+                <label htmlFor="email" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.email')}</label>
                 <input type="email" value={values?.email && capitalize(values.email)} name="email" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
                 <button onClick={() => handleEdit()} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
 
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.editpassword')}</span>
-                <label htmlFor="password" className='pl-3 font-semibold'>{t('userAuthForm.oldpassword')}</label>
+                <label htmlFor="password" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.oldpassword')}</label>
                 <input type="password" name="password" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                <label htmlFor="newPassword" className='pl-3 font-semibold'>{t('userAuthForm.newpassword')}</label>
+                <label htmlFor="newPassword" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.newpassword')}</label>
                 <input type="password" name="newPassword" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                <label htmlFor="confirmPassword" className='pl-3 font-semibold'>{t('userAuthForm.confirmpassword')}</label>
+                <label htmlFor="confirmPassword" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.confirmpassword')}</label>
                 <input type="password" name="confirmPassword" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
                 <button onClick={() => handleEditPassword()} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
             </div>

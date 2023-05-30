@@ -6,7 +6,8 @@ const prisma = new PrismaClient()
 interface NewMissionRequestBody {
     name: string,
     experience: number,
-    type: number
+    type: number,
+    difficulty: number
 }
 
 
@@ -14,13 +15,14 @@ class MissionsController {
     async createMission(req: Request, res: Response, next: NextFunction) {
         try {
             const userId = req.params.userId
-            const { name, experience, type }: NewMissionRequestBody = req.body
+            const { name, experience, type, difficulty }: NewMissionRequestBody = req.body
 
             await prisma.mission.create({
                 data: {
                     userId,
                     name,
                     experience,
+                    difficulty,
                     type
                 }
             })

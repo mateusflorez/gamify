@@ -31,9 +31,10 @@ model mission {
   userId      String
   name        String
   description String   @default("")
+  difficulty  Int //1-simple 2-easy 3-medium 4-hard
   experience  Int
   status      Boolean  @default(true) //false-finished true-in progress
-  type        Int //1-monthly 2-weekly 3-daily
+  type        Int //1-once 2-daily 3-weekly 4-monthly
   createdAt   DateTime @default(now()) @map("created_at")
   updatedAt   DateTime @updatedAt @map("updated_at")
 
