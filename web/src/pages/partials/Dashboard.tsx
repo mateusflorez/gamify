@@ -145,6 +145,12 @@ function Dashboard() {
             var experience
             if (difficulty == "1")
                 experience = 150
+            if (difficulty == "2")
+                experience = 300
+            if (difficulty == "3")
+                experience = 600
+            if (difficulty == "4")
+                experience = 900
 
             const request = await axios.post(`${missionRoute}/${currentUser.id}`, {
                 name,
@@ -182,14 +188,14 @@ function Dashboard() {
             </div>
             <div className='flex flex-col px-8'>
                 <div className='flex flex-row justify-between w-11/12'>
-                    <span className="font-medium text-2xl">{t('titles.daily')}</span>
+                    <span className="font-medium text-2xl">{t('titles.unique')}</span>
                     <button onClick={handleOpen} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
                         <BiPlus className="text-lg text-white" />
                     </button>
                 </div>
                 {
                     missions && missions.map((mission: any, index: any) => {
-                        if (mission.type === 3) {
+                        if (mission.type === 1) {
                             return (
 
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
@@ -219,7 +225,7 @@ function Dashboard() {
                         }
                     })
                 }
-                <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
+                <span className="font-medium text-2xl pt-8">{t('titles.daily')}</span>
                 {
                     missions && missions.map((mission: any, index: any) => {
                         if (mission.type === 2) {
@@ -255,7 +261,40 @@ function Dashboard() {
                 <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
                 {
                     missions && missions.map((mission: any, index: any) => {
-                        if (mission.type === 1) {
+                        if (mission.type === 3) {
+                            return (
+
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                    <div className='grid grid-cols-[10%_90%]'>
+                                        <div>
+                                            <Checkbox
+                                                checked={mission.status ? false : true}
+                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
+                                                name='inspiration'
+                                                style={{
+                                                    color: "#6132B4"
+                                                }}
+                                                sx={{
+                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                }}
+                                            />
+                                        </div>
+                                        <div className='flex flex-col'>
+                                            <span className='text-xl font-medium'>{mission.name}</span>
+                                            <span>{mission.description}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            );
+                        } else {
+                            return null;
+                        }
+                    })
+                }
+                <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
+                {
+                    missions && missions.map((mission: any, index: any) => {
+                        if (mission.type === 4) {
                             return (
 
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
