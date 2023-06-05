@@ -59,6 +59,26 @@
     "titles": {
         "daily": "Missões diárias",
         "weekly": "Missões semanais",
-        "monthly": "Missões mensais"
+        "monthly": "Missões mensais",
+        "unique": "Missões únicas",
+        "newmission": "Nova missão"
+    },
+    "mission": {
+        "name": "Nome",
+        "description": "Descrição",
+        "difficulty": {
+            "title": "Dificuldade",
+            "simple": "Simples",
+            "easy": "Fácil",
+            "medium": "Médio",
+            "hard": "Difícil"
+        },
+        "frequency": {
+            "title": "Frequência",
+            "once": "Única",
+            "daily": "Diária",
+            "weekly": "Semanal",
+            "monthly": "Mensal"
+        }
     }
 }

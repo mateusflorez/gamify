@@ -333,12 +333,12 @@ function Dashboard() {
             >
                 <Box sx={{ ...modalStyle, width: "60%" }}>
                     <div className='flex flex-col'>
-                        <span className="font-medium text-2xl pb-4">New mission</span>
-                        <label htmlFor="name" className='pl-3 pb-2 font-semibold'>Name</label>
+                        <span className="font-medium text-2xl pb-4">{t("titles.newmission")}</span>
+                        <label htmlFor="name" className='pl-3 pb-2 font-semibold'>{t("mission.name")}</label>
                         <input type="text" name="name" className="bg-stroke p-4 rounded-3xl w-1/2 h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                        <label htmlFor="description" className='pl-3 pb-2 font-semibold'>Description</label>
+                        <label htmlFor="description" className='pl-3 pb-2 font-semibold'>{t("mission.description")}</label>
                         <textarea rows={4} name="description" className="bg-stroke p-4 rounded-3xl w-full focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                        <label htmlFor="name" className='pl-3 font-semibold'>Difficulty</label>
+                        <label htmlFor="name" className='pl-3 font-semibold'>{t("mission.difficulty.title")}</label>
                         <ThemeProvider theme={theme}>
                             <ToggleButtonGroup
                                 color="primary"
@@ -348,13 +348,13 @@ function Dashboard() {
                                 aria-label="Platform"
                                 className='p-4'
                             >
-                                <ToggleButton name="difficulty" value="1">Simple</ToggleButton>
-                                <ToggleButton name="difficulty" value="2">Easy</ToggleButton>
-                                <ToggleButton name="difficulty" value="3">Medium</ToggleButton>
-                                <ToggleButton name="difficulty" value="4">Hard</ToggleButton>
+                                <ToggleButton name="difficulty" value="1">{t("mission.difficulty.simple")}</ToggleButton>
+                                <ToggleButton name="difficulty" value="2">{t("mission.difficulty.easy")}</ToggleButton>
+                                <ToggleButton name="difficulty" value="3">{t("mission.difficulty.medium")}</ToggleButton>
+                                <ToggleButton name="difficulty" value="4">{t("mission.difficulty.hard")}</ToggleButton>
                             </ToggleButtonGroup>
                         </ThemeProvider>
-                        <label htmlFor="name" className='pl-3 font-semibold'>Frequency</label>
+                        <label htmlFor="name" className='pl-3 font-semibold'>{t("mission.frequency.title")}</label>
                         <ThemeProvider theme={theme}>
                             <ToggleButtonGroup
                                 color="primary"
@@ -364,10 +364,10 @@ function Dashboard() {
                                 aria-label="Platform"
                                 className='p-4 mb-4'
                             >
-                                <ToggleButton name="frequency" value="1">Once</ToggleButton>
-                                <ToggleButton name="frequency" value="2">Daily</ToggleButton>
-                                <ToggleButton name="frequency" value="3">Weekly</ToggleButton>
-                                <ToggleButton name="frequency" value="4">Monthly</ToggleButton>
+                                <ToggleButton name="frequency" value="1">{t("mission.frequency.once")}</ToggleButton>
+                                <ToggleButton name="frequency" value="2">{t("mission.frequency.daily")}</ToggleButton>
+                                <ToggleButton name="frequency" value="3">{t("mission.frequency.weekly")}</ToggleButton>
+                                <ToggleButton name="frequency" value="4">{t("mission.frequency.monthly")}</ToggleButton>
                             </ToggleButtonGroup>
                         </ThemeProvider>
                         <button onClick={e => handleSave(e)} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary self-center">{t('buttons.save')}</button>
