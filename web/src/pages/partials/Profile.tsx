@@ -40,7 +40,7 @@ function Profile() {
     }, [])
 
     function capitalize(str: string) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
     function handleChange(e: any) {
@@ -128,20 +128,20 @@ function Profile() {
                     <span className="font-bold text-4xl pb-4">{currentUser?.username && capitalize(currentUser.username)}</span>
                     <span className="font-medium text-2xl pb-4">{t("stats.stats")}</span>
                     <div><span className='font-medium pr-2'>{t("stats.profession")}:</span>{currentUser?.profession && capitalize(currentUser.profession)}</div>
-                    <div><span className='font-medium pr-2'>{t("stats.level")}:</span>{currentUser?.level && capitalize(currentUser.level)}</div>
-                    <div><span className='font-medium pr-2'>{t("stats.experience")}:</span>{currentUser?.experience && capitalize(currentUser.experience)}</div>
-                    <div><span className='font-medium pr-2'>{t("stats.gold")}:</span>{currentUser?.gold && capitalize(currentUser.gold)}</div>
-                    <div><span className='font-medium pr-2'>{t("stats.completedmissions")}:</span>{currentUser?.completedMissions && capitalize(currentUser.completedMissions)}</div>
+                    <div><span className='font-medium pr-2'>{t("stats.level")}:</span>{currentUser?.level && currentUser.level}</div>
+                    <div><span className='font-medium pr-2'>{t("stats.experience")}:</span>{currentUser?.experience && currentUser.experience}</div>
+                    <div><span className='font-medium pr-2'>{t("stats.gold")}:</span>{currentUser?.gold && currentUser.gold}</div>
+                    <div><span className='font-medium pr-2'>{t("stats.completedmissions")}:</span>{currentUser?.completedMissions && currentUser.completedMissions}</div>
                 </div>
             </div>
             <div className='flex flex-col px-8'>
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.edit')}</span>
                 <label htmlFor="username" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.username')}</label>
-                <input type="text" value={values?.username && capitalize(values.username)} name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                <input type="text" value={values?.username && values.username} name="username" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                 <label htmlFor="profession" className='pl-3 pb-2 font-semibold'>{t('stats.profession')}</label>
-                <input type="text" value={values?.profession && capitalize(values.profession)} name="profession" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                <input type="text" value={values?.profession && values.profession} name="profession" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                 <label htmlFor="email" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.email')}</label>
-                <input type="email" value={values?.email && capitalize(values.email)} name="email" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
+                <input type="email" value={values?.email && values.email} name="email" className="bg-stroke p-4 rounded-3xl w-full h-10 focus:bg-bg-darken transition mb-8" onChange={e => handleChange(e)} />
                 <button onClick={() => handleEdit()} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
 
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.editpassword')}</span>

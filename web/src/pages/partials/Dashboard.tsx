@@ -4,37 +4,37 @@ import { toast, ToastContainer, ToastOptions } from "react-toastify"
 import axios from 'axios'
 
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
-import { missionRoute } from '../../utils/APIRoutes'
-import { Box, Button, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
+import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
+import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
 import { BiPlus } from 'react-icons/bi'
 
 declare module '@mui/material/styles' {
     interface Theme {
         status: {
-            danger: React.CSSProperties['color'];
-        };
+            danger: React.CSSProperties['color']
+        }
     }
 
     interface ThemeOptions {
         status: {
-            danger: React.CSSProperties['color'];
-        };
+            danger: React.CSSProperties['color']
+        }
     }
 
     interface Palette {
-        neutral: Palette['primary'];
+        neutral: Palette['primary']
     }
 
     interface PaletteOptions {
-        neutral: PaletteOptions['primary'];
+        neutral: PaletteOptions['primary']
     }
 
     interface PaletteColor {
-        darker?: string;
+        darker?: string
     }
 
     interface SimplePaletteColorOptions {
-        darker?: string;
+        darker?: string
     }
 }
 
@@ -73,7 +73,7 @@ function Dashboard() {
         pt: 2,
         px: 4,
         pb: 3,
-    };
+    }
 
     const theme = createTheme({
         status: {
@@ -89,7 +89,7 @@ function Dashboard() {
                 contrastText: '#d7d7d7',
             },
         },
-    });
+    })
 
     const checkCurrentUser = async () => {
         const user = localStorage.getItem('user')
@@ -129,18 +129,48 @@ function Dashboard() {
     }
 
     function capitalize(str: string) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+        return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
     async function handleChangeStatus(mission: any) {
         const newStatus = !mission.status
-        const request = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
+        const requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
             "mission": {
                 "status": newStatus
             }
         })
-        if (request.data.status == false) {
-            toast.error(`${t(request.data.message)}`, toastOptions)
+        if (requestMission.data.status == false) {
+            toast.error(`${t(requestMission.data.message)}`, toastOptions)
+        }
+        let userData
+        let newExperience
+        if (!mission.status) {
+            newExperience = currentUser.experience - mission.experience
+            userData = {
+                user: {
+                    experience: newExperience,
+                    completedMissions: currentUser.completedMissions - 1,
+                    level: Math.floor(newExperience / 3000) + 1
+                }
+            }
+        } else {
+            newExperience = currentUser.experience + mission.experience
+            userData = {
+                user: {
+                    experience: newExperience,
+                    completedMissions: currentUser.completedMissions + 1,
+                    level: Math.floor(newExperience / 3000) + 1
+                }
+            }
+        }
+        const requestUser = await axios.put(`${updateUserRoute}/${currentUser.id}`, userData)
+        if (requestUser.data.status == false) {
+            toast.error(`${t(requestUser.data.message)}`, toastOptions)
+        } else {
+            localStorage.setItem('user', JSON.stringify(requestUser.data.user))
+            const user = localStorage.getItem('user')
+            if (user)
+                setCurrentUser(await JSON.parse(user))
         }
         checkCurrentUser()
     }
