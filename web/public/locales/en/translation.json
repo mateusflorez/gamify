@@ -43,7 +43,8 @@
         "email": "You must enter a valid email."
     },
     "success": {
-        "edit": "User edited successfully."
+        "edit": "User edited successfully.",
+        "newmission": "Mission added successfully"
     },
     "pages": {
         "home": "Home",

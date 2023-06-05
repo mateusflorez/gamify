@@ -43,7 +43,8 @@
         "email": "Você deve inserir um e-mail válido."
     },
     "success": {
-        "edit": "Usuário editado com sucesso."
+        "edit": "Usuário editado com sucesso.",
+        "newmission": "Missão adicionada com sucesso."
     },
     "pages": {
         "home": "Início",

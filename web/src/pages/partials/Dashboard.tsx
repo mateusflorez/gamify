@@ -95,12 +95,11 @@ function Dashboard() {
         const user = localStorage.getItem('user')
         if (user) {
             setCurrentUser(await JSON.parse(user))
-            getMissions(user)
         }
     }
 
-    const getMissions = async (user: any) => {
-        const response = await axios.get(`${missionRoute}/${(JSON.parse(user)).id}`)
+    const getMissions = async () => {
+        const response = await axios.get(`${missionRoute}/${currentUser.id}`)
         setMissions(response.data)
     }
 
@@ -111,6 +110,10 @@ function Dashboard() {
     const handleClose = () => {
         setOpen(false)
     }
+
+    useEffect(() => {
+        getMissions()
+    }, [currentUser])
 
     useEffect(() => {
         checkCurrentUser()
@@ -167,7 +170,9 @@ function Dashboard() {
             if (request.data.status == false) {
                 toast.error(`${t(request.data.message)}`, toastOptions)
             } else {
-                handleOpen
+                handleClose()
+                getMissions()
+                toast.success(`${t("success.newmission")}`, toastOptions)
             }
         }
     }
