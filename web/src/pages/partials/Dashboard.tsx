@@ -116,6 +116,11 @@ function Dashboard() {
         checkCurrentUser()
     }, [])
 
+    const uniqueMissions = missions && missions.filter((mission: any) => mission.type === 1)
+    const dailyMissions = missions && missions.filter((mission: any) => mission.type === 2)
+    const weeklyMissions = missions && missions.filter((mission: any) => mission.type === 3)
+    const monthlyMissions = missions && missions.filter((mission: any) => mission.type === 4)
+
     function handleChange(e: any) {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
@@ -194,10 +199,9 @@ function Dashboard() {
                     </button>
                 </div>
                 {
-                    missions && missions.map((mission: any, index: any) => {
-                        if (mission.type === 1) {
+                    uniqueMissions.length > 0 ? (
+                        uniqueMissions.map((mission: any, index: any) => {
                             return (
-
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[10%_90%]'>
                                         <div>
@@ -220,17 +224,20 @@ function Dashboard() {
                                     </div>
                                 </div>
                             );
-                        } else {
-                            return null;
-                        }
-                    })
+                        })
+                    ) : (
+                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                            <div className='flex flex-col'>
+                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
+                            </div>
+                        </div>
+                    )
                 }
                 <span className="font-medium text-2xl pt-8">{t('titles.daily')}</span>
                 {
-                    missions && missions.map((mission: any, index: any) => {
-                        if (mission.type === 2) {
+                    dailyMissions.length > 0 ? (
+                        dailyMissions.map((mission: any, index: any) => {
                             return (
-
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[10%_90%]'>
                                         <div>
@@ -253,17 +260,20 @@ function Dashboard() {
                                     </div>
                                 </div>
                             );
-                        } else {
-                            return null;
-                        }
-                    })
+                        })
+                    ) : (
+                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                            <div className='flex flex-col'>
+                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
+                            </div>
+                        </div>
+                    )
                 }
                 <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
                 {
-                    missions && missions.map((mission: any, index: any) => {
-                        if (mission.type === 3) {
+                    weeklyMissions.length > 0 ? (
+                        weeklyMissions.map((mission: any, index: any) => {
                             return (
-
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[10%_90%]'>
                                         <div>
@@ -286,17 +296,20 @@ function Dashboard() {
                                     </div>
                                 </div>
                             );
-                        } else {
-                            return null;
-                        }
-                    })
+                        })
+                    ) : (
+                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                            <div className='flex flex-col'>
+                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
+                            </div>
+                        </div>
+                    )
                 }
-                <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
+                <span className="font-medium text-2xl pt-8">{t('titles.monthly')}</span>
                 {
-                    missions && missions.map((mission: any, index: any) => {
-                        if (mission.type === 4) {
+                    monthlyMissions.length > 0 ? (
+                        monthlyMissions.map((mission: any, index: any) => {
                             return (
-
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[10%_90%]'>
                                         <div>
@@ -319,10 +332,14 @@ function Dashboard() {
                                     </div>
                                 </div>
                             );
-                        } else {
-                            return null;
-                        }
-                    })
+                        })
+                    ) : (
+                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                            <div className='flex flex-col'>
+                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
+                            </div>
+                        </div>
+                    )
                 }
             </div>
             <Modal

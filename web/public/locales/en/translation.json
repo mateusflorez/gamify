@@ -62,7 +62,8 @@
         "weekly": "Weekly missions",
         "monthly": "Monthly missions",
         "unique": "Unique missions",
-        "newmission": "New mission"
+        "newmission": "New mission",
+        "nomissions": "No missions"
     },
     "mission": {
         "name": "Name",
