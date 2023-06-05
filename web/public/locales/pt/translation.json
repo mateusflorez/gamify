@@ -36,7 +36,8 @@
         "usedusername": "Usuário já utilizado.",
         "usedemail": "E-mail já utilizado.",
         "incorrect": "Nome ou senha incorretos",
-        "incorrectPassword": "Senha incorreta"
+        "incorrectPassword": "Senha incorreta",
+        "nodata": "Preencha todos os campos"
     },
     "error": {
         "email": "Você deve inserir um e-mail válido."
