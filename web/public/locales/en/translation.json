@@ -84,5 +84,12 @@
             "weekly": "Weekly",
             "monthly": "Monthly"
         }
+    },
+    "texts": {
+        "delete": {
+            "rusure": "Are you sure?",
+            "alert": "Once deleted, you will not be able to recover this mission!",
+            "nodelete": "Your mission is safe!"
+        }
     }
 }

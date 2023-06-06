@@ -2,7 +2,8 @@ import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
 import { toast, ToastContainer, ToastOptions } from "react-toastify"
 import axios from 'axios'
-
+import Swal from "sweetalert2"
+import withReactContent from "sweetalert2-react-content"
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
 import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
@@ -40,6 +41,8 @@ declare module '@mui/material/styles' {
 
 function Dashboard() {
     const { t } = useTranslation()
+
+    const MySwal = withReactContent(Swal)
 
     const [currentUser, setCurrentUser] = useState<any>()
 
@@ -176,9 +179,34 @@ function Dashboard() {
     }
 
     async function handleDelete(mission: any) {
-        await axios.delete(`${missionRoute}/${currentUser.id}/${mission.id}`)
-        toast.success(`${t("success.deletemission")}`, toastOptions)
-        getMissions()
+        MySwal.fire({
+            title: `${t('texts.delete.rusure')}`,
+            text: `${t('texts.delete.alert')}`,
+            icon: "warning",
+            showConfirmButton: true,
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'Cancel',
+            confirmButtonColor: '#6132B4',
+            denyButtonColor: '#6B6B5B'
+        })
+            .then(async (result) => {
+                if (result.isConfirmed) {
+                    await axios.delete(`${missionRoute}/${currentUser.id}/${mission.id}`)
+                    getMissions()
+                    return MySwal.fire({
+                        text: `${t('success.deletemission')}`,
+                        icon: "success",
+                        confirmButtonColor: '#6132B4'
+                    })
+                } else {
+                    return MySwal.fire({
+                        text: `${t('texts.delete.nodelete')}`,
+                        icon: "info",
+                        confirmButtonColor: '#6132B4'
+                    })
+                }
+            })
     }
 
     async function handleSave(e: any) {
