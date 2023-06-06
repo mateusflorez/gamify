@@ -6,7 +6,7 @@ import axios from 'axios'
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
 import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
-import { BiPlus } from 'react-icons/bi'
+import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi'
 
 declare module '@mui/material/styles' {
     interface Theme {
@@ -119,10 +119,10 @@ function Dashboard() {
         checkCurrentUser()
     }, [])
 
-    const uniqueMissions = missions && missions.filter((mission: any) => mission.type === 1)
-    const dailyMissions = missions && missions.filter((mission: any) => mission.type === 2)
-    const weeklyMissions = missions && missions.filter((mission: any) => mission.type === 3)
-    const monthlyMissions = missions && missions.filter((mission: any) => mission.type === 4)
+    const uniqueMissions = missions && missions.filter((mission: any) => mission.type === 1 && mission.status)
+    const dailyMissions = missions && missions.filter((mission: any) => mission.type === 2 && mission.status)
+    const weeklyMissions = missions && missions.filter((mission: any) => mission.type === 3 && mission.status)
+    const monthlyMissions = missions && missions.filter((mission: any) => mission.type === 4 && mission.status)
 
     function handleChange(e: any) {
         setValues({ ...values, [e.target.name]: e.target.value })
@@ -173,6 +173,12 @@ function Dashboard() {
                 setCurrentUser(await JSON.parse(user))
         }
         checkCurrentUser()
+    }
+
+    async function handleDelete(mission: any) {
+        await axios.delete(`${missionRoute}/${currentUser.id}/${mission.id}`)
+        toast.success(`${t("success.deletemission")}`, toastOptions)
+        getMissions()
     }
 
     async function handleSave(e: any) {
@@ -238,7 +244,7 @@ function Dashboard() {
                         uniqueMissions.map((mission: any, index: any) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[10%_90%]'>
+                                    <div className='grid grid-cols-[15%_70%_15%]'>
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
@@ -255,6 +261,15 @@ function Dashboard() {
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
                                             <span>{mission.description}</span>
+                                        </div>
+                                        <div className='flex flex-row gap-2 justify-center items-center'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                                <BiEdit />
+                                            </span>
+                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                <BiTrash />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -274,7 +289,7 @@ function Dashboard() {
                         dailyMissions.map((mission: any, index: any) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[10%_90%]'>
+                                    <div className='grid grid-cols-[15%_70%_15%]'>
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
@@ -291,6 +306,15 @@ function Dashboard() {
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
                                             <span>{mission.description}</span>
+                                        </div>
+                                        <div className='flex flex-row gap-2 justify-center items-center'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                                <BiEdit />
+                                            </span>
+                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                <BiTrash />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -310,7 +334,7 @@ function Dashboard() {
                         weeklyMissions.map((mission: any, index: any) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[10%_90%]'>
+                                    <div className='grid grid-cols-[15%_70%_15%]'>
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
@@ -327,6 +351,15 @@ function Dashboard() {
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
                                             <span>{mission.description}</span>
+                                        </div>
+                                        <div className='flex flex-row gap-2 justify-center items-center'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                                <BiEdit />
+                                            </span>
+                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                <BiTrash />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
@@ -346,7 +379,7 @@ function Dashboard() {
                         monthlyMissions.map((mission: any, index: any) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[10%_90%]'>
+                                    <div className='grid grid-cols-[15%_70%_15%]'>
                                         <div>
                                             <Checkbox
                                                 checked={mission.status ? false : true}
@@ -363,6 +396,15 @@ function Dashboard() {
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
                                             <span>{mission.description}</span>
+                                        </div>
+                                        <div className='flex flex-row gap-2 justify-center items-center'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                                <BiEdit />
+                                            </span>
+                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                <BiTrash />
+                                            </span>
                                         </div>
                                     </div>
                                 </div>
