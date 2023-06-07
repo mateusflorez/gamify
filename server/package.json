@@ -20,8 +20,10 @@
   "dependencies": {
     "@prisma/client": "^4.9.0",
     "@types/bcrypt": "^5.0.0",
+    "@types/luxon": "^3.3.0",
     "bcrypt": "^5.1.0",
     "cors": "^2.8.5",
-    "joi": "^17.9.2"
+    "joi": "^17.9.2",
+    "luxon": "^3.3.0"
   }
 }

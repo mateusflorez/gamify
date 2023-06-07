@@ -30,152 +30,150 @@ const updateUserSchema = Joi.object({
     }),
 })
 
-class UsersController {
-    async register(req: Request, res: Response, next: NextFunction) {
-        try {
-            const { username, email, password } = req.body
+async function register(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { username, email, password } = req.body
 
-            const { error } = registerUserSchema.validate(req.body);
+        const { error } = registerUserSchema.validate(req.body);
 
-            if (error) {
-                return res.json({
-                    status: false,
-                    message: "error." + error.details[0].context?.label
-                });
-            }
-
-            const usernameCheck = await prisma.user.findUnique({ where: { username: username } })
-            if (usernameCheck)
-                return res.json({ message: "validation.usedusername", status: false })
-
-            const emailCheck = await prisma.user.findUnique({ where: { email } })
-            if (emailCheck)
-                return res.json({ message: "validation.usedemail", status: false })
-
-            const hashedPassword = await bcrypt.hash(password, 10)
-            const user = await prisma.user.create({
-                data: {
-                    username,
-                    email,
-                    password: hashedPassword
-                }
-            })
-
-            const { id, level, profession, experience, gold, completedMissions } = user;
-
-            return res.status(201).json({
-                status: true,
-                user: {
-                    id,
-                    username,
-                    email,
-                    level,
-                    profession,
-                    experience,
-                    gold,
-                    completedMissions
-                }
-            })
-        } catch (err) {
-            next(err)
+        if (error) {
+            return res.json({
+                status: false,
+                message: "error." + error.details[0].context?.label
+            });
         }
-    }
 
-    async login(req: Request, res: Response, next: NextFunction) {
-        try {
-            const { username, password }: LoginRequestBody = req.body
+        const usernameCheck = await prisma.user.findUnique({ where: { username: username } })
+        if (usernameCheck)
+            return res.json({ message: "validation.usedusername", status: false })
 
-            const user = await prisma.user.findUnique({ where: { username } })
-            if (!user)
-                return res.json({ message: "validation.incorrect", status: false })
+        const emailCheck = await prisma.user.findUnique({ where: { email } })
+        if (emailCheck)
+            return res.json({ message: "validation.usedemail", status: false })
 
-            const passwordCheck = await bcrypt.compare(password, user.password)
-            if (!passwordCheck)
-                return res.json({ message: "validation.incorrect", status: false })
-
-            const { id, email, level, profession, experience, gold, completedMissions } = user;
-
-            return res.status(200).json({
-                status: true,
-                user: {
-                    id,
-                    username,
-                    email,
-                    level,
-                    profession,
-                    experience,
-                    gold,
-                    completedMissions
-                }
-            })
-        } catch (err) {
-            next(err)
-        }
-    }
-
-    async updateUser(req: Request, res: Response, next: NextFunction) {
-        try {
-            const userId = req.params.userId
-            const data = req.body
-
-            const { error } = updateUserSchema.validate(req.body);
-
-            if (error) {
-                return res.json({
-                    status: false,
-                    message: "error." + error.details[0].context?.label
-                });
+        const hashedPassword = await bcrypt.hash(password, 10)
+        const user = await prisma.user.create({
+            data: {
+                username,
+                email,
+                password: hashedPassword
             }
+        })
 
-            const currentUser = await prisma.user.findUnique({ where: { id: userId } })
+        const { id, level, profession, experience, gold, completedMissions } = user;
 
-            if (data.user.username && data.user.username != currentUser?.username) {
-                const usernameCheck = await prisma.user.findUnique({ where: { username: data.user.username } })
-                if (usernameCheck)
-                    return res.json({ message: "validation.usedusername", status: false })
+        return res.status(201).json({
+            status: true,
+            user: {
+                id,
+                username,
+                email,
+                level,
+                profession,
+                experience,
+                gold,
+                completedMissions
             }
-
-            if (data.user.email && data.user.email != currentUser?.email) {
-                const emailCheck = await prisma.user.findUnique({ where: { username: data.user.email } })
-                if (emailCheck)
-                    return res.json({ message: "validation.usedemail", status: false })
-            }
-
-            if (data.user.password && currentUser) {
-                const passwordCheck = await bcrypt.compare(data.user.password, currentUser.password)
-                if (!passwordCheck)
-                    return res.json({ message: "validation.incorrectPassword", status: false })
-                else {
-                    data.user.password = await bcrypt.hash(data.user.newPassword, 10)
-                    delete data.user.newPassword;
-                }
-            }
-
-            const user = await prisma.user.update({
-                where: {
-                    id: userId
-                },
-                data: data.user
-            })
-
-            const { id, username, email, level, profession, experience, gold, completedMissions } = user;
-
-            return res.status(200).json({
-                user: {
-                    id,
-                    username,
-                    email,
-                    level,
-                    profession,
-                    experience,
-                    gold,
-                    completedMissions
-                }
-            })
-        } catch (err) {
-            next(err)
-        }
+        })
+    } catch (err) {
+        next(err)
     }
 }
 
-export { UsersController }
+async function login(req: Request, res: Response, next: NextFunction) {
+    try {
+        const { username, password }: LoginRequestBody = req.body
+
+        const user = await prisma.user.findUnique({ where: { username } })
+        if (!user)
+            return res.json({ message: "validation.incorrect", status: false })
+
+        const passwordCheck = await bcrypt.compare(password, user.password)
+        if (!passwordCheck)
+            return res.json({ message: "validation.incorrect", status: false })
+
+        const { id, email, level, profession, experience, gold, completedMissions } = user;
+
+        return res.status(200).json({
+            status: true,
+            user: {
+                id,
+                username,
+                email,
+                level,
+                profession,
+                experience,
+                gold,
+                completedMissions
+            }
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+async function updateUser(req: Request, res: Response, next: NextFunction) {
+    try {
+        const userId = req.params.userId
+        const data = req.body
+
+        const { error } = updateUserSchema.validate(req.body);
+
+        if (error) {
+            return res.json({
+                status: false,
+                message: "error." + error.details[0].context?.label
+            });
+        }
+
+        const currentUser = await prisma.user.findUnique({ where: { id: userId } })
+
+        if (data.user.username && data.user.username != currentUser?.username) {
+            const usernameCheck = await prisma.user.findUnique({ where: { username: data.user.username } })
+            if (usernameCheck)
+                return res.json({ message: "validation.usedusername", status: false })
+        }
+
+        if (data.user.email && data.user.email != currentUser?.email) {
+            const emailCheck = await prisma.user.findUnique({ where: { username: data.user.email } })
+            if (emailCheck)
+                return res.json({ message: "validation.usedemail", status: false })
+        }
+
+        if (data.user.password && currentUser) {
+            const passwordCheck = await bcrypt.compare(data.user.password, currentUser.password)
+            if (!passwordCheck)
+                return res.json({ message: "validation.incorrectPassword", status: false })
+            else {
+                data.user.password = await bcrypt.hash(data.user.newPassword, 10)
+                delete data.user.newPassword;
+            }
+        }
+
+        const user = await prisma.user.update({
+            where: {
+                id: userId
+            },
+            data: data.user
+        })
+
+        const { id, username, email, level, profession, experience, gold, completedMissions } = user;
+
+        return res.status(200).json({
+            user: {
+                id,
+                username,
+                email,
+                level,
+                profession,
+                experience,
+                gold,
+                completedMissions
+            }
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+export default { login, register, updateUser }

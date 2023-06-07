@@ -90,16 +90,28 @@ function Dashboard() {
 
     async function handleChangeStatus(mission: any) {
         const newStatus = !mission.status
-        const requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
-            "mission": {
-                "status": newStatus
-            }
-        })
+        const now = new Date()
+        let userData
+        let newExperience
+        let requestMission
+        if (!mission.status) {
+            requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
+                "mission": {
+                    "status": newStatus,
+                    "completionTime": null
+                }
+            })
+        } else {
+            requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
+                "mission": {
+                    "status": newStatus,
+                    "completionTime": now.toISOString()
+                }
+            })
+        }
         if (requestMission.data.status == false) {
             toast.error(`${t(requestMission.data.message)}`, toastOptions)
         }
-        let userData
-        let newExperience
         if (!mission.status) {
             newExperience = currentUser.experience - mission.experience
             userData = {

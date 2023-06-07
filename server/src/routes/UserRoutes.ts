@@ -1,11 +1,10 @@
 import { Router } from "express";
-import { UsersController } from "../controllers/UsersController"
+import UsersController from "../controllers/UsersController"
 
 const userRoutes = Router()
-const usersController = new UsersController()
 
-userRoutes.post("/register", usersController.register)
-userRoutes.post("/login", usersController.login)
-userRoutes.put("/update/:userId", usersController.updateUser)
+userRoutes.post("/register", UsersController.register)
+userRoutes.post("/login", UsersController.login)
+userRoutes.put("/update/:userId", UsersController.updateUser)
 
 export { userRoutes }
