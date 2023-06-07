@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Navigate, useLocation, useNavigate } from "react-router-dom"
+import { useLocation, useNavigate } from "react-router-dom"
 import LeftMenu from "../components/LeftMenu"
 import Dashboard from "./partials/Dashboard"
 import Profile from "./partials/Profile"

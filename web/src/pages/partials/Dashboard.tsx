@@ -6,7 +6,7 @@ import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
-import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
+import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
 
