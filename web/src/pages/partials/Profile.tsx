@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast, ToastContainer, ToastOptions } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import axios from "axios"
-
+import { toastOptions } from '../../utils/utils'
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { updateUserRoute } from '../../utils/APIRoutes'
 
@@ -19,13 +19,6 @@ function Profile() {
         newPassword: "",
         confirmPassword: ""
     })
-
-    const toastOptions: ToastOptions = {
-        position: 'bottom-right',
-        autoClose: 5000,
-        pauseOnHover: true,
-        theme: 'dark'
-    }
 
     const checkCurrentUser = async () => {
         const user = localStorage.getItem('user')

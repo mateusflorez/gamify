@@ -1,19 +1,13 @@
 import { useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
-import { toast, ToastContainer, ToastOptions } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import { loginRoute } from "../utils/APIRoutes"
 import axios from "axios"
 import "react-toastify/dist/ReactToastify.css"
 import { useTranslation } from 'react-i18next'
+import { toastOptions } from '../utils/utils'
 
 function Login() {
-    const toastOptions: ToastOptions = {
-        position: 'bottom-right',
-        autoClose: 5000,
-        pauseOnHover: true,
-        theme: 'dark'
-    }
-
     const [values, setValues] = useState({
         username: "",
         password: ""

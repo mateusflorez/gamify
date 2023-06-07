@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import { toast, ToastContainer, ToastOptions } from "react-toastify"
+import { toast, ToastContainer } from "react-toastify"
 import axios from 'axios'
 import Swal from "sweetalert2"
 import withReactContent from "sweetalert2-react-content"
@@ -8,6 +8,7 @@ import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
 import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, createTheme } from '@mui/material'
 import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi'
+import { modalStyle, theme, toastOptions } from '../../utils/utils'
 
 declare module '@mui/material/styles' {
     interface Theme {
@@ -55,43 +56,6 @@ function Dashboard() {
         description: "",
         difficulty: "",
         frequency: ""
-    })
-
-    const toastOptions: ToastOptions = {
-        position: 'bottom-right',
-        autoClose: 5000,
-        pauseOnHover: true,
-        theme: 'dark'
-    }
-
-    const modalStyle = {
-        position: 'absolute' as 'absolute',
-        top: '50%',
-        left: '50%',
-        transform: 'translate(-50%, -50%)',
-        width: 400,
-        bgcolor: 'background.paper',
-        "border-radius": '15px',
-        boxShadow: 24,
-        pt: 2,
-        px: 4,
-        pb: 3,
-    }
-
-    const theme = createTheme({
-        status: {
-            danger: '#e53e3e',
-        },
-        palette: {
-            primary: {
-                main: '#6132B4',
-                darker: '#39206B',
-            },
-            neutral: {
-                main: '#64748B',
-                contrastText: '#d7d7d7',
-            },
-        },
     })
 
     const checkCurrentUser = async () => {
