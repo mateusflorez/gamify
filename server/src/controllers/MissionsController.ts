@@ -49,7 +49,8 @@ class MissionsController {
                     experience: true,
                     status: true,
                     type: true,
-                    description: true
+                    description: true,
+                    difficulty: true
                 },
                 orderBy: [
                     { status: 'desc' },
@@ -79,7 +80,8 @@ class MissionsController {
                     experience: true,
                     status: true,
                     type: true,
-                    description: true
+                    description: true,
+                    difficulty: true
                 }
             })
 

@@ -107,6 +107,22 @@ function Dashboard() {
     }
 
     const handleOpen = () => {
+        setValues({
+            name: "",
+            description: "",
+            difficulty: "",
+            frequency: ""
+        })
+        setOpen(true)
+    }
+
+    const handleEdit = (mission: any) => {
+        setValues({
+            name: mission.name,
+            description: mission.description,
+            difficulty: mission.difficulty.toString(),
+            frequency: mission.type.toString()
+        })
         setOpen(true)
     }
 
@@ -291,7 +307,8 @@ function Dashboard() {
                                             <span>{mission.description}</span>
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
                                                 <BiEdit />
                                             </span>
                                             <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
@@ -336,7 +353,8 @@ function Dashboard() {
                                             <span>{mission.description}</span>
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
                                                 <BiEdit />
                                             </span>
                                             <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
@@ -381,7 +399,8 @@ function Dashboard() {
                                             <span>{mission.description}</span>
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
                                                 <BiEdit />
                                             </span>
                                             <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
@@ -426,7 +445,8 @@ function Dashboard() {
                                             <span>{mission.description}</span>
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'>
+                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
                                                 <BiEdit />
                                             </span>
                                             <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
@@ -457,10 +477,10 @@ function Dashboard() {
                     <div className='flex flex-col'>
                         <span className="font-medium text-2xl pb-4">{t("titles.newmission")}</span>
                         <label htmlFor="name" className='pl-3 pb-2 font-semibold'>{t("mission.name")}</label>
-                        <input type="text" name="name" className="bg-stroke p-4 rounded-3xl w-1/2 h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                        <input type="text" value={values.name} name="name" className="bg-stroke p-4 rounded-3xl w-1/2 h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                         <label htmlFor="description" className='pl-3 pb-2 font-semibold'>{t("mission.description")}</label>
-                        <textarea rows={4} name="description" className="bg-stroke p-4 rounded-3xl w-full focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
-                        <label htmlFor="name" className='pl-3 font-semibold'>{t("mission.difficulty.title")}</label>
+                        <textarea rows={4} value={values.description} name="description" className="bg-stroke p-4 rounded-3xl w-full focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
+                        <label className='pl-3 font-semibold'>{t("mission.difficulty.title")}</label>
                         <ThemeProvider theme={theme}>
                             <ToggleButtonGroup
                                 color="primary"
@@ -469,6 +489,7 @@ function Dashboard() {
                                 onChange={e => handleChange(e)}
                                 aria-label="Platform"
                                 className='p-4'
+                                defaultValue={values.difficulty}
                             >
                                 <ToggleButton name="difficulty" value="1">{t("mission.difficulty.simple")}</ToggleButton>
                                 <ToggleButton name="difficulty" value="2">{t("mission.difficulty.easy")}</ToggleButton>
@@ -476,7 +497,7 @@ function Dashboard() {
                                 <ToggleButton name="difficulty" value="4">{t("mission.difficulty.hard")}</ToggleButton>
                             </ToggleButtonGroup>
                         </ThemeProvider>
-                        <label htmlFor="name" className='pl-3 font-semibold'>{t("mission.frequency.title")}</label>
+                        <label className='pl-3 font-semibold'>{t("mission.frequency.title")}</label>
                         <ThemeProvider theme={theme}>
                             <ToggleButtonGroup
                                 color="primary"
@@ -485,6 +506,7 @@ function Dashboard() {
                                 onChange={e => handleChange(e)}
                                 aria-label="Platform"
                                 className='p-4 mb-4'
+                                defaultValue={values.frequency}
                             >
                                 <ToggleButton name="frequency" value="1">{t("mission.frequency.once")}</ToggleButton>
                                 <ToggleButton name="frequency" value="2">{t("mission.frequency.daily")}</ToggleButton>
