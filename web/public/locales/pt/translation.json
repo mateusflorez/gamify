@@ -45,7 +45,8 @@
     "success": {
         "edit": "Usuário editado com sucesso.",
         "newmission": "Missão adicionada com sucesso.",
-        "deletemission": "Missão deletada com sucesso."
+        "deletemission": "Missão deletada com sucesso.",
+        "updatemission": "Missão atualizada com sucesso."
     },
     "pages": {
         "home": "Início",

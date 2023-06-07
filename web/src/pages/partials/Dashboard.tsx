@@ -55,7 +55,8 @@ function Dashboard() {
         name: "",
         description: "",
         difficulty: "",
-        frequency: ""
+        frequency: "",
+        id: ""
     })
 
     const checkCurrentUser = async () => {
@@ -75,7 +76,8 @@ function Dashboard() {
             name: "",
             description: "",
             difficulty: "",
-            frequency: ""
+            frequency: "",
+            id: ""
         })
         setOpen(true)
     }
@@ -85,7 +87,8 @@ function Dashboard() {
             name: mission.name,
             description: mission.description,
             difficulty: mission.difficulty.toString(),
-            frequency: mission.type.toString()
+            frequency: mission.type.toString(),
+            id: mission.id
         })
         setOpen(true)
     }
@@ -192,33 +195,76 @@ function Dashboard() {
     async function handleSave(e: any) {
         e.preventDefault()
         if (handleValidation()) {
-            const { name, description, difficulty, frequency } = values
+            const { id } = values
 
-            var experience
-            if (difficulty == "1")
-                experience = 150
-            if (difficulty == "2")
-                experience = 300
-            if (difficulty == "3")
-                experience = 600
-            if (difficulty == "4")
-                experience = 900
+            if (id == "") {
+                saveNewMission()
+            } else {
+                updateMission()
+            }
 
-            const request = await axios.post(`${missionRoute}/${currentUser.id}`, {
+        }
+    }
+
+    async function updateMission() {
+        const { name, description, difficulty, frequency, id } = values
+
+        const experience = calculateExperience(difficulty);
+
+        const request = await axios.put(`${missionRoute}/${currentUser.id}/${id}`, {
+            mission: {
                 name,
                 description,
                 difficulty: parseInt(difficulty),
                 type: parseInt(frequency),
                 experience
-            })
-            if (request.data.status == false) {
-                toast.error(`${t(request.data.message)}`, toastOptions)
-            } else {
-                handleClose()
-                getMissions()
-                toast.success(`${t("success.newmission")}`, toastOptions)
             }
+
+        })
+
+        if (request.data.status == false) {
+            toast.error(`${t(request.data.message)}`, toastOptions)
+        } else {
+            handleClose()
+            getMissions()
+            toast.success(`${t("success.updatemission")}`, toastOptions)
         }
+    }
+
+    async function saveNewMission() {
+        const { name, description, difficulty, frequency } = values
+
+        const experience = calculateExperience(difficulty);
+
+        const request = await axios.post(`${missionRoute}/${currentUser.id}`, {
+            name,
+            description,
+            difficulty: parseInt(difficulty),
+            type: parseInt(frequency),
+            experience
+        })
+        if (request.data.status == false) {
+            toast.error(`${t(request.data.message)}`, toastOptions)
+        } else {
+            handleClose()
+            getMissions()
+            toast.success(`${t("success.newmission")}`, toastOptions)
+        }
+    }
+
+    function calculateExperience(difficulty: string) {
+        let experience;
+
+        if (difficulty === "1")
+            experience = 150;
+        else if (difficulty === "2")
+            experience = 300;
+        else if (difficulty === "3")
+            experience = 600;
+        else if (difficulty === "4")
+            experience = 900;
+
+        return experience;
     }
 
     function handleValidation() {
@@ -439,6 +485,7 @@ function Dashboard() {
             >
                 <Box sx={{ ...modalStyle, width: "60%" }}>
                     <div className='flex flex-col'>
+                        <input type="text" value={values.id} className='hidden' name="id" onChange={e => handleChange(e)} />
                         <span className="font-medium text-2xl pb-4">{t("titles.newmission")}</span>
                         <label htmlFor="name" className='pl-3 pb-2 font-semibold'>{t("mission.name")}</label>
                         <input type="text" value={values.name} name="name" className="bg-stroke p-4 rounded-3xl w-1/2 h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
