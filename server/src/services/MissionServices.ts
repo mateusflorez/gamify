@@ -1,4 +1,5 @@
 import { PrismaClient } from "@prisma/client"
+import { DateTime } from 'luxon'
 
 const prisma = new PrismaClient()
 
@@ -85,4 +86,53 @@ async function updateMission(userId: string, id: string, data: object) {
     })
 }
 
-export default { createMission, getMissions, getMission, deleteMission, updateMission }
+async function verifyMissions(userId: string) {
+    const missions = await prisma.mission.findMany({
+        where: {
+            userId,
+            completionTime: { not: null }
+        },
+        select: {
+            id: true,
+            type: true,
+            completionTime: true
+        }
+    })
+
+    const now = DateTime.now()
+
+    await Promise.all(missions.map(async (mission) => {
+        let completionTime
+
+        if (mission.completionTime) {
+            completionTime = DateTime.fromJSDate(mission.completionTime)
+
+            const diff = now.diff(completionTime, 'hours').hours
+
+            if (diff >= 24 && mission.type == 2) {
+                await setMissionActive(mission.id, userId)
+            } else if (diff >= 168 && mission.type == 3) {
+                await setMissionActive(mission.id, userId)
+            } else if (diff >= 720 && mission.type == 4) {
+                await setMissionActive(mission.id, userId)
+            }
+        }
+    }))
+}
+
+async function setMissionActive(id: string, userId: string) {
+    await prisma.mission.updateMany({
+        where: {
+            userId,
+            id
+        },
+        data: {
+            status: true,
+            completionTime: null
+        }
+    })
+
+    return true
+}
+
+export default { createMission, getMissions, getMission, deleteMission, updateMission, verifyMissions }
