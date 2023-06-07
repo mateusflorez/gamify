@@ -1,9 +1,9 @@
 import { Request, Response, NextFunction } from "express"
-import MissionServices from "../services/MissionServices"
+import MissionsService from "../services/MissionsService"
 
 async function createMission(req: Request, res: Response, next: NextFunction) {
     try {
-        MissionServices.createMission(req.params.userId, req.body)
+        MissionsService.createMission(req.params.userId, req.body)
 
         return res.status(201).send()
     } catch (err) {
@@ -15,9 +15,9 @@ async function getAllMissions(req: Request, res: Response, next: NextFunction) {
     try {
         const userId = req.params.userId
 
-        await MissionServices.verifyMissions(userId)
+        await MissionsService.verifyMissions(userId)
 
-        const missions = await MissionServices.getMissions(userId)
+        const missions = await MissionsService.getMissions(userId)
 
         return res.status(200).json(missions)
     } catch (err) {
@@ -30,7 +30,7 @@ async function getMission(req: Request, res: Response, next: NextFunction) {
         const userId = req.params.userId
         const id = req.params.missionId
 
-        const mission = await MissionServices.getMission(userId, id)
+        const mission = await MissionsService.getMission(userId, id)
 
         return res.status(200).json(mission)
     } catch (err) {
@@ -43,7 +43,7 @@ async function deleteMission(req: Request, res: Response, next: NextFunction) {
         const userId = req.params.userId
         const id = req.params.missionId
 
-        MissionServices.deleteMission(userId, id)
+        MissionsService.deleteMission(userId, id)
 
         return res.status(204).send()
     } catch (err) {
@@ -57,7 +57,7 @@ async function updateMission(req: Request, res: Response, next: NextFunction) {
         const id = req.params.missionId
         const data = req.body
 
-        MissionServices.updateMission(userId, id, data)
+        MissionsService.updateMission(userId, id, data)
 
         return res.status(200).send()
     } catch (err) {

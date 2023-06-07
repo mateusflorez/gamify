@@ -44,11 +44,9 @@ function Profile() {
         const { profession, email, username } = values
         if (handleValidation("edit")) {
             const request = await axios.put(`${updateUserRoute}/${currentUser.id}`, {
-                "user": {
-                    "profession": profession,
-                    "email": email,
-                    "username": username
-                }
+                "profession": profession,
+                "email": email,
+                "username": username
             })
             if (request.data.status == false) {
                 toast.error(`${t(request.data.message)}`, toastOptions)
@@ -66,10 +64,8 @@ function Profile() {
         const { password, newPassword } = values
         if (handleValidation("editPassword")) {
             const request = await axios.put(`${updateUserRoute}/${currentUser.id}`, {
-                "user": {
-                    "password": password,
-                    "newPassword": newPassword
-                }
+                "password": password,
+                "newPassword": newPassword
             })
             if (request.data.status == false) {
                 toast.error(`${t(request.data.message)}`, toastOptions)
