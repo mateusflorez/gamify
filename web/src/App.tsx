@@ -4,6 +4,7 @@ import { useEffect } from 'react';
 import Static from './pages/Static';
 import Login from './pages/Login';
 import Register from './pages/Register';
+import Welcome from './pages/Welcome';
 
 function App() {
   const { i18n } = useTranslation();
@@ -19,6 +20,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<Static page="dashboard" />} />
         <Route path="/profile" element={<Static page="profile" />} />
       </Routes>

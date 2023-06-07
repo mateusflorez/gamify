@@ -21,13 +21,7 @@ function Static({ page }: { page: string }) {
         if (!user) {
             navigate('/login')
         } else {
-            setCurrentUser(await JSON.parse(user).user)
-        }
-    }
-
-    const getAllUsers = async () => {
-        if (currentUser) {
-            if (currentUser.profession == "") {
+            if (JSON.parse(user).profession == "") {
                 navigate('/welcome')
             }
         }
@@ -36,10 +30,6 @@ function Static({ page }: { page: string }) {
     useEffect(() => {
         checkCurrentUser()
     }, [])
-
-    useEffect(() => {
-        getAllUsers()
-    }, [pageSelected, currentUser])
 
     useEffect(() => {
         setPageSelected(page)
