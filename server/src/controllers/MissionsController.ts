@@ -1,32 +1,13 @@
 import { Request, Response, NextFunction } from "express"
 import { PrismaClient } from "@prisma/client"
 import { DateTime } from 'luxon'
+import MissionServices from "../services/MissionServices"
 
 const prisma = new PrismaClient()
 
-interface NewMissionRequestBody {
-    name: string,
-    experience: number,
-    type: number,
-    difficulty: number,
-    description: string
-}
-
 async function createMission(req: Request, res: Response, next: NextFunction) {
     try {
-        const userId = req.params.userId
-        const { name, experience, description, type, difficulty }: NewMissionRequestBody = req.body
-
-        await prisma.mission.create({
-            data: {
-                userId,
-                description,
-                name,
-                experience,
-                difficulty,
-                type
-            }
-        })
+        MissionServices.createMission(req.params.userId, req.body)
 
         return res.status(201).send()
     } catch (err) {
@@ -40,24 +21,7 @@ async function getAllMissions(req: Request, res: Response, next: NextFunction) {
 
         await __verifyMissions(userId)
 
-        const missions = await prisma.mission.findMany({
-            where: {
-                userId
-            },
-            select: {
-                id: true,
-                name: true,
-                experience: true,
-                status: true,
-                type: true,
-                description: true,
-                difficulty: true
-            },
-            orderBy: [
-                { status: 'desc' },
-                { name: 'asc' }
-            ]
-        })
+        const missions = await MissionServices.getMissions(userId)
 
         return res.status(200).json(missions)
     } catch (err) {
@@ -70,21 +34,7 @@ async function getMission(req: Request, res: Response, next: NextFunction) {
         const userId = req.params.userId
         const id = req.params.missionId
 
-        const mission = await prisma.mission.findMany({
-            where: {
-                id,
-                userId
-            },
-            select: {
-                id: true,
-                name: true,
-                experience: true,
-                status: true,
-                type: true,
-                description: true,
-                difficulty: true
-            }
-        })
+        const mission = await MissionServices.getMission(userId, id)
 
         return res.status(200).json(mission)
     } catch (err) {
@@ -97,17 +47,9 @@ async function deleteMission(req: Request, res: Response, next: NextFunction) {
         const userId = req.params.userId
         const id = req.params.missionId
 
-        try {
-            await prisma.mission.deleteMany({
-                where: {
-                    userId,
-                    id
-                }
-            })
-            return res.status(204).send()
-        } catch {
-            return res.status(500).json({ status: false })
-        }
+        MissionServices.deleteMission(userId, id)
+
+        return res.status(204).send()
     } catch (err) {
         next(err)
     }
@@ -119,13 +61,7 @@ async function updateMission(req: Request, res: Response, next: NextFunction) {
         const id = req.params.missionId
         const data = req.body
 
-        await prisma.mission.updateMany({
-            where: {
-                userId,
-                id
-            },
-            data: data.mission
-        })
+        MissionServices.updateMission(userId, id, data)
 
         return res.status(200).send()
     } catch (err) {

@@ -96,17 +96,13 @@ function Dashboard() {
         let requestMission
         if (!mission.status) {
             requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
-                "mission": {
-                    "status": newStatus,
-                    "completionTime": null
-                }
+                "status": newStatus,
+                "completionTime": null
             })
         } else {
             requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
-                "mission": {
-                    "status": newStatus,
-                    "completionTime": now.toISOString()
-                }
+                "status": newStatus,
+                "completionTime": now.toISOString()
             })
         }
         if (requestMission.data.status == false) {
@@ -194,14 +190,11 @@ function Dashboard() {
         const experience = calculateExperience(difficulty);
 
         const request = await axios.put(`${missionRoute}/${currentUser.id}/${id}`, {
-            mission: {
-                name,
-                description,
-                difficulty: parseInt(difficulty),
-                type: parseInt(frequency),
-                experience
-            }
-
+            name,
+            description,
+            difficulty: parseInt(difficulty),
+            type: parseInt(frequency),
+            experience
         })
 
         if (request.data.status == false) {
