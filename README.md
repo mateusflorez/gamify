@@ -1,4 +1,4 @@
-### 💬 Gamify - Task management
+### 👾 Gamify - Task management
 > Status: Incomplete ⚠️
 
 ## Functionalities:
