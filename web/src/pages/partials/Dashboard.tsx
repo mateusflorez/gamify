@@ -10,36 +10,6 @@ import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup } 
 import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
 
-declare module '@mui/material/styles' {
-    interface Theme {
-        status: {
-            danger: React.CSSProperties['color']
-        }
-    }
-
-    interface ThemeOptions {
-        status: {
-            danger: React.CSSProperties['color']
-        }
-    }
-
-    interface Palette {
-        neutral: Palette['primary']
-    }
-
-    interface PaletteOptions {
-        neutral: PaletteOptions['primary']
-    }
-
-    interface PaletteColor {
-        darker?: string
-    }
-
-    interface SimplePaletteColorOptions {
-        darker?: string
-    }
-}
-
 function Dashboard() {
     const { t } = useTranslation()
 
