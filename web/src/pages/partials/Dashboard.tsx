@@ -111,20 +111,16 @@ function Dashboard() {
         if (!mission.status) {
             newExperience = currentUser.experience - mission.experience
             userData = {
-                user: {
-                    experience: newExperience,
-                    completedMissions: currentUser.completedMissions - 1,
-                    level: Math.floor(newExperience / 3000) + 1
-                }
+                experience: newExperience,
+                completedMissions: currentUser.completedMissions - 1,
+                level: Math.floor(newExperience / 3000) + 1
             }
         } else {
             newExperience = currentUser.experience + mission.experience
             userData = {
-                user: {
-                    experience: newExperience,
-                    completedMissions: currentUser.completedMissions + 1,
-                    level: Math.floor(newExperience / 3000) + 1
-                }
+                experience: newExperience,
+                completedMissions: currentUser.completedMissions + 1,
+                level: Math.floor(newExperience / 3000) + 1
             }
         }
         const requestUser = await axios.put(`${updateUserRoute}/${currentUser.id}`, userData)
