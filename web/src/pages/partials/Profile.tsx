@@ -18,7 +18,8 @@ function Profile() {
         password: "",
         newPassword: "",
         confirmPassword: "",
-        upload_file: ""
+        upload_file: "",
+        imagePreview: ""
     })
 
     const checkCurrentUser = async () => {
@@ -42,7 +43,11 @@ function Profile() {
     }
 
     function handleChangeFile(e: { target: HTMLInputElement }) {
-        setValues({ ...values, [e.target.name]: e.target.files ? e.target.files[0] : "" })
+        setValues({
+            ...values,
+            [e.target.name]: e.target.files ? e.target.files[0] : "",
+            imagePreview: e.target.files ? URL.createObjectURL(e.target.files[0]) : ""
+        })
     }
 
     async function handleEdit() {
@@ -144,7 +149,7 @@ function Profile() {
     return (
         <div className="flex flex-col w-full">
             <div className='p-8 flex flex-row gap-8'>
-                <img className='w-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
+                <img className='w-60 h-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
                 <div className='flex flex-col gap-1'>
                     <span className="font-bold text-4xl pb-4">{currentUser?.username && capitalize(currentUser.username)}</span>
                     <span className="font-medium text-2xl pb-4">{t("stats.stats")}</span>
@@ -168,6 +173,13 @@ function Profile() {
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.editimage')}</span>
                 <label htmlFor="username" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.image')}</label>
                 <input type="file" name="upload_file" onChange={e => handleChangeFile(e)} className="mb-8 w-min relative m-0 block min-w-0 flex-auto rounded-3xl border border-solid border-neutral-300 bg-stroke px-3 py-[0.32rem] text-base font-normal text-neutral-700 transition duration-300 ease-in-out file:-mx-3 file:-my-[0.32rem] file:overflow-hidden file:rounded-none file:border-0 file:border-solid file:border-inherit file:bg-neutral-100 file:px-3 file:py-[0.32rem] file:text-neutral-700 file:transition file:duration-150 file:ease-in-out file:[border-inline-end-width:1px] file:[margin-inline-end:0.75rem] hover:file:bg-neutral-200 focus:border-primary focus:text-neutral-700 focus:shadow-te-primary focus:outline-none" />
+
+                {values.imagePreview ?
+                    <>
+                        <label htmlFor="username" className='pl-3 pb-2 font-semibold'>{t('userAuthForm.preview')}</label>
+                        <img className='w-60 h-60 mb-8' src={values.imagePreview} alt="UploadImage" />
+                    </>
+                    : null}
                 <button onClick={() => handleEditImage()} type="button" className="bg-accent-secondary rounded-3xl font-bold text-white h-10 w-56 border-none cursor-pointer transition hover:bg-accent-primary mb-10 self-center">{t('buttons.save')}</button>
 
                 <span className="font-medium text-2xl pb-4">{t('userAuthForm.editpassword')}</span>

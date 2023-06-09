@@ -252,7 +252,7 @@ function Dashboard() {
     return (
         <div className="flex flex-col w-full">
             <div className='p-8 flex flex-row gap-8'>
-                <img className='w-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
+                <img className='w-60 h-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
                 <div className=''>
                     <span className="font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)} - {currentUser?.profession && capitalize(currentUser.profession)} - {currentUser?.level}<span className='bg-rainbow-gradient text-transparent bg-clip-text'></span></span>
                 </div>

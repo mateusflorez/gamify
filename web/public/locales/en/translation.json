@@ -25,7 +25,8 @@
         "oldpassword": "Old password",
         "confirmpassword": "Confirm your password",
         "profession": "Profession",
-        "image": "Select image:"
+        "image": "Select image:",
+        "preview": "Preview"
     },
     "validation": {
         "passworddiff": "Password and confirmation password should be the same.",

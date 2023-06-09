@@ -25,7 +25,8 @@
         "oldpassword": "Senha antiga",
         "confirmpassword": "Confirme sua senha",
         "profession": "Profissão",
-        "image": "Selecione a imagem:"
+        "image": "Selecione a imagem:",
+        "preview": "Pré-visualização"
     },
     "validation": {
         "passworddiff": "A senha e confirmação de senha devem ser iguais.",
