@@ -457,7 +457,7 @@ function Dashboard() {
                 <Box sx={{ ...modalStyle, width: "60%" }}>
                     <div className='flex flex-col'>
                         <input type="text" value={values.id} className='hidden' name="id" onChange={e => handleChange(e)} />
-                        <span className="font-medium text-2xl pb-4">{t("titles.newmission")}</span>
+                        <span className="font-medium text-2xl pb-4">{t(values.id ? "titles.editmission" : "titles.newmission")}</span>
                         <label htmlFor="name" className='pl-3 pb-2 font-semibold'>{t("mission.name")}</label>
                         <input type="text" value={values.name} name="name" className="bg-stroke p-4 rounded-3xl w-1/2 h-10 focus:bg-bg-darken transition mb-4" onChange={e => handleChange(e)} />
                         <label htmlFor="description" className='pl-3 pb-2 font-semibold'>{t("mission.description")}</label>

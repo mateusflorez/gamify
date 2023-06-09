@@ -70,6 +70,7 @@
         "monthly": "Monthly missions",
         "unique": "Unique missions",
         "newmission": "New mission",
+        "editmission": "Edit mission",
         "nomissions": "No missions"
     },
     "mission": {
