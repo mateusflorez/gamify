@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { FormEvent, useEffect, useState } from 'react'
 import { Link, useNavigate } from "react-router-dom"
 import { toast, ToastContainer } from "react-toastify"
 import { registerRoute } from "../utils/APIRoutes"
@@ -26,11 +26,11 @@ function Register() {
         }
     }, [])
 
-    function handleChange(e: any) {
+    function handleChange(e: { target: HTMLInputElement }) {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 
-    async function handleSubmit(e: any) {
+    async function handleSubmit(e: FormEvent<HTMLFormElement>) {
         e.preventDefault()
         if (handleValidation()) {
             const { password, username, email } = values

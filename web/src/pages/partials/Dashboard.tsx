@@ -166,7 +166,7 @@ function Dashboard() {
             })
     }
 
-    async function handleSave(e: any) {
+    async function handleSave(e: React.MouseEvent) {
         e.preventDefault()
         if (handleValidation()) {
             const { id } = values
@@ -266,7 +266,7 @@ function Dashboard() {
                 </div>
                 {
                     uniqueMissions.length > 0 ? (
-                        uniqueMissions.map((mission: any, index: any) => {
+                        uniqueMissions.map((mission: any, index: number) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[15%_70%_15%]'>
@@ -312,7 +312,7 @@ function Dashboard() {
                 <span className="font-medium text-2xl pt-8">{t('titles.daily')}</span>
                 {
                     dailyMissions.length > 0 ? (
-                        dailyMissions.map((mission: any, index: any) => {
+                        dailyMissions.map((mission: any, index: number) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[15%_70%_15%]'>
@@ -358,7 +358,7 @@ function Dashboard() {
                 <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
                 {
                     weeklyMissions.length > 0 ? (
-                        weeklyMissions.map((mission: any, index: any) => {
+                        weeklyMissions.map((mission: any, index: number) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[15%_70%_15%]'>
@@ -404,7 +404,7 @@ function Dashboard() {
                 <span className="font-medium text-2xl pt-8">{t('titles.monthly')}</span>
                 {
                     monthlyMissions.length > 0 ? (
-                        monthlyMissions.map((mission: any, index: any) => {
+                        monthlyMissions.map((mission: any, index: number) => {
                             return (
                                 <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
                                     <div className='grid grid-cols-[15%_70%_15%]'>

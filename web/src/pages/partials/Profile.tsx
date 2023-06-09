@@ -36,7 +36,7 @@ function Profile() {
         return str.charAt(0).toUpperCase() + str.slice(1)
     }
 
-    function handleChange(e: any) {
+    function handleChange(e: { target: HTMLInputElement }) {
         setValues({ ...values, [e.target.name]: e.target.value })
     }
 

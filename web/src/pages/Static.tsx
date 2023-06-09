@@ -4,14 +4,13 @@ import LeftMenu from "../components/LeftMenu"
 import Dashboard from "./partials/Dashboard"
 import Profile from "./partials/Profile"
 
-const PAGES: { [key: string]: any } = {
+const PAGES: { [key: string]: JSX.Element } = {
     "dashboard": <Dashboard />,
     "profile": <Profile />
 }
 
 function Static({ page }: { page: string }) {
     const [pageSelected, setPageSelected] = useState<String>("dashboard")
-    const [currentUser, setCurrentUser] = useState<any>()
 
     const location = useLocation()
     const navigate = useNavigate()
