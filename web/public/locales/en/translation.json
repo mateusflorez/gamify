@@ -15,6 +15,7 @@
     "userAuthForm": {
         "edit": "Edit",
         "editpassword": "Edit password",
+        "editimage": "Edit profile picture",
         "donthave": "Don't have an account?",
         "alreadyhave": "Already have an account?",
         "username": "Username",
@@ -23,7 +24,8 @@
         "newpassword": "New password",
         "oldpassword": "Old password",
         "confirmpassword": "Confirm your password",
-        "profession": "Profession"
+        "profession": "Profession",
+        "image": "Select image:"
     },
     "validation": {
         "passworddiff": "Password and confirmation password should be the same.",
@@ -37,7 +39,8 @@
         "usedemail": "Email already used.",
         "incorrect": "Incorrect username or password",
         "incorrectPassword": "Incorrect password",
-        "nodata": "Fill in all fields"
+        "nodata": "Fill in all fields",
+        "noimage": "Image is required."
     },
     "error": {
         "email": "You must enter a valid email."

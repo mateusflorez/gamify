@@ -15,6 +15,7 @@ model user {
   username          String   @unique
   email             String   @unique
   password          String
+  image             String?
   level             Int      @default(1)
   profession        String   @default("")
   experience        Int      @default(0)

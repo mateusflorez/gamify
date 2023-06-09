@@ -15,6 +15,7 @@
     "userAuthForm": {
         "edit": "Editar",
         "editpassword": "Editar senha",
+        "editimage": "Edit foto de perfil",
         "donthave": "Não possui uma conta?",
         "alreadyhave": "Já possui uma conta?",
         "username": "Usuário",
@@ -23,7 +24,8 @@
         "newpassword": "Nova senha",
         "oldpassword": "Senha antiga",
         "confirmpassword": "Confirme sua senha",
-        "profession": "Profissão"
+        "profession": "Profissão",
+        "image": "Selecione a imagem:"
     },
     "validation": {
         "passworddiff": "A senha e confirmação de senha devem ser iguais.",
@@ -37,7 +39,8 @@
         "usedemail": "E-mail já utilizado.",
         "incorrect": "Nome ou senha incorretos",
         "incorrectPassword": "Senha incorreta",
-        "nodata": "Preencha todos os campos"
+        "nodata": "Preencha todos os campos",
+        "noimage": "Imagem é obrigatória."
     },
     "error": {
         "email": "Você deve inserir um e-mail válido."

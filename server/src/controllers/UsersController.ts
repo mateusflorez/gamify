@@ -2,16 +2,26 @@ import { Request, Response, NextFunction } from "express";
 import bcrypt from 'bcrypt'
 import Joi from "joi";
 import UsersService from "../services/UsersService";
+import multer from "multer";
+
+const storage = multer.diskStorage({
+    destination: '../web/public/images/',
+    filename(req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    },
+})
+
+const upload = multer({ storage: storage }).single('image')
 
 const registerUserSchema = Joi.object({
-    username: Joi.string(),
-    email: Joi.string().email(),
-    password: Joi.string().min(6),
+    username: Joi.string().required(),
+    email: Joi.string().email().required(),
+    password: Joi.string().min(6).required(),
 })
 
 const loginUserSchema = Joi.object({
-    username: Joi.string(),
-    password: Joi.string(),
+    username: Joi.string().required(),
+    password: Joi.string().required(),
 })
 
 const updateUserSchema = Joi.object({
@@ -169,4 +179,38 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
     }
 }
 
-export default { login, register, updateUser }
+async function updateUserImage(req: Request, res: Response, next: NextFunction) {
+    try {
+        upload(req, res, async (err) => {
+            if (err instanceof multer.MulterError) {
+                return next(err);
+            } else if (err) {
+                return next(err);
+            }
+
+            const userId = req.params.userId
+            const image = req.file ? req.file.filename : "";
+
+            const user = await UsersService.updateUser(userId, { image: image })
+
+            const { id, username, email, level, profession, experience, gold, completedMissions } = user;
+
+            return res.status(200).json({
+                user: {
+                    id,
+                    username,
+                    email,
+                    level,
+                    profession,
+                    experience,
+                    gold,
+                    completedMissions
+                }
+            })
+        })
+    } catch (err) {
+        next(err)
+    }
+}
+
+export default { login, register, updateUser, updateUserImage }
