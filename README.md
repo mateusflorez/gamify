@@ -5,7 +5,15 @@
 + Tasks management
 + Frequency of tasks (Daily, weekly...)
 + User sign up and login
-+ Profile customization
++ Profile customization with picture
+
+## Upcoming functionalities:
++ Gold received per task
++ Shop
+
+# Upcoming improvements
++ Deletion of old profile picture on update
++ Visual update on dashboard user data
 
 ## Instalation instructions:
 **This project is configured to run in the Docker environment**, if you prefer to run without Docker, it's necessary to configure the database manually.
