@@ -58,7 +58,7 @@ async function register(req: Request, res: Response, next: NextFunction) {
         const hashedPassword = await bcrypt.hash(password, 10)
         const user = await UsersService.createUser(username, email, hashedPassword)
 
-        const { id, level, profession, experience, gold, completedMissions } = user;
+        const { id, level, profession, experience, gold, completedMissions, image } = user;
 
         return res.status(201).json({
             status: true,
@@ -70,7 +70,8 @@ async function register(req: Request, res: Response, next: NextFunction) {
                 profession,
                 experience,
                 gold,
-                completedMissions
+                completedMissions,
+                image
             }
         })
     } catch (err) {
@@ -100,7 +101,7 @@ async function login(req: Request, res: Response, next: NextFunction) {
         if (!passwordCheck)
             return res.json({ message: "validation.incorrect", status: false })
 
-        const { id, email, level, profession, experience, gold, completedMissions } = user;
+        const { id, email, level, profession, experience, gold, completedMissions, image } = user;
 
         return res.status(200).json({
             status: true,
@@ -112,7 +113,8 @@ async function login(req: Request, res: Response, next: NextFunction) {
                 profession,
                 experience,
                 gold,
-                completedMissions
+                completedMissions,
+                image
             }
         })
     } catch (err) {
@@ -160,7 +162,7 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
 
         const user = await UsersService.updateUser(userId, data)
 
-        const { id, username, email, level, profession, experience, gold, completedMissions } = user;
+        const { id, username, email, level, profession, experience, gold, completedMissions, image } = user;
 
         return res.status(200).json({
             user: {
@@ -171,7 +173,8 @@ async function updateUser(req: Request, res: Response, next: NextFunction) {
                 profession,
                 experience,
                 gold,
-                completedMissions
+                completedMissions,
+                image
             }
         })
     } catch (err) {
@@ -189,11 +192,11 @@ async function updateUserImage(req: Request, res: Response, next: NextFunction) 
             }
 
             const userId = req.params.userId
-            const image = req.file ? req.file.filename : "";
+            const newImage = req.file ? req.file.filename : "";
 
-            const user = await UsersService.updateUser(userId, { image: image })
+            const user = await UsersService.updateUser(userId, { image: newImage })
 
-            const { id, username, email, level, profession, experience, gold, completedMissions } = user;
+            const { id, username, email, level, profession, experience, gold, completedMissions, image } = user;
 
             return res.status(200).json({
                 user: {
@@ -204,7 +207,8 @@ async function updateUserImage(req: Request, res: Response, next: NextFunction) 
                     profession,
                     experience,
                     gold,
-                    completedMissions
+                    completedMissions,
+                    image
                 }
             })
         })
