@@ -9,6 +9,7 @@ import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
 import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup } from '@mui/material'
 import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
+import LinearWithValueLabel from '../../components/LinearProgressWithLabel'
 
 function Dashboard() {
     const { t } = useTranslation()
@@ -29,11 +30,23 @@ function Dashboard() {
         id: ""
     })
 
+    const [progress, setProgress] = useState({
+        experience: 0
+    })
+
     const checkCurrentUser = async () => {
         const user = localStorage.getItem('user')
         if (user) {
             setCurrentUser(await JSON.parse(user))
         }
+    }
+
+    const setUserProgress = () => {
+        const experienceProgress = Math.floor(((currentUser?.experience / 3000) - Math.floor(currentUser?.experience / 3000)) * 100)
+        setProgress({
+            ...progress,
+            experience: experienceProgress
+        })
     }
 
     const getMissions = async () => {
@@ -69,6 +82,7 @@ function Dashboard() {
 
     useEffect(() => {
         getMissions()
+        setUserProgress()
     }, [currentUser])
 
     useEffect(() => {
@@ -253,8 +267,12 @@ function Dashboard() {
         <div className="flex flex-col w-full">
             <div className='p-8 flex flex-row gap-8'>
                 <img className='w-60 h-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
-                <div className=''>
+                <div className='flex flex-col gap-1'>
                     <span className="font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)} - {currentUser?.profession && capitalize(currentUser.profession)} - {currentUser?.level}<span className='bg-rainbow-gradient text-transparent bg-clip-text'></span></span>
+                    <div className="flex flex-col mt-4">
+                        <span className='font-medium pr-2'>{t("stats.level")}:</span>
+                        <LinearWithValueLabel value={progress.experience} />
+                    </div>
                 </div>
             </div>
             <div className='flex flex-col px-8'>
