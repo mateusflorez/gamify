@@ -110,6 +110,7 @@ function Dashboard() {
         const now = new Date()
         let userData
         let newExperience
+        let newGold
         let requestMission
         if (!mission.status) {
             requestMission = await axios.put(`${missionRoute}/${currentUser.id}/${mission.id}`, {
@@ -127,15 +128,19 @@ function Dashboard() {
         }
         if (!mission.status) {
             newExperience = currentUser.experience - mission.experience
+            newGold = currentUser.gold - mission.gold
             userData = {
                 experience: newExperience,
+                gold: newGold,
                 completedMissions: currentUser.completedMissions - 1,
                 level: Math.floor(newExperience / 3000) + 1
             }
         } else {
             newExperience = currentUser.experience + mission.experience
+            newGold = currentUser.gold + mission.gold
             userData = {
                 experience: newExperience,
+                gold: newGold,
                 completedMissions: currentUser.completedMissions + 1,
                 level: Math.floor(newExperience / 3000) + 1
             }
@@ -200,14 +205,15 @@ function Dashboard() {
     async function updateMission() {
         const { name, description, difficulty, frequency, id } = values
 
-        const experience = calculateExperience(difficulty);
+        const loot = calculateLoot(difficulty);
 
         const request = await axios.put(`${missionRoute}/${currentUser.id}/${id}`, {
             name,
             description,
             difficulty: parseInt(difficulty),
             type: parseInt(frequency),
-            experience
+            experience: loot.experience,
+            gold: loot.gold
         })
 
         if (request.data.status == false) {
@@ -222,14 +228,15 @@ function Dashboard() {
     async function saveNewMission() {
         const { name, description, difficulty, frequency } = values
 
-        const experience = calculateExperience(difficulty);
+        const loot = calculateLoot(difficulty);
 
         const request = await axios.post(`${missionRoute}/${currentUser.id}`, {
             name,
             description,
             difficulty: parseInt(difficulty),
             type: parseInt(frequency),
-            experience
+            experience: loot.experience,
+            gold: loot.gold
         })
         if (request.data.status == false) {
             toast.error(`${t(request.data.message)}`, toastOptions)
@@ -240,19 +247,28 @@ function Dashboard() {
         }
     }
 
-    function calculateExperience(difficulty: string) {
+    function calculateLoot(difficulty: string) {
         let experience;
+        let gold;
 
-        if (difficulty === "1")
+        if (difficulty === "1") {
             experience = 150;
-        else if (difficulty === "2")
+            gold = 15;
+        } else if (difficulty === "2") {
             experience = 300;
-        else if (difficulty === "3")
+            gold = 30;
+        } else if (difficulty === "3") {
             experience = 600;
-        else if (difficulty === "4")
+            gold = 60;
+        } else if (difficulty === "4") {
             experience = 900;
+            gold = 90;
+        }
 
-        return experience;
+        return {
+            experience,
+            gold
+        };
     }
 
     function handleValidation() {
@@ -279,12 +295,14 @@ function Dashboard() {
                     </div>
                     <div className="flex flex-col w-1/2">
                         <span className='font-medium pr-2'>{t("stats.gold")}</span>
-                        <BiCoin />
+                        <div className='flex flex-row items-center gap-2'>
+                            <span className='text-[#c69708]'><BiCoin /></span> {currentUser?.gold}
+                        </div>
                     </div>
                     <div className="flex flex-col w-1/2">
                         <span className='font-medium pr-2'>{t("stats.activemissions")}</span>
                         <div className='flex flex-row items-center gap-2'>
-                            <BiTask /> {activeMissions}
+                            <span className='text-[#0D6EFD]'><BiTask /></span> {activeMissions}
                         </div>
                     </div>
                 </div>

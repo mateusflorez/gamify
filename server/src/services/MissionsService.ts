@@ -6,13 +6,14 @@ const prisma = new PrismaClient()
 interface NewMissionBody {
     name: string,
     experience: number,
+    gold: number,
     type: number,
     difficulty: number,
     description: string
 }
 
 async function createMission(userId: string, missionBody: NewMissionBody) {
-    const { name, experience, description, type, difficulty } = missionBody
+    const { name, experience, description, type, difficulty, gold } = missionBody
 
     await prisma.mission.create({
         data: {
@@ -20,6 +21,7 @@ async function createMission(userId: string, missionBody: NewMissionBody) {
             description,
             name,
             experience,
+            gold,
             difficulty,
             type
         }
@@ -39,6 +41,7 @@ async function getMissions(userId: string) {
             id: true,
             name: true,
             experience: true,
+            gold: true,
             status: true,
             type: true,
             description: true,
@@ -66,6 +69,7 @@ async function getMission(userId: string, id: string) {
             id: true,
             name: true,
             experience: true,
+            gold: true,
             status: true,
             type: true,
             description: true,
