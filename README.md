@@ -12,7 +12,6 @@
 + Shop
 
 # Upcoming improvements
-+ Deletion of old profile picture on update
 + Visual update on dashboard user data
 
 ## Instalation instructions:

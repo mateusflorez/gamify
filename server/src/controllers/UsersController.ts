@@ -3,6 +3,7 @@ import bcrypt from 'bcrypt'
 import Joi from "joi";
 import UsersService from "../services/UsersService";
 import multer from "multer";
+import fs from "fs";
 
 const storage = multer.diskStorage({
     destination: '../web/public/images/',
@@ -194,9 +195,20 @@ async function updateUserImage(req: Request, res: Response, next: NextFunction) 
             const userId = req.params.userId
             const newImage = req.file ? req.file.filename : "";
 
-            const user = await UsersService.updateUser(userId, { image: newImage })
+            const user = await UsersService.getUser({ id: userId })
+            const oldImage = user?.image;
+            if (oldImage) {
+                const imagePath = '../web/public/images/' + oldImage;
+                fs.unlink(imagePath, (err) => {
+                    if (err) {
+                        console.error('Erro ao excluir a imagem antiga:', err);
+                    }
+                });
+            }
 
-            const { id, username, email, level, profession, experience, gold, completedMissions, image } = user;
+            const updatedUser = await UsersService.updateUser(userId, { image: newImage })
+
+            const { id, username, email, level, profession, experience, gold, completedMissions, image } = updatedUser;
 
             return res.status(200).json({
                 user: {
