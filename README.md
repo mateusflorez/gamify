@@ -8,11 +8,9 @@
 + Profile customization with picture
 
 ## Upcoming functionalities:
-+ Gold received per task
 + Shop
 
-# Upcoming improvements
-+ Visual update on dashboard user data
+# Upcoming improvements:
 
 ## Instalation instructions:
 **This project is configured to run in the Docker environment**, if you prefer to run without Docker, it's necessary to configure the database manually.
