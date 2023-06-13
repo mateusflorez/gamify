@@ -57,12 +57,12 @@ function Dashboard() {
         setActiveMissions(response.data.activeMissions)
     }
 
-    const handleOpen = () => {
+    const handleOpen = (frequency: string) => {
         setValues({
             name: "",
             description: "",
             difficulty: "",
-            frequency: "",
+            frequency,
             id: ""
         })
         setOpen(true)
@@ -310,7 +310,7 @@ function Dashboard() {
             <div className='flex flex-col px-8'>
                 <div className='flex flex-row justify-between w-11/12'>
                     <span className="font-medium text-2xl">{t('titles.unique')}</span>
-                    <button onClick={handleOpen} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                    <button onClick={() => handleOpen("1")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
                         <BiPlus className="text-lg text-white" />
                     </button>
                 </div>
@@ -359,7 +359,12 @@ function Dashboard() {
                         </div>
                     )
                 }
-                <span className="font-medium text-2xl pt-8">{t('titles.daily')}</span>
+                <div className='flex flex-row justify-between w-11/12'>
+                    <span className="font-medium text-2xl">{t('titles.daily')}</span>
+                    <button onClick={() => handleOpen("2")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                        <BiPlus className="text-lg text-white" />
+                    </button>
+                </div>
                 {
                     dailyMissions.length > 0 ? (
                         dailyMissions.map((mission: any, index: number) => {
@@ -405,7 +410,12 @@ function Dashboard() {
                         </div>
                     )
                 }
-                <span className="font-medium text-2xl pt-8">{t('titles.weekly')}</span>
+                <div className='flex flex-row justify-between w-11/12'>
+                    <span className="font-medium text-2xl">{t('titles.weekly')}</span>
+                    <button onClick={() => handleOpen("3")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                        <BiPlus className="text-lg text-white" />
+                    </button>
+                </div>
                 {
                     weeklyMissions.length > 0 ? (
                         weeklyMissions.map((mission: any, index: number) => {
@@ -451,7 +461,12 @@ function Dashboard() {
                         </div>
                     )
                 }
-                <span className="font-medium text-2xl pt-8">{t('titles.monthly')}</span>
+                <div className='flex flex-row justify-between w-11/12'>
+                    <span className="font-medium text-2xl">{t('titles.monthly')}</span>
+                    <button onClick={() => handleOpen("4")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                        <BiPlus className="text-lg text-white" />
+                    </button>
+                </div>
                 {
                     monthlyMissions.length > 0 ? (
                         monthlyMissions.map((mission: any, index: number) => {
