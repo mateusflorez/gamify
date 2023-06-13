@@ -1,6 +1,8 @@
 ### 👾 Gamify - Task management
 > Status: Incomplete ⚠️
 
+![Screenshot-2023-06-13-084013](https://github.com/mateusflorez/gamify/assets/54851249/faa17873-6803-4165-8657-665ce60df391)
+
 ## Functionalities:
 + Tasks management
 + Frequency of tasks (Daily, weekly...)
