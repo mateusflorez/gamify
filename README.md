@@ -10,7 +10,7 @@
 ## Upcoming functionalities:
 + Shop
 
-# Upcoming improvements:
+## Upcoming improvements:
 
 ## Instalation instructions:
 **This project is configured to run in the Docker environment**, if you prefer to run without Docker, it's necessary to configure the database manually.
