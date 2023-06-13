@@ -25,6 +25,7 @@ model user {
   updatedAt         DateTime @updatedAt @map("updated_at")
 
   mission mission[]
+  item    item[]
 }
 
 model mission {
@@ -42,4 +43,17 @@ model mission {
   updatedAt      DateTime  @updatedAt @map("updated_at")
 
   user user @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model item {
+  id          String   @id @default(uuid())
+  userId      String
+  name        String
+  description String   @default("")
+  price       Int
+  quantity    Int      @default(0)
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  user user @relation(fields: [userId], references: [id])
 }

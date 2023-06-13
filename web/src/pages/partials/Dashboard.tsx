@@ -272,9 +272,9 @@ function Dashboard() {
     }
 
     function handleValidation() {
-        const { name, description, difficulty, frequency } = values
+        const { name, difficulty, frequency } = values
 
-        if (name === "" || description === "" || parseInt(difficulty) < 1 || parseInt(frequency) < 1) {
+        if (name === "" || parseInt(difficulty) < 1 || parseInt(frequency) < 1) {
             toast.error(`${t('validation.nodata')}`, toastOptions)
             return false
         }
