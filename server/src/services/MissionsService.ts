@@ -29,7 +29,9 @@ async function createMission(userId: string, missionBody: NewMissionBody) {
 }
 
 async function getMissions(userId: string) {
-    return await prisma.mission.findMany({
+    const activeMissions = await __countActiveMissions(userId);
+
+    const missions = await prisma.mission.findMany({
         where: {
             userId
         },
@@ -47,6 +49,11 @@ async function getMissions(userId: string) {
             { name: 'asc' }
         ]
     })
+
+    return {
+        missions,
+        activeMissions
+    }
 }
 
 async function getMission(userId: string, id: string) {
@@ -110,17 +117,17 @@ async function verifyMissions(userId: string) {
             const diff = now.diff(completionTime, 'hours').hours
 
             if (diff >= 24 && mission.type == 2) {
-                await setMissionActive(mission.id, userId)
+                await __setMissionActive(mission.id, userId)
             } else if (diff >= 168 && mission.type == 3) {
-                await setMissionActive(mission.id, userId)
+                await __setMissionActive(mission.id, userId)
             } else if (diff >= 720 && mission.type == 4) {
-                await setMissionActive(mission.id, userId)
+                await __setMissionActive(mission.id, userId)
             }
         }
     }))
 }
 
-async function setMissionActive(id: string, userId: string) {
+async function __setMissionActive(id: string, userId: string) {
     await prisma.mission.updateMany({
         where: {
             userId,
@@ -133,6 +140,15 @@ async function setMissionActive(id: string, userId: string) {
     })
 
     return true
+}
+
+async function __countActiveMissions(userId: string) {
+    return await prisma.mission.count({
+        where: {
+            userId,
+            status: true
+        }
+    });
 }
 
 export default { createMission, getMissions, getMission, deleteMission, updateMission, verifyMissions }

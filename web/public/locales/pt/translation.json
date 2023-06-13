@@ -62,6 +62,7 @@
         "profession": "Profissão",
         "experience": "Experiência",
         "gold": "Ouro",
+        "activemissions": "Missões ativas",
         "completedmissions": "Missões completas"
     },
     "titles": {

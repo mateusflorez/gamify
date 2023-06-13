@@ -7,7 +7,7 @@ import withReactContent from "sweetalert2-react-content"
 import UserImage from '../../../public/assets/dashboard/temp-user-img.png'
 import { missionRoute, updateUserRoute } from '../../utils/APIRoutes'
 import { Box, Checkbox, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup } from '@mui/material'
-import { BiEdit, BiPlus, BiTrash } from 'react-icons/bi'
+import { BiCoin, BiEdit, BiPlus, BiTask, BiTrash } from 'react-icons/bi'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
 import LinearWithValueLabel from '../../components/LinearProgressWithLabel'
 
@@ -19,6 +19,8 @@ function Dashboard() {
     const [currentUser, setCurrentUser] = useState<any>()
 
     const [missions, setMissions] = useState<any>([])
+
+    const [activeMissions, setActiveMissions] = useState<string>()
 
     const [open, setOpen] = React.useState(false)
 
@@ -51,7 +53,8 @@ function Dashboard() {
 
     const getMissions = async () => {
         const response = await axios.get(`${missionRoute}/${currentUser.id}`)
-        setMissions(response.data)
+        setMissions(response.data.missions)
+        setActiveMissions(response.data.activeMissions)
     }
 
     const handleOpen = () => {
@@ -267,11 +270,22 @@ function Dashboard() {
         <div className="flex flex-col w-full">
             <div className='p-8 flex flex-row gap-8'>
                 <img className='w-60 h-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
-                <div className='flex flex-col gap-1'>
-                    <span className="font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)} - {currentUser?.profession && capitalize(currentUser.profession)} - {currentUser?.level}<span className='bg-rainbow-gradient text-transparent bg-clip-text'></span></span>
-                    <div className="flex flex-col mt-4">
-                        <span className='font-medium pr-2'>{t("stats.level")}:</span>
+                <div className='flex flex-col gap-1 w-full'>
+                    <span className="font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)}</span>
+                    <span className="font-medium text-xl">{currentUser?.profession && capitalize(currentUser.profession)}</span>
+                    <div className="flex flex-col mt-4 w-1/2">
+                        <span className='font-medium pr-2'>{t("stats.level")} {currentUser?.level}</span>
                         <LinearWithValueLabel value={progress.experience} />
+                    </div>
+                    <div className="flex flex-col w-1/2">
+                        <span className='font-medium pr-2'>{t("stats.gold")}</span>
+                        <BiCoin />
+                    </div>
+                    <div className="flex flex-col w-1/2">
+                        <span className='font-medium pr-2'>{t("stats.activemissions")}</span>
+                        <div className='flex flex-row items-center gap-2'>
+                            <BiTask /> {activeMissions}
+                        </div>
                     </div>
                 </div>
             </div>
