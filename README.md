@@ -14,6 +14,7 @@
 
 ## Upcoming improvements:
 + Remove mission status column on DB
++ Make components
 
 ## Instalation instructions:
 **This project is configured to run in the Docker environment**, if you prefer to run without Docker, it's necessary to configure the database manually.

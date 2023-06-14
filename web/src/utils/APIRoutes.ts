@@ -5,3 +5,4 @@ export const loginRoute = `${host}/api/auth/login`
 export const updateUserRoute = `${host}/api/auth/update`
 export const updateUserImageRoute = `${host}/api/auth/update-image`
 export const missionRoute = `${host}/api/mission`
+export const itemRoute = `${host}/api/item`
