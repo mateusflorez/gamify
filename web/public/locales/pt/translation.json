@@ -54,7 +54,8 @@
     },
     "pages": {
         "home": "Início",
-        "profile": "Perfil"
+        "profile": "Perfil",
+        "store": "Loja"
     },
     "stats": {
         "stats": "Estatísticas",

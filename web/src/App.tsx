@@ -23,6 +23,7 @@ function App() {
         <Route path="/welcome" element={<Welcome />} />
         <Route path="/" element={<Static page="dashboard" />} />
         <Route path="/profile" element={<Static page="profile" />} />
+        <Route path="/store" element={<Static page="store" />} />
       </Routes>
     </BrowserRouter>
   )

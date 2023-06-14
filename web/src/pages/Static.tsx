@@ -3,10 +3,12 @@ import { useLocation, useNavigate } from "react-router-dom"
 import LeftMenu from "../components/LeftMenu"
 import Dashboard from "./partials/Dashboard"
 import Profile from "./partials/Profile"
+import Store from "./partials/Store"
 
 const PAGES: { [key: string]: JSX.Element } = {
     "dashboard": <Dashboard />,
-    "profile": <Profile />
+    "profile": <Profile />,
+    "store": <Store />
 }
 
 function Static({ page }: { page: string }) {

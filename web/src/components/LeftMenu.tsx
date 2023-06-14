@@ -1,7 +1,7 @@
 import { useTranslation } from 'react-i18next';
 import { Link } from 'react-router-dom'
 import Logout from './Logout'
-import { BiHome, BiUser } from 'react-icons/bi';
+import { BiHome, BiStore, BiUser } from 'react-icons/bi';
 
 function LeftMenu({ currentPage }: { currentPage: String }) {
     const { t } = useTranslation()
@@ -21,6 +21,16 @@ function LeftMenu({ currentPage }: { currentPage: String }) {
                 >
                     <BiHome />
                     {t('pages.home')}
+                </Link>
+                <Link
+                    to={"/store"}
+                    className={`${currentPage === "store"
+                        ? "text-accent-primary font-bold bg-bg-darken"
+                        : "text-text-secondary font-medium"
+                        } flex flex-row items-center justify-center gap-2 cursor-pointer hover:text-accent-secondary hover:bg-stroke w-full h-8`}
+                >
+                    <BiStore />
+                    {t('pages.store')}
                 </Link>
                 <Link
                     to={"/profile"}

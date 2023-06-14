@@ -54,7 +54,8 @@
     },
     "pages": {
         "home": "Home",
-        "profile": "Profile"
+        "profile": "Profile",
+        "store": "Store"
     },
     "stats": {
         "stats": "Stats",
