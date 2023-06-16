@@ -10,7 +10,10 @@
         "login": "Logar",
         "signup": "Cadastrar",
         "save": "Salvar",
-        "logout": "Sair"
+        "logout": "Sair",
+        "edit": "Editar",
+        "buy": "Comprar",
+        "delete": "Apagar"
     },
     "userAuthForm": {
         "edit": "Editar",

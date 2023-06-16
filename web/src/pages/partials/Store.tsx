@@ -47,9 +47,9 @@ function Store() {
                                 <Card >
                                     <CardMedia
                                         component="img"
-                                        alt="green iguana"
+                                        alt="item picture"
                                         sx={{ height: "140px" }}
-                                        image="/public/images/test.png"
+                                        image="/public/images/1686656389238-icone2.png"
                                     />
                                     <CardContent>
                                         <Typography gutterBottom variant="h5" component="div">
@@ -62,9 +62,9 @@ function Store() {
                                     <CardActions
                                         className='grid grid-cols-3 justify-evenly'
                                     >
-                                        <Button size="small">edit</Button>
-                                        <Button size="small">buy</Button>
-                                        <Button size="small">delete</Button>
+                                        <Button size="small">{t("buttons.edit")}</Button>
+                                        <Button size="small">{t("buttons.buy")}</Button>
+                                        <Button size="small">{t("buttons.delete")}</Button>
                                     </CardActions>
                                 </Card>
                             )

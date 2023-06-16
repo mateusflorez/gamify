@@ -50,6 +50,7 @@ model item {
   userId      String
   name        String
   description String   @default("")
+  image       String?
   price       Float
   quantity    Int      @default(0)
   createdAt   DateTime @default(now()) @map("created_at")

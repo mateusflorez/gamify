@@ -10,7 +10,10 @@
         "login": "Login",
         "signup": "Sign up",
         "save": "Save",
-        "logout": "Log out"
+        "logout": "Log out",
+        "edit": "Edit",
+        "buy": "Buy",
+        "delete": "Delete"
     },
     "userAuthForm": {
         "edit": "Edit",
