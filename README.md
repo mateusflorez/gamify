@@ -11,6 +11,7 @@
 
 ## Upcoming functionalities:
 + Shop
++ Inventory
 
 ## Upcoming improvements:
 + Remove mission status column on DB

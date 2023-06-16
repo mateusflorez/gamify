@@ -63,6 +63,7 @@
         "profession": "Profession",
         "experience": "Experience",
         "gold": "Gold",
+        "wallet": "Wallet",
         "activemissions": "Active missions",
         "completedmissions": "Completed missions"
     },
@@ -71,9 +72,11 @@
         "weekly": "Weekly missions",
         "monthly": "Monthly missions",
         "unique": "Unique missions",
+        "items": "Items",
         "newmission": "New mission",
         "editmission": "Edit mission",
-        "nomissions": "No missions"
+        "nomissions": "No missions",
+        "noitems": "No items"
     },
     "mission": {
         "name": "Name",
