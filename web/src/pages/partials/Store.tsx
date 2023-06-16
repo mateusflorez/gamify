@@ -36,7 +36,7 @@ function Store() {
             <div className='flex flex-row items-center gap-2 mb-4'>
                 <span className='font-medium pr-2'>{t("stats.wallet")}:</span><span className='text-[#c69708]'><BiCoin /></span> {currentUser?.gold}
             </div>
-            <div className='flex flex-row justify-between w-11/12'>
+            <div className='flex flex-row justify-between w-11/12 pb-8'>
                 <span className="font-medium text-2xl">{t('titles.items')}</span>
             </div>
             <div className='grid grid-cols-4'>
@@ -51,9 +51,16 @@ function Store() {
                                         sx={{ height: "140px" }}
                                         image="/public/images/1686656389238-icone2.png"
                                     />
-                                    <CardContent>
+                                    <CardContent
+                                        className='mx-2 grid grid-cols-2'
+                                    >
                                         <Typography gutterBottom variant="h5" component="div">
                                             {item.name}
+                                        </Typography>
+                                        <Typography gutterBottom variant="h5" component="div" className='text-end'>
+                                            <div className="flex flex-row justify-end items-center gap-1">
+                                                <span className='text-[#c69708]'><BiCoin /></span>{item.price}
+                                            </div>
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {item.description}
@@ -62,9 +69,9 @@ function Store() {
                                     <CardActions
                                         className='grid grid-cols-3 justify-evenly'
                                     >
-                                        <Button size="small">{t("buttons.edit")}</Button>
-                                        <Button size="small">{t("buttons.buy")}</Button>
-                                        <Button size="small">{t("buttons.delete")}</Button>
+                                        <Button size="small" color='primary'>{t("buttons.edit")}</Button>
+                                        <Button size="small" color='success'>{t("buttons.buy")}</Button>
+                                        <Button size="small" color='error'>{t("buttons.delete")}</Button>
                                     </CardActions>
                                 </Card>
                             )
