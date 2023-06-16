@@ -44,7 +44,8 @@
         "incorrect": "Incorrect username or password",
         "incorrectPassword": "Incorrect password",
         "nodata": "Fill in all fields",
-        "noimage": "Image is required."
+        "noimage": "Image is required.",
+        "invalidextension": "Only JPG e PNG files are allowed."
     },
     "error": {
         "email": "You must enter a valid email."

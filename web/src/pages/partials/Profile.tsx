@@ -43,6 +43,14 @@ function Profile() {
     }
 
     function handleChangeFile(e: { target: HTMLInputElement }) {
+        const file = e.target.files ? e.target.files[0] : ""
+        const allowedExtensions = /(\.jpg|\.png)$/i;
+
+        if (!allowedExtensions.exec(file && file.name)) {
+            toast.error(`${t("validation.invalidextension")}`, toastOptions)
+            return;
+        }
+
         setValues({
             ...values,
             [e.target.name]: e.target.files ? e.target.files[0] : "",

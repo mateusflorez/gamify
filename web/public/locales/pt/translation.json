@@ -44,7 +44,8 @@
         "incorrect": "Nome ou senha incorretos",
         "incorrectPassword": "Senha incorreta",
         "nodata": "Preencha todos os campos",
-        "noimage": "Imagem é obrigatória."
+        "noimage": "Imagem é obrigatória.",
+        "invalidextension": "Apenas arquivos JPG e PNG são permitidos."
     },
     "error": {
         "email": "Você deve inserir um e-mail válido."
