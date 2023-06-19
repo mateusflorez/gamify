@@ -8,9 +8,8 @@
 + Frequency of tasks (Daily, weekly...)
 + User sign up and login
 + Profile customization with picture
-
-## Upcoming improvements:
-+ Remove mission status column on DB
++ Shop and inventory
++ Internationalization
 
 ## Instalation instructions:
 **This project is configured to run in the Docker environment**, if you prefer to run without Docker, it's necessary to configure the database manually.
