@@ -10,7 +10,6 @@
 + Profile customization with picture
 
 ## Upcoming functionalities:
-+ Shop
 + Inventory
 
 ## Upcoming improvements:

@@ -269,7 +269,7 @@ function Store() {
             <div className='grid grid-cols-3 gap-4'>
                 {
                     items.length > 0 ? (
-                        items.map((item: any, index: number) => {
+                        items.map((item: any) => {
                             return (
                                 <Card >
                                     <CardMedia
