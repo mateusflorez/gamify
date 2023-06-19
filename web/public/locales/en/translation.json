@@ -13,7 +13,8 @@
         "logout": "Log out",
         "edit": "Edit",
         "buy": "Buy",
-        "delete": "Delete"
+        "delete": "Delete",
+        "use": "Use"
     },
     "userAuthForm": {
         "edit": "Edit",
@@ -62,7 +63,8 @@
     "pages": {
         "home": "Home",
         "profile": "Profile",
-        "store": "Store"
+        "store": "Store",
+        "inventory": "Inventory"
     },
     "stats": {
         "stats": "Stats",
@@ -80,6 +82,7 @@
         "monthly": "Monthly missions",
         "unique": "Unique missions",
         "items": "Items",
+        "inventory": "Inventory",
         "newmission": "New mission",
         "editmission": "Edit mission",
         "nomissions": "No missions",

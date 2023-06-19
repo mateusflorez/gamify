@@ -13,7 +13,8 @@
         "logout": "Sair",
         "edit": "Editar",
         "buy": "Comprar",
-        "delete": "Apagar"
+        "delete": "Apagar",
+        "use": "Usar"
     },
     "userAuthForm": {
         "edit": "Editar",
@@ -62,7 +63,8 @@
     "pages": {
         "home": "Início",
         "profile": "Perfil",
-        "store": "Loja"
+        "store": "Loja",
+        "inventory": "Inventário"
     },
     "stats": {
         "stats": "Estatísticas",
@@ -80,6 +82,7 @@
         "monthly": "Missões mensais",
         "unique": "Missões únicas",
         "items": "Itens",
+        "inventory": "Inventário",
         "newmission": "Nova missão",
         "editmission": "Editar missão",
         "nomissions": "Sem missões",

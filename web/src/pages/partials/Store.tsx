@@ -108,15 +108,15 @@ function Store() {
             const { id } = values
 
             if (id == "") {
-                saveNewMission()
+                saveNewItem()
             } else {
-                updateMission()
+                updateItem()
             }
 
         }
     }
 
-    async function updateMission() {
+    async function updateItem() {
         const { name, description, price, upload_file, id } = values
 
         const newPrice = calculatePrice(price);
@@ -140,7 +140,7 @@ function Store() {
         }
     }
 
-    async function saveNewMission() {
+    async function saveNewItem() {
         const { name, description, price, upload_file } = values
 
         const newPrice = calculatePrice(price);
@@ -231,11 +231,11 @@ function Store() {
         let userData
         let newGold
 
-        const requestMission = await axios.put(`${itemRoute}/${currentUser.id}/${item.id}`, {
+        const requestItem = await axios.put(`${itemRoute}/${currentUser.id}/${item.id}`, {
             "quantity": item.quantity + 1
         })
-        if (requestMission.data.status == false) {
-            toast.error(`${t(requestMission.data.message)}`, toastOptions)
+        if (requestItem.data.status == false) {
+            toast.error(`${t(requestItem.data.message)}`, toastOptions)
         }
 
         newGold = currentUser.gold - item.price

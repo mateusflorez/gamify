@@ -4,11 +4,13 @@ import LeftMenu from "../components/LeftMenu"
 import Dashboard from "./partials/Dashboard"
 import Profile from "./partials/Profile"
 import Store from "./partials/Store"
+import Inventory from "./partials/Inventory"
 
 const PAGES: { [key: string]: JSX.Element } = {
     "dashboard": <Dashboard />,
     "profile": <Profile />,
-    "store": <Store />
+    "store": <Store />,
+    "inventory": <Inventory />
 }
 
 function Static({ page }: { page: string }) {

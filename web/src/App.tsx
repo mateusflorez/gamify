@@ -24,6 +24,7 @@ function App() {
         <Route path="/" element={<Static page="dashboard" />} />
         <Route path="/profile" element={<Static page="profile" />} />
         <Route path="/store" element={<Static page="store" />} />
+        <Route path="/inventory" element={<Static page="inventory" />} />
       </Routes>
     </BrowserRouter>
   )
