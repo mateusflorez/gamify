@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from "react-toastify"
 import { BiCoin, BiPlus } from 'react-icons/bi'
-import { itemRoute } from '../../utils/APIRoutes'
+import { itemRoute, updateUserRoute } from '../../utils/APIRoutes'
 import { useTranslation } from 'react-i18next'
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
@@ -227,6 +227,34 @@ function Store() {
             })
     }
 
+    async function handleBuy(item: any) {
+        let userData
+        let newGold
+
+        const requestMission = await axios.put(`${itemRoute}/${currentUser.id}/${item.id}`, {
+            "quantity": item.quantity + 1
+        })
+        if (requestMission.data.status == false) {
+            toast.error(`${t(requestMission.data.message)}`, toastOptions)
+        }
+
+        newGold = currentUser.gold - item.price
+        userData = {
+            gold: newGold
+        }
+
+        const requestUser = await axios.put(`${updateUserRoute}/${currentUser.id}`, userData)
+        if (requestUser.data.status == false) {
+            toast.error(`${t(requestUser.data.message)}`, toastOptions)
+        } else {
+            localStorage.setItem('user', JSON.stringify(requestUser.data.user))
+            const user = localStorage.getItem('user')
+            if (user)
+                setCurrentUser(await JSON.parse(user))
+        }
+        checkCurrentUser()
+    }
+
     return (
         <div className="flex flex-col w-full p-8">
             <div className='flex flex-row items-center gap-2 mb-4'>
@@ -273,7 +301,7 @@ function Store() {
                                         className='grid grid-cols-3 justify-evenly'
                                     >
                                         <Button size="small" color='primary' onClick={(e) => { e.stopPropagation(); handleEdit(item) }}>{t("buttons.edit")}</Button>
-                                        <Button size="small" color='success'>{t("buttons.buy")}</Button>
+                                        <Button size="small" color='success' onClick={(e) => { e.stopPropagation(); handleBuy(item) }}>{t("buttons.buy")}</Button>
                                         <Button size="small" color='error' onClick={(e) => { e.stopPropagation(); handleDelete(item) }}>{t("buttons.delete")}</Button>
                                     </CardActions>
                                 </Card>

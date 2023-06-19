@@ -75,33 +75,42 @@ async function updateItem(req: Request, res: Response, next: NextFunction) {
         const userId = req.params.userId
         const id = req.params.itemId
 
-        upload(req, res, async (err) => {
-            if (err instanceof multer.MulterError) {
-                return next(err);
-            } else if (err) {
-                return next(err);
-            }
-
-            const newImage = req.file ? req.file.filename : ""
-
-            const item = await ItemsService.getItem(userId, id)
-
-            if (item[0].image) {
-                const oldImage = item[0].image;
-                if (oldImage) {
-                    const imagePath = '../web/public/images/item/' + oldImage;
-                    fs.unlink(imagePath, (err) => {
-                        if (err) {
-                            console.error('Erro ao excluir a imagem antiga:', err);
-                        }
-                    });
-                }
-            }
-
-            ItemsService.updateItem(req.params.userId, req.params.itemId, req.body, newImage)
-
+        if (req.body.quantity) {
+            ItemsService.updateItem(req.params.userId, req.params.itemId, req.body)
             return res.status(200).send()
-        })
+        } else {
+            upload(req, res, async (err) => {
+                if (err instanceof multer.MulterError) {
+                    return next(err);
+                } else if (err) {
+                    return next(err);
+                }
+
+                req.body.image = req.file ? req.file.filename : ""
+
+                const item = await ItemsService.getItem(userId, id)
+
+                if (item[0].image) {
+                    const oldImage = item[0].image;
+                    if (oldImage) {
+                        const imagePath = '../web/public/images/item/' + oldImage;
+                        fs.unlink(imagePath, (err) => {
+                            if (err) {
+                                console.error('Erro ao excluir a imagem antiga:', err);
+                            }
+                        });
+                    }
+                }
+
+                req.body.price = parseFloat(req.body.price)
+
+                ItemsService.updateItem(req.params.userId, req.params.itemId, req.body)
+
+                return res.status(200).send()
+            })
+        }
+
+
     } catch (err) {
         next(err)
     }
