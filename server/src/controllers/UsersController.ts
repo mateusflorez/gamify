@@ -6,7 +6,7 @@ import multer from "multer";
 import fs from "fs";
 
 const storage = multer.diskStorage({
-    destination: '../web/public/images/',
+    destination: '../web/public/images/user/',
     filename(req, file, cb) {
         cb(null, Date.now() + '-' + file.originalname)
     },

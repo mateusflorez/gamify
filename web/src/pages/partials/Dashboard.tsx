@@ -22,7 +22,7 @@ function Dashboard() {
 
     const [activeMissions, setActiveMissions] = useState<string>()
 
-    const [open, setOpen] = React.useState(false)
+    const [open, setOpen] = useState(false)
 
     const [values, setValues] = useState({
         name: "",
@@ -285,7 +285,7 @@ function Dashboard() {
     return (
         <div className="flex flex-col w-full">
             <div className='p-8 flex flex-row gap-8'>
-                <img className='w-60 h-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
+                <img className='w-60 h-60' src={currentUser?.image ? "images/user/" + currentUser.image : UserImage} alt="User image" />
                 <div className='flex flex-col gap-1 w-full'>
                     <span className="font-bold text-4xl">{currentUser?.username && capitalize(currentUser.username)}</span>
                     <span className="font-medium text-xl">{currentUser?.profession && capitalize(currentUser.profession)}</span>
@@ -308,7 +308,7 @@ function Dashboard() {
                 </div>
             </div>
             <div className='flex flex-col px-8'>
-                <div className='flex flex-row justify-between w-11/12'>
+                <div className='flex flex-row justify-between w-11/12 items-center'>
                     <span className="font-medium text-2xl">{t('titles.unique')}</span>
                     <button onClick={() => handleOpen("1")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
                         <BiPlus className="text-lg text-white" />
@@ -359,7 +359,7 @@ function Dashboard() {
                         </div>
                     )
                 }
-                <div className='flex flex-row justify-between w-11/12'>
+                <div className='flex flex-row justify-between w-11/12 items-center'>
                     <span className="font-medium text-2xl">{t('titles.daily')}</span>
                     <button onClick={() => handleOpen("2")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
                         <BiPlus className="text-lg text-white" />
@@ -410,7 +410,7 @@ function Dashboard() {
                         </div>
                     )
                 }
-                <div className='flex flex-row justify-between w-11/12'>
+                <div className='flex flex-row justify-between w-11/12 items-center'>
                     <span className="font-medium text-2xl">{t('titles.weekly')}</span>
                     <button onClick={() => handleOpen("3")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
                         <BiPlus className="text-lg text-white" />
@@ -461,7 +461,7 @@ function Dashboard() {
                         </div>
                     )
                 }
-                <div className='flex flex-row justify-between w-11/12'>
+                <div className='flex flex-row justify-between w-11/12 items-center'>
                     <span className="font-medium text-2xl">{t('titles.monthly')}</span>
                     <button onClick={() => handleOpen("4")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
                         <BiPlus className="text-lg text-white" />

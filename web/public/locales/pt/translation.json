@@ -80,7 +80,9 @@
         "newmission": "Nova missão",
         "editmission": "Editar missão",
         "nomissions": "Sem missões",
-        "noitems": "Sem itens"
+        "noitems": "Sem itens",
+        "newitem": "Novo item",
+        "edititem": "Editar item"
     },
     "mission": {
         "name": "Nome",
@@ -98,6 +100,18 @@
             "daily": "Diária",
             "weekly": "Semanal",
             "monthly": "Mensal"
+        }
+    },
+    "item": {
+        "name": "Nome",
+        "description": "Descrição",
+        "image": "Selecione a imagem:",
+        "price": {
+            "title": "Preço",
+            "simple": "Simples",
+            "cheap": "Barato",
+            "medium": "Médio",
+            "expensive": "Caro"
         }
     },
     "texts": {

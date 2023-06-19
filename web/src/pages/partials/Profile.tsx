@@ -157,7 +157,7 @@ function Profile() {
     return (
         <div className="flex flex-col w-full">
             <div className='p-8 flex flex-row gap-8'>
-                <img className='w-60 h-60' src={currentUser?.image ? "public/images/" + currentUser.image : UserImage} alt="User image" />
+                <img className='w-60 h-60' src={currentUser?.image ? "images/user/" + currentUser.image : UserImage} alt="User image" />
                 <div className='flex flex-col gap-1'>
                     <span className="font-bold text-4xl pb-3">{currentUser?.username && capitalize(currentUser.username)}</span>
                     <span className="font-medium text-2xl pb-3">{t("stats.stats")}</span>
