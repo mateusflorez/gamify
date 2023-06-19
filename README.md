@@ -1,7 +1,9 @@
 ### 👾 Gamify - Task management
-> Status: Incomplete ⚠️
+> Status: Complete :heavy_check_mark:
 
-![Screenshot-2023-06-13-084013](https://github.com/mateusflorez/gamify/assets/54851249/faa17873-6803-4165-8657-665ce60df391)
+![Screenshot 2023-06-19 172000](https://github.com/mateusflorez/gamify/assets/54851249/9a156750-abe0-4587-84a2-0d0b1fa240b3)
+![Screenshot 2023-06-19 172130](https://github.com/mateusflorez/gamify/assets/54851249/ded026f3-79c2-4fc4-b067-f89b056ab588)
+![Screenshot 2023-06-19 172149](https://github.com/mateusflorez/gamify/assets/54851249/212b5e07-57c6-4488-9551-a5649da57123)
 
 ## Functionalities:
 + Tasks management
