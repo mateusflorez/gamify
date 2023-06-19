@@ -308,226 +308,236 @@ function Dashboard() {
                 </div>
             </div>
             <div className='flex flex-col px-8'>
-                <div className='flex flex-row justify-between w-11/12 items-center'>
-                    <span className="font-medium text-2xl">{t('titles.unique')}</span>
-                    <button onClick={() => handleOpen("1")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
-                        <BiPlus className="text-lg text-white" />
-                    </button>
-                </div>
-                {
-                    uniqueMissions.length > 0 ? (
-                        uniqueMissions.map((mission: any, index: number) => {
-                            return (
-                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[15%_70%_15%]'>
-                                        <div>
-                                            <Checkbox
-                                                checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
-                                                name='inspiration'
-                                                style={{
-                                                    color: "#6132B4"
-                                                }}
-                                                sx={{
-                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
-                                                }}
-                                            />
+                <div className="grid grid-cols-2 gap-4">
+                    <div>
+                        <div className='flex flex-row justify-between w-11/12 items-center'>
+                            <span className="font-medium text-2xl">{t('titles.unique')}</span>
+                            <button onClick={() => handleOpen("1")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                                <BiPlus className="text-lg text-white" />
+                            </button>
+                        </div>
+                        {
+                            uniqueMissions.length > 0 ? (
+                                uniqueMissions.map((mission: any, index: number) => {
+                                    return (
+                                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                            <div className='grid grid-cols-[15%_70%_15%]'>
+                                                <div>
+                                                    <Checkbox
+                                                        checked={mission.status ? false : true}
+                                                        onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
+                                                        name='inspiration'
+                                                        style={{
+                                                            color: "#6132B4"
+                                                        }}
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-xl font-medium'>{mission.name}</span>
+                                                    {mission.description.length > 50 ?
+                                                        <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                        :
+                                                        <span>{mission.description}</span>
+                                                    }
+                                                </div>
+                                                <div className='flex flex-row gap-2 justify-center items-center'>
+                                                    <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
+                                                        <BiEdit />
+                                                    </span>
+                                                    <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                        <BiTrash />
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='flex flex-col'>
-                                            <span className='text-xl font-medium'>{mission.name}</span>
-                                            {mission.description.length > 50 ?
-                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
-                                                :
-                                                <span>{mission.description}</span>
-                                            }
-                                        </div>
-                                        <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
-                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
-                                                <BiEdit />
-                                            </span>
-                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
-                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
-                                                <BiTrash />
-                                            </span>
-                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                                    <div className='flex flex-col'>
+                                        <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
                                     </div>
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
-                            <div className='flex flex-col'>
-                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
-                            </div>
+                            )
+                        }
+                    </div>
+                    <div>
+                        <div className='flex flex-row justify-between w-11/12 items-center'>
+                            <span className="font-medium text-2xl">{t('titles.daily')}</span>
+                            <button onClick={() => handleOpen("2")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                                <BiPlus className="text-lg text-white" />
+                            </button>
                         </div>
-                    )
-                }
-                <div className='flex flex-row justify-between w-11/12 items-center'>
-                    <span className="font-medium text-2xl">{t('titles.daily')}</span>
-                    <button onClick={() => handleOpen("2")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
-                        <BiPlus className="text-lg text-white" />
-                    </button>
-                </div>
-                {
-                    dailyMissions.length > 0 ? (
-                        dailyMissions.map((mission: any, index: number) => {
-                            return (
-                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[15%_70%_15%]'>
-                                        <div>
-                                            <Checkbox
-                                                checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
-                                                name='inspiration'
-                                                style={{
-                                                    color: "#6132B4"
-                                                }}
-                                                sx={{
-                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
-                                                }}
-                                            />
+                        {
+                            dailyMissions.length > 0 ? (
+                                dailyMissions.map((mission: any, index: number) => {
+                                    return (
+                                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                            <div className='grid grid-cols-[15%_70%_15%]'>
+                                                <div>
+                                                    <Checkbox
+                                                        checked={mission.status ? false : true}
+                                                        onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
+                                                        name='inspiration'
+                                                        style={{
+                                                            color: "#6132B4"
+                                                        }}
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-xl font-medium'>{mission.name}</span>
+                                                    {mission.description.length > 50 ?
+                                                        <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                        :
+                                                        <span>{mission.description}</span>
+                                                    }
+                                                </div>
+                                                <div className='flex flex-row gap-2 justify-center items-center'>
+                                                    <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
+                                                        <BiEdit />
+                                                    </span>
+                                                    <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                        <BiTrash />
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='flex flex-col'>
-                                            <span className='text-xl font-medium'>{mission.name}</span>
-                                            {mission.description.length > 50 ?
-                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
-                                                :
-                                                <span>{mission.description}</span>
-                                            }
-                                        </div>
-                                        <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
-                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
-                                                <BiEdit />
-                                            </span>
-                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
-                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
-                                                <BiTrash />
-                                            </span>
-                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                                    <div className='flex flex-col'>
+                                        <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
                                     </div>
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
-                            <div className='flex flex-col'>
-                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
-                            </div>
+                            )
+                        }
+                    </div>
+                    <div>
+                        <div className='flex flex-row justify-between w-11/12 items-center'>
+                            <span className="font-medium text-2xl">{t('titles.weekly')}</span>
+                            <button onClick={() => handleOpen("3")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                                <BiPlus className="text-lg text-white" />
+                            </button>
                         </div>
-                    )
-                }
-                <div className='flex flex-row justify-between w-11/12 items-center'>
-                    <span className="font-medium text-2xl">{t('titles.weekly')}</span>
-                    <button onClick={() => handleOpen("3")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
-                        <BiPlus className="text-lg text-white" />
-                    </button>
-                </div>
-                {
-                    weeklyMissions.length > 0 ? (
-                        weeklyMissions.map((mission: any, index: number) => {
-                            return (
-                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[15%_70%_15%]'>
-                                        <div>
-                                            <Checkbox
-                                                checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
-                                                name='inspiration'
-                                                style={{
-                                                    color: "#6132B4"
-                                                }}
-                                                sx={{
-                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
-                                                }}
-                                            />
+                        {
+                            weeklyMissions.length > 0 ? (
+                                weeklyMissions.map((mission: any, index: number) => {
+                                    return (
+                                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                            <div className='grid grid-cols-[15%_70%_15%]'>
+                                                <div>
+                                                    <Checkbox
+                                                        checked={mission.status ? false : true}
+                                                        onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
+                                                        name='inspiration'
+                                                        style={{
+                                                            color: "#6132B4"
+                                                        }}
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-xl font-medium'>{mission.name}</span>
+                                                    {mission.description.length > 50 ?
+                                                        <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                        :
+                                                        <span>{mission.description}</span>
+                                                    }
+                                                </div>
+                                                <div className='flex flex-row gap-2 justify-center items-center'>
+                                                    <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
+                                                        <BiEdit />
+                                                    </span>
+                                                    <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                        <BiTrash />
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='flex flex-col'>
-                                            <span className='text-xl font-medium'>{mission.name}</span>
-                                            {mission.description.length > 50 ?
-                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
-                                                :
-                                                <span>{mission.description}</span>
-                                            }
-                                        </div>
-                                        <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
-                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
-                                                <BiEdit />
-                                            </span>
-                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
-                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
-                                                <BiTrash />
-                                            </span>
-                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                                    <div className='flex flex-col'>
+                                        <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
                                     </div>
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
-                            <div className='flex flex-col'>
-                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
-                            </div>
+                            )
+                        }
+                    </div>
+                    <div>
+                        <div className='flex flex-row justify-between w-11/12 items-center'>
+                            <span className="font-medium text-2xl">{t('titles.monthly')}</span>
+                            <button onClick={() => handleOpen("4")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
+                                <BiPlus className="text-lg text-white" />
+                            </button>
                         </div>
-                    )
-                }
-                <div className='flex flex-row justify-between w-11/12 items-center'>
-                    <span className="font-medium text-2xl">{t('titles.monthly')}</span>
-                    <button onClick={() => handleOpen("4")} className="flex justify-center items-center p-1 rounded h-6 w-6 bg-green-500 border-none cursor-pointer hover:bg-green-600">
-                        <BiPlus className="text-lg text-white" />
-                    </button>
-                </div>
-                {
-                    monthlyMissions.length > 0 ? (
-                        monthlyMissions.map((mission: any, index: number) => {
-                            return (
-                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
-                                    <div className='grid grid-cols-[15%_70%_15%]'>
-                                        <div>
-                                            <Checkbox
-                                                checked={mission.status ? false : true}
-                                                onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
-                                                name='inspiration'
-                                                style={{
-                                                    color: "#6132B4"
-                                                }}
-                                                sx={{
-                                                    '& .MuiSvgIcon-root': { fontSize: 40 }
-                                                }}
-                                            />
+                        {
+                            monthlyMissions.length > 0 ? (
+                                monthlyMissions.map((mission: any, index: number) => {
+                                    return (
+                                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg' key={index}>
+                                            <div className='grid grid-cols-[15%_70%_15%]'>
+                                                <div>
+                                                    <Checkbox
+                                                        checked={mission.status ? false : true}
+                                                        onClick={(e) => { e.stopPropagation(); handleChangeStatus(mission) }}
+                                                        name='inspiration'
+                                                        style={{
+                                                            color: "#6132B4"
+                                                        }}
+                                                        sx={{
+                                                            '& .MuiSvgIcon-root': { fontSize: 40 }
+                                                        }}
+                                                    />
+                                                </div>
+                                                <div className='flex flex-col'>
+                                                    <span className='text-xl font-medium'>{mission.name}</span>
+                                                    {mission.description.length > 50 ?
+                                                        <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                        :
+                                                        <span>{mission.description}</span>
+                                                    }
+                                                </div>
+                                                <div className='flex flex-row gap-2 justify-center items-center'>
+                                                    <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
+                                                        <BiEdit />
+                                                    </span>
+                                                    <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
+                                                        onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
+                                                        <BiTrash />
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                        <div className='flex flex-col'>
-                                            <span className='text-xl font-medium'>{mission.name}</span>
-                                            {mission.description.length > 50 ?
-                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
-                                                :
-                                                <span>{mission.description}</span>
-                                            }
-                                        </div>
-                                        <div className='flex flex-row gap-2 justify-center items-center'>
-                                            <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
-                                                onClick={(e) => { e.stopPropagation(); handleEdit(mission) }}>
-                                                <BiEdit />
-                                            </span>
-                                            <span className='text-2xl font-medium text-red-400 cursor-pointer hover:text-red-700'
-                                                onClick={(e) => { e.stopPropagation(); handleDelete(mission) }}>
-                                                <BiTrash />
-                                            </span>
-                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
+                                    <div className='flex flex-col'>
+                                        <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
                                     </div>
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <div className='bg-white w-5/6 self-center my-4 p-4 rounded-lg'>
-                            <div className='flex flex-col'>
-                                <span className='text-xl font-medium'>{t('titles.nomissions')}</span>
-                            </div>
-                        </div>
-                    )
-                }
+                            )
+                        }
+                    </div>
+                </div>
             </div>
             <Modal
                 open={open}
