@@ -7,9 +7,13 @@ import { useTranslation } from 'react-i18next'
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
 import ItemImage from '../../../public/assets/dashboard/temp-item-img.png'
+import Swal from 'sweetalert2'
+import withReactContent from 'sweetalert2-react-content'
 
 function Store() {
     const { t } = useTranslation()
+
+    const MySwal = withReactContent(Swal)
 
     const [currentUser, setCurrentUser] = useState<any>()
     const [items, setItems] = useState<any>([])
@@ -49,6 +53,28 @@ function Store() {
             price: "",
             upload_file: "",
             id: ""
+        })
+        setOpen(true)
+    }
+
+    const handleEdit = (item: any) => {
+        let price = Math.floor(item.price / 45)
+        let priceValue = "0"
+        if (price == 1)
+            priceValue = "1"
+        if (price == 2)
+            priceValue = "2"
+        if (price == 4)
+            priceValue = "3"
+        if (price == 6)
+            priceValue = "4"
+
+        setValues({
+            name: item.name,
+            description: item.description,
+            price: priceValue,
+            upload_file: "",
+            id: item.id
         })
         setOpen(true)
     }
@@ -169,6 +195,37 @@ function Store() {
         return true
     }
 
+    async function handleDelete(item: any) {
+        MySwal.fire({
+            title: `${t('texts.deleteitem.rusure')}`,
+            text: `${t('texts.deleteitem.alert')}`,
+            icon: "warning",
+            showConfirmButton: true,
+            showDenyButton: true,
+            confirmButtonText: 'Yes',
+            denyButtonText: 'Cancel',
+            confirmButtonColor: '#6132B4',
+            denyButtonColor: '#6B6B5B'
+        })
+            .then(async (result) => {
+                if (result.isConfirmed) {
+                    await axios.delete(`${itemRoute}/${currentUser.id}/${item.id}`)
+                    getItems()
+                    return MySwal.fire({
+                        text: `${t('success.deleteitem')}`,
+                        icon: "success",
+                        confirmButtonColor: '#6132B4'
+                    })
+                } else {
+                    return MySwal.fire({
+                        text: `${t('texts.deleteitem.nodelete')}`,
+                        icon: "info",
+                        confirmButtonColor: '#6132B4'
+                    })
+                }
+            })
+    }
+
     return (
         <div className="flex flex-col w-full p-8">
             <div className='flex flex-row items-center gap-2 mb-4'>
@@ -214,9 +271,9 @@ function Store() {
                                     <CardActions
                                         className='grid grid-cols-3 justify-evenly'
                                     >
-                                        <Button size="small" color='primary'>{t("buttons.edit")}</Button>
+                                        <Button size="small" color='primary' onClick={(e) => { e.stopPropagation(); handleEdit(item) }}>{t("buttons.edit")}</Button>
                                         <Button size="small" color='success'>{t("buttons.buy")}</Button>
-                                        <Button size="small" color='error'>{t("buttons.delete")}</Button>
+                                        <Button size="small" color='error' onClick={(e) => { e.stopPropagation(); handleDelete(item) }}>{t("buttons.delete")}</Button>
                                     </CardActions>
                                 </Card>
                             )

@@ -118,10 +118,15 @@
         }
     },
     "texts": {
-        "delete": {
+        "deletemission": {
             "rusure": "Tem certeza?",
             "alert": "Uma vez deletada, você não poderá recuperar esta missão!",
             "nodelete": "Sua missão está a salvo!"
+        },
+        "deleteitem": {
+            "rusure": "Tem certeza?",
+            "alert": "Uma vez deletado, você não poderá recuperar este item!",
+            "nodelete": "Seu item está a salvo!"
         }
     }
 }

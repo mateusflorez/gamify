@@ -159,8 +159,8 @@ function Dashboard() {
 
     async function handleDelete(mission: any) {
         MySwal.fire({
-            title: `${t('texts.delete.rusure')}`,
-            text: `${t('texts.delete.alert')}`,
+            title: `${t('texts.deletemission.rusure')}`,
+            text: `${t('texts.deletemission.alert')}`,
             icon: "warning",
             showConfirmButton: true,
             showDenyButton: true,
@@ -180,7 +180,7 @@ function Dashboard() {
                     })
                 } else {
                     return MySwal.fire({
-                        text: `${t('texts.delete.nodelete')}`,
+                        text: `${t('texts.deletemission.nodelete')}`,
                         icon: "info",
                         confirmButtonColor: '#6132B4'
                     })

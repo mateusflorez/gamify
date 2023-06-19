@@ -118,10 +118,15 @@
         }
     },
     "texts": {
-        "delete": {
+        "deletemission": {
             "rusure": "Are you sure?",
             "alert": "Once deleted, you will not be able to recover this mission!",
             "nodelete": "Your mission is safe!"
+        },
+        "deleteitem": {
+            "rusure": "Are you sure?",
+            "alert": "Once deleted, you will not be able to recover this item!",
+            "nodelete": "Your item is safe!"
         }
     }
 }
