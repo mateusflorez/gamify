@@ -38,9 +38,7 @@ function Welcome() {
         if (handleValidation()) {
             const { profession } = values
             const request = await axios.put(`${updateUserRoute}/${currentUser.id}`, {
-                "user": {
-                    "profession": profession
-                }
+                "profession": profession
             })
             if (request.data.status == false) {
                 toast.error(`${t(request.data.message)}`, toastOptions)
