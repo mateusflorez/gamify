@@ -1,6 +1,7 @@
 import { Request, Response, NextFunction } from "express"
 import ItemsService from "../services/ItemsService"
 import multer from "multer"
+import fs from "fs"
 
 const storage = multer.diskStorage({
     destination: '../web/public/images/item/',
@@ -71,6 +72,9 @@ async function deleteItem(req: Request, res: Response, next: NextFunction) {
 
 async function updateItem(req: Request, res: Response, next: NextFunction) {
     try {
+        const userId = req.params.userId
+        const id = req.params.itemId
+
         upload(req, res, async (err) => {
             if (err instanceof multer.MulterError) {
                 return next(err);
@@ -79,6 +83,20 @@ async function updateItem(req: Request, res: Response, next: NextFunction) {
             }
 
             const newImage = req.file ? req.file.filename : ""
+
+            const item = await ItemsService.getItem(userId, id)
+
+            if (item[0].image) {
+                const oldImage = item[0].image;
+                if (oldImage) {
+                    const imagePath = '../web/public/images/item/' + oldImage;
+                    fs.unlink(imagePath, (err) => {
+                        if (err) {
+                            console.error('Erro ao excluir a imagem antiga:', err);
+                        }
+                    });
+                }
+            }
 
             ItemsService.updateItem(req.params.userId, req.params.itemId, req.body, newImage)
 

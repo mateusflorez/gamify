@@ -198,7 +198,7 @@ async function updateUserImage(req: Request, res: Response, next: NextFunction) 
             const user = await UsersService.getUser({ id: userId })
             const oldImage = user?.image;
             if (oldImage) {
-                const imagePath = '../web/public/images/' + oldImage;
+                const imagePath = '../web/public/images/user/' + oldImage;
                 fs.unlink(imagePath, (err) => {
                     if (err) {
                         console.error('Erro ao excluir a imagem antiga:', err);
