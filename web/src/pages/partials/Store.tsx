@@ -117,26 +117,27 @@ function Store() {
     }
 
     async function updateMission() {
-        // const { name, description, difficulty, frequency, id } = values
+        const { name, description, price, upload_file, id } = values
 
-        // const loot = calculatePrice(difficulty);
+        const newPrice = calculatePrice(price);
 
-        // const request = await axios.put(`${missionRoute}/${currentUser.id}/${id}`, {
-        //     name,
-        //     description,
-        //     difficulty: parseInt(difficulty),
-        //     type: parseInt(frequency),
-        //     experience: loot.experience,
-        //     gold: loot.gold
-        // })
+        const formData = new FormData();
+        formData.append("image", upload_file)
+        formData.append("price", newPrice)
+        formData.append("description", description)
+        formData.append("name", name)
 
-        // if (request.data.status == false) {
-        //     toast.error(`${t(request.data.message)}`, toastOptions)
-        // } else {
-        //     handleClose()
-        //     getMissions()
-        //     toast.success(`${t("success.updatemission")}`, toastOptions)
-        // }
+        const request = await axios.put(`${itemRoute}/${currentUser.id}/${id}`, formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+        })
+
+        if (request.data.status == false) {
+            toast.error(`${t(request.data.message)}`, toastOptions)
+        } else {
+            handleClose()
+            getItems()
+            toast.success(`${t("success.updateitem")}`, toastOptions)
+        }
     }
 
     async function saveNewMission() {
@@ -237,7 +238,7 @@ function Store() {
                     <BiPlus className="text-lg text-white" />
                 </button>
             </div>
-            <div className='grid grid-cols-4 gap-4'>
+            <div className='grid grid-cols-3 gap-4'>
                 {
                     items.length > 0 ? (
                         items.map((item: any, index: number) => {
@@ -262,7 +263,7 @@ function Store() {
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
                                             {item.description.length > 12 ?
-                                                <span title={item.description} className='no-underline'>{item.description.substring(0, 12)}...</span>
+                                                <span title={item.description} className='no-underline'>{item.description.substring(0, 22)}...</span>
                                                 :
                                                 <span>{item.description}</span>
                                             }

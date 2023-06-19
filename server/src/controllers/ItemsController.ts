@@ -71,13 +71,19 @@ async function deleteItem(req: Request, res: Response, next: NextFunction) {
 
 async function updateItem(req: Request, res: Response, next: NextFunction) {
     try {
-        const userId = req.params.userId
-        const id = req.params.itemId
-        const data = req.body
+        upload(req, res, async (err) => {
+            if (err instanceof multer.MulterError) {
+                return next(err);
+            } else if (err) {
+                return next(err);
+            }
 
-        ItemsService.updateItem(userId, id, data)
+            const newImage = req.file ? req.file.filename : ""
 
-        return res.status(200).send()
+            ItemsService.updateItem(req.params.userId, req.params.itemId, req.body, newImage)
+
+            return res.status(200).send()
+        })
     } catch (err) {
         next(err)
     }

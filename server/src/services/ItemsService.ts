@@ -71,13 +71,21 @@ async function deleteItem(userId: string, id: string) {
     })
 }
 
-async function updateItem(userId: string, id: string, data: object) {
+async function updateItem(userId: string, id: string, itemBody: NewItemBody, image: string) {
+    const { name, description, price } = itemBody
+
     await prisma.item.updateMany({
         where: {
             userId,
             id
         },
-        data: data
+        data: {
+            userId,
+            description,
+            name,
+            price: parseFloat(price),
+            image
+        }
     })
 }
 
