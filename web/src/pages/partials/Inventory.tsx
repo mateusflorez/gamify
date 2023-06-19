@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { toast, ToastContainer } from "react-toastify"
 import { BiPlus, BiShoppingBag } from 'react-icons/bi'
-import { itemRoute, updateUserRoute } from '../../utils/APIRoutes'
+import { itemRoute} from '../../utils/APIRoutes'
 import { useTranslation } from 'react-i18next'
 import { Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material'
 import { toastOptions } from '../../utils/utils'
