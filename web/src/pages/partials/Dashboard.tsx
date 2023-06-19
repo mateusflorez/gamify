@@ -335,7 +335,11 @@ function Dashboard() {
                                         </div>
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
-                                            <span>{mission.description}</span>
+                                            {mission.description.length > 50 ?
+                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                :
+                                                <span>{mission.description}</span>
+                                            }
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
                                             <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
@@ -386,7 +390,11 @@ function Dashboard() {
                                         </div>
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
-                                            <span>{mission.description}</span>
+                                            {mission.description.length > 50 ?
+                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                :
+                                                <span>{mission.description}</span>
+                                            }
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
                                             <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
@@ -437,7 +445,11 @@ function Dashboard() {
                                         </div>
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
-                                            <span>{mission.description}</span>
+                                            {mission.description.length > 50 ?
+                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                :
+                                                <span>{mission.description}</span>
+                                            }
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
                                             <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'
@@ -488,7 +500,11 @@ function Dashboard() {
                                         </div>
                                         <div className='flex flex-col'>
                                             <span className='text-xl font-medium'>{mission.name}</span>
-                                            <span>{mission.description}</span>
+                                            {mission.description.length > 50 ?
+                                                <span title={mission.description} className='no-underline'>{mission.description.substring(0, 50)}...</span>
+                                                :
+                                                <span>{mission.description}</span>
+                                            }
                                         </div>
                                         <div className='flex flex-row gap-2 justify-center items-center'>
                                             <span className='text-2xl font-medium text-blue-400 cursor-pointer hover:text-blue-700'

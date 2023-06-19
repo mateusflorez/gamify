@@ -204,7 +204,11 @@ function Store() {
                                             </div>
                                         </Typography>
                                         <Typography variant="body2" color="text.secondary">
-                                            {item.description}
+                                            {item.description.length > 12 ?
+                                                <span title={item.description} className='no-underline'>{item.description.substring(0, 12)}...</span>
+                                                :
+                                                <span>{item.description}</span>
+                                            }
                                         </Typography>
                                     </CardContent>
                                     <CardActions
