@@ -1,9 +1,9 @@
-import { Request, Response, NextFunction } from "express";
+import { Request, Response, NextFunction } from "express"
 import bcrypt from 'bcrypt'
-import Joi from "joi";
-import UsersService from "../services/UsersService";
-import multer from "multer";
-import fs from "fs";
+import Joi from "joi"
+import UsersService from "../services/UsersService"
+import multer from "multer"
+import fs from "fs"
 
 const storage = multer.diskStorage({
     destination: '../web/public/images/user/',

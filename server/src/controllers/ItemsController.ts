@@ -1,11 +1,31 @@
 import { Request, Response, NextFunction } from "express"
 import ItemsService from "../services/ItemsService"
+import multer from "multer"
+
+const storage = multer.diskStorage({
+    destination: '../web/public/images/item/',
+    filename(req, file, cb) {
+        cb(null, Date.now() + '-' + file.originalname)
+    },
+})
+
+const upload = multer({ storage: storage }).single('image')
 
 async function createItem(req: Request, res: Response, next: NextFunction) {
     try {
-        ItemsService.createItem(req.params.userId, req.body)
+        upload(req, res, async (err) => {
+            if (err instanceof multer.MulterError) {
+                return next(err);
+            } else if (err) {
+                return next(err);
+            }
 
-        return res.status(201).send()
+            const newImage = req.file ? req.file.filename : ""
+
+            ItemsService.createItem(req.params.userId, req.body, newImage)
+
+            return res.status(200).send()
+        })
     } catch (err) {
         next(err)
     }

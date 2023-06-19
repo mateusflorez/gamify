@@ -6,6 +6,7 @@ import { itemRoute } from '../../utils/APIRoutes'
 import { useTranslation } from 'react-i18next'
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Modal, ThemeProvider, ToggleButton, ToggleButtonGroup, Typography } from '@mui/material'
 import { modalStyle, theme, toastOptions } from '../../utils/utils'
+import ItemImage from '../../../public/assets/dashboard/temp-item-img.png'
 
 function Store() {
     const { t } = useTranslation()
@@ -75,6 +76,99 @@ function Store() {
         })
     }
 
+    async function handleSave(e: React.MouseEvent) {
+        e.preventDefault()
+        if (handleValidation()) {
+            const { id } = values
+
+            if (id == "") {
+                saveNewMission()
+            } else {
+                updateMission()
+            }
+
+        }
+    }
+
+    async function updateMission() {
+        // const { name, description, difficulty, frequency, id } = values
+
+        // const loot = calculatePrice(difficulty);
+
+        // const request = await axios.put(`${missionRoute}/${currentUser.id}/${id}`, {
+        //     name,
+        //     description,
+        //     difficulty: parseInt(difficulty),
+        //     type: parseInt(frequency),
+        //     experience: loot.experience,
+        //     gold: loot.gold
+        // })
+
+        // if (request.data.status == false) {
+        //     toast.error(`${t(request.data.message)}`, toastOptions)
+        // } else {
+        //     handleClose()
+        //     getMissions()
+        //     toast.success(`${t("success.updatemission")}`, toastOptions)
+        // }
+    }
+
+    async function saveNewMission() {
+        const { name, description, price, upload_file } = values
+
+        const newPrice = calculatePrice(price);
+
+        const formData = new FormData();
+        formData.append("image", upload_file)
+        formData.append("price", newPrice)
+        formData.append("description", description)
+        formData.append("name", name)
+
+        const request = await axios.post(`${itemRoute}/${currentUser.id}`, formData, {
+            headers: { "Content-Type": "multipart/form-data" }
+        })
+
+        if (request.data.status == false) {
+            toast.error(`${t(request.data.message)}`, toastOptions)
+        } else {
+            handleClose()
+            getItems()
+            toast.success(`${t("success.newitem")}`, toastOptions)
+        }
+    }
+
+    function calculatePrice(price: string) {
+        let newPrice
+
+        if (price === "1") {
+            newPrice = "45"
+        } else if (price === "2") {
+            newPrice = "90"
+        } else if (price === "3") {
+            newPrice = "180"
+        } else if (price === "4") {
+            newPrice = "270"
+        } else {
+            newPrice = "0"
+        }
+
+        return newPrice
+    }
+
+    function handleValidation() {
+        const { name, price, upload_file } = values
+
+        if (name === "" || parseInt(price) < 1) {
+            toast.error(`${t('validation.nodata')}`, toastOptions)
+            return false
+        }
+        if (!upload_file) {
+            toast.error(`${t('validation.noimage')}`, toastOptions)
+            return false
+        }
+        return true
+    }
+
     return (
         <div className="flex flex-col w-full p-8">
             <div className='flex flex-row items-center gap-2 mb-4'>
@@ -86,7 +180,7 @@ function Store() {
                     <BiPlus className="text-lg text-white" />
                 </button>
             </div>
-            <div className='grid grid-cols-4'>
+            <div className='grid grid-cols-4 gap-4'>
                 {
                     items.length > 0 ? (
                         items.map((item: any, index: number) => {
@@ -96,7 +190,7 @@ function Store() {
                                         component="img"
                                         alt="item picture"
                                         sx={{ height: "140px" }}
-                                        image="/images/user/1686913454669-86f017fa-6530-43b0-b566-756916fa3f93.jpg"
+                                        image={item?.image ? "images/item/" + item.image : ItemImage}
                                     />
                                     <CardContent
                                         className='mx-2 grid grid-cols-2'

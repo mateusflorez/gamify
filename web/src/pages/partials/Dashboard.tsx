@@ -248,27 +248,27 @@ function Dashboard() {
     }
 
     function calculateLoot(difficulty: string) {
-        let experience;
-        let gold;
+        let experience
+        let gold
 
         if (difficulty === "1") {
-            experience = 150;
-            gold = 15;
+            experience = 150
+            gold = 15
         } else if (difficulty === "2") {
-            experience = 300;
-            gold = 30;
+            experience = 300
+            gold = 30
         } else if (difficulty === "3") {
-            experience = 600;
-            gold = 60;
+            experience = 600
+            gold = 60
         } else if (difficulty === "4") {
-            experience = 900;
-            gold = 90;
+            experience = 900
+            gold = 90
         }
 
         return {
             experience,
             gold
-        };
+        }
     }
 
     function handleValidation() {

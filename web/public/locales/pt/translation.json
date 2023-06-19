@@ -54,7 +54,10 @@
         "edit": "Usuário editado com sucesso.",
         "newmission": "Missão adicionada com sucesso.",
         "deletemission": "Missão deletada com sucesso.",
-        "updatemission": "Missão atualizada com sucesso."
+        "updatemission": "Missão atualizada com sucesso.",
+        "newitem": "Item adicionado com sucesso.",
+        "deleteitem": "Item deletado com sucesso.",
+        "updateitem": "Item atualizado com sucesso."
     },
     "pages": {
         "home": "Início",

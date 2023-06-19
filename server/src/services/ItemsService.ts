@@ -1,15 +1,14 @@
 import { PrismaClient } from "@prisma/client"
-import { DateTime } from 'luxon'
 
 const prisma = new PrismaClient()
 
 interface NewItemBody {
     name: string,
     description: string,
-    price: number
+    price: string
 }
 
-async function createItem(userId: string, itemBody: NewItemBody) {
+async function createItem(userId: string, itemBody: NewItemBody, image: string) {
     const { name, description, price } = itemBody
 
     await prisma.item.create({
@@ -17,7 +16,8 @@ async function createItem(userId: string, itemBody: NewItemBody) {
             userId,
             description,
             name,
-            price
+            price: parseFloat(price),
+            image
         }
     })
 
@@ -34,7 +34,8 @@ async function getItems(userId: string) {
             name: true,
             price: true,
             description: true,
-            quantity: true
+            quantity: true,
+            image: true
         },
         orderBy: [
             { name: 'asc' }
@@ -55,7 +56,8 @@ async function getItem(userId: string, id: string) {
             name: true,
             price: true,
             description: true,
-            quantity: true
+            quantity: true,
+            image: true
         }
     })
 }

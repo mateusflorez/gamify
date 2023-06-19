@@ -102,9 +102,11 @@ function Profile() {
         if (handleValidation("editImage")) {
             const formData = new FormData();
             formData.append("image", upload_file)
+
             const request = await axios.put(`${updateUserImageRoute}/${currentUser.id}`, formData, {
                 headers: { "Content-Type": "multipart/form-data" }
             })
+
             if (request.data.status == false) {
                 toast.error(`${t(request.data.message)}`, toastOptions)
             } else {
